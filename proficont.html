@@ -3,258 +3,306 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ERP PROFICONT · Centro de Reposición — Peru Tractor</title>
+<title>ERP PROFICONT · Informe de Reposición — Peru Tractor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
- --bg:#080b13; --panel:#111827; --panel2:#161f31; --panel3:#1c2739;
- --line:#232f47; --line2:#1a2437;
- --ink:#e9eefb; --ink2:#93a1c0; --ink3:#5d6c8d;
- --ambar:#f5a623; --teal:#2dd4a7; --azul:#4d8cff; --rojo:#ff5a63; --morado:#8b7cff;
- --r:16px; --r-sm:11px;
- --sh:0 20px 50px -24px rgba(0,0,0,.9);
+ --bg:#f4f6fa; --card:#fff; --card2:#fafbfd;
+ --ink:#0f2440; --ink2:#5b6b85; --ink3:#93a1b8;
+ --line:#e4e9f1; --line2:#eef2f7;
+ --azul:#1e5eff; --teal:#0d9488; --ambar:#c2760a; --rojo:#c62828; --morado:#5b4bd6;
+ --r:14px; --r-sm:10px;
+ --sh-xs:0 1px 2px rgba(15,36,64,.05);
+ --sh:0 4px 16px -6px rgba(15,36,64,.12), 0 1px 3px rgba(15,36,64,.05);
+ --sh-lg:0 24px 56px -28px rgba(15,36,64,.3);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:var(--bg)}
-body{background:
-  radial-gradient(1200px 600px at 84% -12%,rgba(139,124,255,.13),transparent 62%),
-  radial-gradient(900px 500px at 2% 0%,rgba(45,212,167,.08),transparent 58%),
-  var(--bg);
- color:var(--ink);font-family:'Exo 2',system-ui,-apple-system,sans-serif;line-height:1.55;
- -webkit-font-smoothing:antialiased;letter-spacing:.1px;min-height:100vh}
+body{background:var(--bg);color:var(--ink);font-family:'Exo 2',system-ui,-apple-system,sans-serif;
+ line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:.1px}
 h1,h2,h3,h4,.mono{font-family:'Orbitron',sans-serif}
-.wrap{max-width:1380px;margin:0 auto;padding:0 24px 90px}
+.wrap{max-width:1300px;margin:0 auto;padding:0 26px 90px}
 .hidden{display:none!important}
-::selection{background:var(--morado);color:#fff}
+::selection{background:#d5e0ff}
 ::-webkit-scrollbar{height:10px;width:10px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#2a3651;border-radius:9px;border:2px solid transparent;background-clip:content-box}
-::-webkit-scrollbar-thumb:hover{background:#3a4a6d;background-clip:content-box}
+::-webkit-scrollbar-thumb{background:#ccd5e4;border-radius:8px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:#b3bfd4;background-clip:content-box}
 
 /* ══ BARRA ══ */
-.top{position:sticky;top:0;z-index:90;background:rgba(8,11,19,.86);backdrop-filter:blur(14px) saturate(160%);
- border-bottom:1px solid var(--line2)}
-.top-in{max-width:1380px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:11px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px}
-.brand .dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--morado),var(--teal));
- box-shadow:0 0 14px rgba(139,124,255,.8)}
+.top{position:sticky;top:0;z-index:90;background:rgba(244,246,250,.9);backdrop-filter:blur(14px) saturate(160%);
+ border-bottom:1px solid var(--line)}
+.top-in{max-width:1300px;margin:0 auto;padding:13px 26px;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.5px}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--azul),var(--teal))}
 .brand span{color:var(--ink3);font-weight:500}
 .sp{flex:1}
-.est{font-size:11px;color:var(--ink2);background:var(--panel);border:1px solid var(--line);
- padding:6px 12px;border-radius:20px;font-weight:600;display:inline-flex;align-items:center;gap:7px}
+.est{font-size:11px;color:var(--ink2);background:var(--card);border:1px solid var(--line);padding:6px 12px;
+ border-radius:20px;font-weight:600;display:inline-flex;align-items:center;gap:7px;box-shadow:var(--sh-xs)}
 .est .p{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pl 2s infinite}
 @keyframes pl{0%,100%{opacity:1}50%{opacity:.2}}
-.tbtn{font-size:11.5px;font-weight:700;color:var(--ink2);background:var(--panel);border:1px solid var(--line);
- padding:7px 13px;border-radius:9px;cursor:pointer;font-family:inherit;transition:.15s}
-.tbtn:hover{color:var(--ink);border-color:#33456b;background:var(--panel2)}
-.tbtn.pri{background:linear-gradient(135deg,var(--morado),#6d5ce8);border-color:transparent;color:#fff}
-.tbtn.pri:hover{filter:brightness(1.1)}
-@media(max-width:820px){.est.sm{display:none}}
+.btn{font-size:11.5px;font-weight:700;color:var(--ink2);background:var(--card);border:1px solid var(--line);
+ padding:8px 14px;border-radius:9px;cursor:pointer;font-family:inherit;transition:.15s;box-shadow:var(--sh-xs);white-space:nowrap}
+.btn:hover{color:var(--azul);border-color:#c3d2f7;background:#f8faff}
+.btn.pri{background:var(--azul);border-color:var(--azul);color:#fff}
+.btn.pri:hover{background:#1a52e0;color:#fff}
+@media(max-width:860px){.est.sm{display:none}}
 
-/* ══ ENCABEZADO ══ */
-.head{padding:34px 0 6px}
-.head .eyebrow{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:.28em;text-transform:uppercase;
- color:var(--morado);font-weight:700}
-.head h1{font-size:clamp(26px,3.6vw,38px);font-weight:900;letter-spacing:-.4px;line-height:1.08;margin-top:11px}
-.head h1 .ac{background:linear-gradient(110deg,var(--morado),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-.head .lead{color:var(--ink2);font-size:14px;margin-top:12px;max-width:660px}
+/* ══ RESUMEN EJECUTIVO ══ */
+.exec{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:34px 36px;
+ margin-top:26px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.exec::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+ background:linear-gradient(90deg,var(--azul),var(--teal))}
+.exec .eyebrow{font-family:'Orbitron',sans-serif;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;
+ color:var(--ink3);font-weight:700}
+.exec h1{font-size:clamp(23px,3.1vw,34px);font-weight:900;letter-spacing:-.4px;line-height:1.14;margin-top:13px;max-width:900px}
+.exec h1 .n{color:var(--azul)}
+.exec .sub{color:var(--ink2);font-size:14px;margin-top:12px;max-width:700px}
+.hall{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:26px}
+.hl{display:flex;gap:12px;align-items:flex-start;background:var(--card2);border:1px solid var(--line2);
+ border-radius:var(--r-sm);padding:14px 16px}
+.hl .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none;
+ background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c)}
+.hl .ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.hl .tx{font-size:12.5px;color:var(--ink2);line-height:1.5}
+.hl .tx b{color:var(--ink);font-weight:700}
+.exec .acts{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
 
-/* ══ FRANJA DE CIFRAS ══ */
-.franja{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;margin:28px 0 0;
- background:var(--line2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.cif{background:var(--panel);padding:20px 22px;position:relative;transition:background .2s}
-.cif:hover{background:var(--panel2)}
-.cif .r{font-size:9.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--ink3);font-weight:700;
- display:flex;align-items:center;gap:7px}
-.cif .r i{width:6px;height:6px;border-radius:2px;background:var(--c,var(--ink3));display:inline-block}
-.cif .n{font-family:'Orbitron',sans-serif;font-size:31px;font-weight:900;margin-top:9px;letter-spacing:-1px;
+/* ══ CIFRAS ══ */
+.cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px;margin-top:16px}
+.cf{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:17px 19px;
+ box-shadow:var(--sh-xs);position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.cf:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.cf::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--line))}
+.cf .r{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.cf .n{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;margin-top:7px;letter-spacing:-.9px;
  white-space:nowrap;color:var(--c,var(--ink))}
-.cif .n.mo{font-size:23px;letter-spacing:-.6px}
-.cif .s{font-size:11.5px;color:var(--ink3);margin-top:4px}
+.cf .n.mo{font-size:21px;letter-spacing:-.5px}
+.cf .s{font-size:11.5px;color:var(--ink3);margin-top:3px}
 
 /* ══ SECCIÓN ══ */
-.sh{display:flex;align-items:baseline;gap:13px;margin:44px 0 16px;flex-wrap:wrap}
-.sh h2{font-size:14px;letter-spacing:.13em;text-transform:uppercase;font-weight:700}
+.sh{display:flex;align-items:baseline;gap:13px;margin:42px 0 15px;flex-wrap:wrap}
+.sh h2{font-size:13.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
 .sh .hint{font-size:12.5px;color:var(--ink3)}
-.sh .ln{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);min-width:24px}
+.sh .ln{flex:1;height:1px;background:var(--line);min-width:24px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
 
-/* ══ RANKING DE MOTORES ══ */
-.rank{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:8px 4px;box-shadow:var(--sh)}
-.rk{display:grid;grid-template-columns:132px 1fr 108px;gap:16px;align-items:center;padding:13px 20px;
- cursor:pointer;border-radius:11px;transition:background .16s}
-.rk:hover{background:var(--panel2)}
+/* ══ RANKING ══ */
+.rk{display:grid;grid-template-columns:150px 1fr 112px;gap:16px;align-items:center;padding:14px 22px;
+ cursor:pointer;border-bottom:1px solid var(--line2);transition:background .15s}
+.rk:last-child{border-bottom:none}
+.rk:hover{background:var(--card2)}
 .rk-id{display:flex;align-items:center;gap:10px;min-width:0}
-.rk-id .pt{width:9px;height:9px;border-radius:3px;background:var(--c);flex:none;box-shadow:0 0 10px var(--c)}
-.rk-id .nm{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rk-bar{position:relative;height:30px;display:flex;align-items:center}
-.rk-bar .tr{position:absolute;inset:0;background:var(--panel3);border-radius:7px}
-.rk-bar .fl{position:relative;height:100%;border-radius:7px;background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 45%,transparent));
- min-width:3px;transition:width .5s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;padding-left:11px}
-.rk-bar .fl b{font-family:'Orbitron',sans-serif;font-size:10.5px;color:#0a0e17;font-weight:900;white-space:nowrap;
- text-shadow:0 1px 0 rgba(255,255,255,.25)}
+.rk-id .pt{width:9px;height:9px;border-radius:3px;background:var(--c);flex:none}
+.rk-id .nm{font-family:'Orbitron',sans-serif;font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk-bar{position:relative;height:26px;display:flex;align-items:center}
+.rk-bar .tr{position:absolute;inset:0;background:#f0f3f8;border-radius:6px}
+.rk-bar .fl{position:relative;height:100%;border-radius:6px;background:var(--c);min-width:3px;
+ display:flex;align-items:center;padding-left:11px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.rk-bar .fl b{font-family:'Orbitron',sans-serif;font-size:10.5px;color:#fff;font-weight:800;white-space:nowrap}
 .rk-bar .out{position:absolute;left:calc(var(--w) + 11px);font-family:'Orbitron',sans-serif;font-size:10.5px;
  color:var(--ink2);font-weight:700;white-space:nowrap}
 .rk-val{text-align:right}
-.rk-val .v{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:800}
+.rk-val .v{font-family:'Orbitron',sans-serif;font-size:13.5px;font-weight:800}
 .rk-val .k{font-size:10px;color:var(--ink3);margin-top:1px}
 @media(max-width:760px){.rk{grid-template-columns:1fr auto;gap:9px}.rk-bar{grid-column:1/-1}}
 
-/* ══ PRIORIDAD DE COMPRA ══ */
-.pri-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
-.pri-hd{display:grid;grid-template-columns:34px 1fr 118px 92px 118px;gap:14px;padding:13px 20px;
- border-bottom:1px solid var(--line);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
- color:var(--ink3);font-weight:700;font-family:'Orbitron',sans-serif}
+/* ══ PRIORIDAD ══ */
+.pri-hd,.pr{display:grid;grid-template-columns:36px 1fr 108px 96px 124px;gap:14px;align-items:center}
+.pri-hd{padding:12px 22px;border-bottom:1px solid var(--line);font-size:9.5px;letter-spacing:.14em;
+ text-transform:uppercase;color:var(--ink3);font-weight:700;font-family:'Orbitron',sans-serif;background:var(--card2)}
 .pri-hd .r{text-align:right}
-.pr{display:grid;grid-template-columns:34px 1fr 118px 92px 118px;gap:14px;padding:12px 20px;
- border-bottom:1px solid var(--line2);align-items:center;transition:background .14s}
+.pr{padding:13px 22px;border-bottom:1px solid var(--line2);transition:background .14s}
 .pr:last-child{border-bottom:none}
-.pr:hover{background:var(--panel2)}
+.pr:hover{background:var(--card2)}
 .pr .pos{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:900;color:var(--ink3);text-align:center}
-.pr .pos.top{color:var(--ambar)}
+.pr .pos.top{color:#fff;background:var(--ambar);border-radius:6px;padding:3px 0}
 .pr-id{min-width:0}
-.pr-id .cd{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700}
-.pr-id .ds{font-size:12px;color:var(--ink2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pr-id .mt{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--ink3);margin-top:3px}
+.pr-id .cd{font-family:'Orbitron',sans-serif;font-size:11.5px;font-weight:700}
+.pr-id .ds{font-size:12.5px;color:var(--ink2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pr-id .mt{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--ink3);margin-top:3px}
 .pr-id .mt i{width:6px;height:6px;border-radius:2px;background:var(--c);display:inline-block}
+.pr-sp{height:4px;background:#f0f3f8;border-radius:3px;margin-top:7px;overflow:hidden;max-width:420px}
+.pr-sp i{display:block;height:100%;background:var(--c);border-radius:3px}
 .pr .q{text-align:right}
 .pr .q .v{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:800;color:var(--ambar)}
 .pr .q .k{font-size:9.5px;color:var(--ink3)}
 .pr .u{text-align:right;font-size:12px;color:var(--ink2);font-family:'Orbitron',sans-serif;font-weight:600}
 .pr .tot{text-align:right}
-.pr .tot .v{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:800;color:var(--teal)}
+.pr .tot .v{font-family:'Orbitron',sans-serif;font-size:13.5px;font-weight:800;color:var(--teal)}
 .pr .tot .ac{font-size:9.5px;color:var(--ink3);margin-top:1px}
-.pr-sp{height:4px;background:var(--panel3);border-radius:3px;margin-top:6px;overflow:hidden}
-.pr-sp i{display:block;height:100%;background:var(--c);border-radius:3px}
-@media(max-width:820px){.pri-hd{display:none}.pr{grid-template-columns:30px 1fr auto;gap:10px}.pr .u{display:none}}
+@media(max-width:840px){.pri-hd{display:none}.pr{grid-template-columns:32px 1fr auto;gap:10px}.pr .u{display:none}}
+
+/* ══ HISTORIAL ══ */
+.hist{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+@media(max-width:940px){.hist{grid-template-columns:1fr}}
+.hcab{padding:17px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hcab h4{font-size:12.5px;letter-spacing:.04em}
+.hcab p{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.hcab .tot{margin-left:auto;font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;color:var(--azul)}
+.meses{display:flex;align-items:flex-end;gap:5px;height:168px;padding:24px 22px 0;overflow-x:auto}
+.mes{flex:1;min-width:26px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+.mes .bar{width:100%;max-width:38px;background:var(--azul);border-radius:5px 5px 0 0;min-height:3px;
+ transition:height .5s cubic-bezier(.2,.8,.2,1);position:relative}
+.mes.fut .bar{background:var(--ambar)}
+.mes .vv{position:absolute;top:-19px;left:50%;transform:translateX(-50%);font-family:'Orbitron',sans-serif;
+ font-size:10px;font-weight:800;color:var(--ink2);white-space:nowrap}
+.mes:hover .bar{filter:brightness(1.12)}
+.meses-x{display:flex;gap:5px;padding:8px 22px 20px;overflow-x:auto;border-bottom:1px solid var(--line2)}
+.mes-x{flex:1;min-width:26px;text-align:center;font-size:9px;color:var(--ink3);font-weight:600;line-height:1.35}
+.mes-x b{display:block;font-family:'Orbitron',sans-serif;font-size:9.5px;color:var(--ink2);font-weight:700}
+.leyenda{display:flex;gap:16px;padding:13px 22px;flex-wrap:wrap;font-size:11.5px;color:var(--ink2)}
+.leyenda i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.anios{padding:6px 0}
+.anio{display:grid;grid-template-columns:52px 1fr 74px;gap:12px;align-items:center;padding:9px 22px}
+.anio .y{font-family:'Orbitron',sans-serif;font-size:12.5px;font-weight:800}
+.anio .tr{height:9px;background:#f0f3f8;border-radius:5px;overflow:hidden}
+.anio .tr i{display:block;height:100%;background:var(--teal);border-radius:5px}
+.anio .c{text-align:right;font-size:11.5px;color:var(--ink2);font-weight:600}
+.compradores{display:flex;gap:9px;padding:14px 22px;border-top:1px solid var(--line2);flex-wrap:wrap}
+.comp{background:var(--card2);border:1px solid var(--line2);border-radius:20px;padding:6px 13px;font-size:11.5px;color:var(--ink2)}
+.comp b{font-family:'Orbitron',sans-serif;color:var(--ink);font-weight:700}
+.nota{margin-top:16px;background:#fff8ec;border:1px solid #f3dfb8;border-radius:var(--r);padding:16px 20px;
+ display:flex;gap:13px;align-items:flex-start}
+.nota .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none;background:#fceccb;color:var(--ambar)}
+.nota .ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.nota .tx{font-size:12.5px;color:#7a5309;line-height:1.6}
+.nota .tx b{color:#5d3f06}
 
 /* ══ ALERTAS ══ */
-.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px}
-.alert{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
-.alert-h{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
-.alert-h .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;
- background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c)}
-.alert-h .ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.alert-h .tt{flex:1}
-.alert-h .tt h4{font-size:12.5px;letter-spacing:.04em}
-.alert-h .tt p{font-size:11.5px;color:var(--ink3);margin-top:2px}
-.alert-h .n{font-family:'Orbitron',sans-serif;font-size:19px;font-weight:900;color:var(--c)}
-.alert-b{max-height:290px;overflow-y:auto}
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.al-h{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.al-h .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;
+ background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c)}
+.al-h .ic svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.al-h .tt{flex:1}
+.al-h .tt h4{font-size:12.5px}
+.al-h .tt p{font-size:11.5px;color:var(--ink3);margin-top:2px}
+.al-h .n{font-family:'Orbitron',sans-serif;font-size:19px;font-weight:900;color:var(--c)}
+.al-b{max-height:286px;overflow-y:auto}
 .al{display:flex;align-items:center;gap:11px;padding:10px 20px;border-bottom:1px solid var(--line2);font-size:12px}
 .al:last-child{border-bottom:none}
-.al:hover{background:var(--panel2)}
-.al .cd{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;min-width:88px}
+.al:hover{background:var(--card2)}
+.al .cd{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;min-width:86px}
 .al .ds{flex:1;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .al .mo{font-size:10px;color:var(--ink3);white-space:nowrap}
 .al .vv{font-family:'Orbitron',sans-serif;font-size:11.5px;font-weight:700;color:var(--c);white-space:nowrap}
-.alert-f{padding:11px 20px;font-size:11.5px;color:var(--ink3);border-top:1px solid var(--line2);text-align:center}
+.al-f{padding:11px 20px;font-size:11.5px;color:var(--ink3);border-top:1px solid var(--line2);text-align:center}
 
-/* ══ TARJETAS DE MOTOR ══ */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:17px}
-.mc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:19px;cursor:pointer;
- position:relative;overflow:hidden;transition:transform .26s cubic-bezier(.2,.8,.2,1),border-color .26s,box-shadow .26s}
-.mc::after{content:"";position:absolute;inset:0;border-radius:var(--r);pointer-events:none;
- background:radial-gradient(340px 120px at 50% -30%,color-mix(in srgb,var(--c) 26%,transparent),transparent 70%);opacity:0;transition:opacity .3s}
-.mc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 45%,var(--line));box-shadow:var(--sh)}
-.mc:hover::after{opacity:1}
-.mc-t{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-.mc-av{width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;
- font-family:'Orbitron',sans-serif;font-weight:900;font-size:11px;color:#0a0e17;
- background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#fff));
- box-shadow:0 8px 22px -10px var(--c)}
+/* ══ TARJETAS ══ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(262px,1fr));gap:17px}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:19px;cursor:pointer;
+ position:relative;overflow:hidden;box-shadow:var(--sh-xs);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s}
+.mc::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--c)}
+.mc:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:#d3dcec}
+.mc-t{display:flex;align-items:center;gap:12px}
+.mc-av{width:43px;height:43px;border-radius:12px;flex:none;display:grid;place-items:center;
+ font-family:'Orbitron',sans-serif;font-weight:800;font-size:10.5px;color:#fff;background:var(--c);
+ box-shadow:0 7px 18px -8px var(--c)}
 .mc-t .hd{min-width:0;flex:1}
-.mc-t .hd .fm{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:700}
-.mc-t .hd h3{font-size:15px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mc-anillo{display:flex;align-items:center;gap:15px;margin:16px 0 0;position:relative;z-index:1}
-.mc-anillo svg{width:66px;height:66px;flex:none;transform:rotate(-90deg)}
-.mc-anillo .tk{flex:1;min-width:0}
-.mc-anillo .tk .l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:700}
-.mc-anillo .tk .v{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;margin-top:2px;color:var(--ambar);white-space:nowrap}
-.mc-anillo .tk .s{font-size:11px;color:var(--ink3);margin-top:2px}
-.mc-f{margin-top:16px;padding-top:14px;border-top:1px solid var(--line2);display:flex;gap:7px;flex-wrap:wrap;position:relative;z-index:1}
+.mc-t .hd .fm{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.mc-t .hd h3{font-size:14.5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-an{display:flex;align-items:center;gap:15px;margin-top:16px}
+.mc-an svg{width:62px;height:62px;flex:none;transform:rotate(-90deg)}
+.mc-an .tk{flex:1;min-width:0}
+.mc-an .tk .l{font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.mc-an .tk .v{font-family:'Orbitron',sans-serif;font-size:19px;font-weight:900;margin-top:2px;color:var(--ambar);white-space:nowrap}
+.mc-an .tk .s{font-size:11px;color:var(--ink3);margin-top:2px}
+.mc-f{margin-top:15px;padding-top:13px;border-top:1px solid var(--line2);display:flex;gap:6px;flex-wrap:wrap}
 .tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;
- background:color-mix(in srgb,var(--tc) 14%,transparent);color:var(--tc);border:1px solid color-mix(in srgb,var(--tc) 26%,transparent)}
+ background:color-mix(in srgb,var(--tc) 10%,transparent);color:var(--tc)}
 
 /* ══ DETALLE ══ */
 .back{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--ink2);
- cursor:pointer;padding:9px 15px;border-radius:10px;border:1px solid var(--line);background:var(--panel);
- transition:.2s;margin-top:26px}
-.back:hover{color:var(--ink);transform:translateX(-3px);border-color:#33456b}
-.dh{display:flex;align-items:center;gap:18px;margin:22px 0 0;flex-wrap:wrap}
-.dh .av{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;font-family:'Orbitron',sans-serif;
- font-weight:900;font-size:13px;color:#0a0e17;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#fff));
- box-shadow:0 14px 34px -14px var(--c)}
-.dh h2{font-size:25px;letter-spacing:-.2px}
+ cursor:pointer;padding:9px 15px;border-radius:10px;border:1px solid var(--line);background:var(--card);
+ box-shadow:var(--sh-xs);transition:.2s;margin-top:26px}
+.back:hover{color:var(--azul);transform:translateX(-3px);border-color:#c3d2f7}
+.dh{display:flex;align-items:center;gap:18px;margin:22px 0 18px;flex-wrap:wrap}
+.dh .av{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-family:'Orbitron',sans-serif;
+ font-weight:800;font-size:12px;color:#fff;background:var(--c);box-shadow:0 12px 28px -12px var(--c)}
+.dh h2{font-size:24px;letter-spacing:-.2px}
 .dh .mt{font-size:12.5px;color:var(--ink2);margin-top:4px}
 .dh .mt b{color:var(--c)}
 .dh .side{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap}
 
-/* ══ LISTA DE REPUESTOS ══ */
-.tools{display:flex;gap:10px;align-items:center;margin:24px 0 0;flex-wrap:wrap}
+/* ══ LISTA ══ */
+.tools{display:flex;gap:10px;align-items:center;margin:20px 0 0;flex-wrap:wrap}
 .srch{flex:1;min-width:230px;position:relative}
-.srch input{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 14px 11px 38px;
- font-size:13px;font-family:inherit;background:var(--panel);color:var(--ink)}
+.srch input{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 14px 11px 38px;
+ font-size:13px;font-family:inherit;background:var(--card);color:var(--ink);box-shadow:var(--sh-xs)}
 .srch input::placeholder{color:var(--ink3)}
-.srch input:focus{outline:none;border-color:var(--morado);box-shadow:0 0 0 3px rgba(139,124,255,.16)}
+.srch input:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(30,94,255,.11)}
 .srch svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--ink3);fill:none;stroke-width:2}
 .chk{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:var(--ink2);
- background:var(--panel);border:1px solid var(--line);padding:10px 14px;border-radius:20px;cursor:pointer;user-select:none}
-.chk.on{background:color-mix(in srgb,var(--morado) 18%,transparent);border-color:var(--morado);color:#cfc7ff}
-.chk input{width:14px;height:14px;accent-color:var(--morado);cursor:pointer}
-.blq{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:16px;box-shadow:var(--sh)}
+ background:var(--card);border:1px solid var(--line);padding:10px 14px;border-radius:20px;cursor:pointer;
+ user-select:none;box-shadow:var(--sh-xs)}
+.chk.on{background:#eef3ff;border-color:#c3d2f7;color:var(--azul)}
+.chk input{width:14px;height:14px;accent-color:var(--azul);cursor:pointer}
+.blq{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:16px;box-shadow:var(--sh)}
 .blq-h{display:flex;align-items:center;gap:13px;padding:15px 20px;cursor:pointer;user-select:none}
-.blq-h:hover{background:var(--panel2)}
-.blq-h .ic{width:33px;height:33px;border-radius:10px;display:grid;place-items:center;flex:none;
- background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c)}
+.blq-h:hover{background:var(--card2)}
+.blq-h .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;
+ background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c)}
 .blq-h .ic svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .blq-h .tt{flex:1;min-width:0}
-.blq-h .tt h4{font-size:12.5px;letter-spacing:.04em}
+.blq-h .tt h4{font-size:12.5px}
 .blq-h .tt p{font-size:11.5px;color:var(--ink3);margin-top:2px}
 .blq-h .cnt{font-family:'Orbitron',sans-serif;font-size:12.5px;font-weight:800;padding:4px 12px;border-radius:20px;
- background:var(--panel3);color:var(--ink2)}
+ background:#f0f3f8;color:var(--ink2)}
 .chev{width:17px;height:17px;color:var(--ink3);transition:transform .25s;flex:none;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .blq.cerrado .chev{transform:rotate(-90deg)}
 .blq.cerrado .blq-b{display:none}
 .blq-b{border-top:1px solid var(--line)}
-.it{display:grid;grid-template-columns:118px 1fr 190px 84px 116px;gap:15px;align-items:center;
- padding:12px 20px;border-bottom:1px solid var(--line2);transition:background .14s}
+.it{display:grid;grid-template-columns:116px 1fr 178px 80px 118px 22px;gap:14px;align-items:center;
+ padding:12px 20px;border-bottom:1px solid var(--line2);transition:background .14s;cursor:pointer}
 .it:last-child{border-bottom:none}
-.it:hover{background:var(--panel2)}
+.it:hover{background:var(--card2)}
 .it .cd{font-family:'Orbitron',sans-serif;font-weight:700;font-size:11.5px}
 .it .cd small{display:block;font-family:'Exo 2',sans-serif;font-size:9.5px;color:var(--ink3);font-weight:600;margin-top:2px}
 .it .ds{min-width:0}
 .it .ds .d{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .it .ds .m{font-size:10.5px;color:var(--ink3);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .mk{font-family:'Orbitron',sans-serif;font-size:8.5px;font-weight:800;padding:1px 6px;border-radius:5px;
- background:rgba(139,124,255,.16);color:#b3a8ff;letter-spacing:.4px}
+ background:#eef0ff;color:var(--morado);letter-spacing:.4px}
 .barra{display:flex;align-items:center;gap:9px}
-.barra .tr{flex:1;height:6px;background:var(--panel3);border-radius:4px;overflow:hidden}
-.barra .tr i{display:block;height:100%;border-radius:4px}
+.barra .tr{flex:1;height:7px;background:#f0f3f8;border-radius:4px;overflow:hidden;display:flex}
+.barra .tr i{display:block;height:100%}
 .barra .tr i.stk{background:var(--teal)} .barra .tr i.fal{background:var(--ambar)}
 .barra .lb{font-family:'Orbitron',sans-serif;font-size:10px;color:var(--ink3);white-space:nowrap;font-weight:700}
 .it .rp{text-align:center}
-.it .rp .v{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:var(--ambar);line-height:1}
-.it .rp .k{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-top:3px}
+.it .rp .v{font-family:'Orbitron',sans-serif;font-size:17px;font-weight:900;color:var(--ambar);line-height:1}
+.it .rp .k{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-top:3px}
 .it .rp.ok .v{color:var(--teal);font-size:15px}
 .it .mn{text-align:right}
 .it .mn .u{font-size:10.5px;color:var(--ink3)}
-.it .mn .t{font-family:'Orbitron',sans-serif;font-size:13.5px;font-weight:800;color:var(--teal);margin-top:1px}
+.it .mn .t{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:800;color:var(--teal);margin-top:1px}
 .it .mn .t.no{color:var(--rojo);font-family:'Exo 2',sans-serif;font-size:11.5px;font-style:italic;font-weight:600}
-@media(max-width:960px){.it{grid-template-columns:1fr auto auto;gap:10px}.it .barra{grid-column:1/-1}}
-.vacio{padding:34px 20px;text-align:center;color:var(--ink3);font-size:12.5px}
-.mas{padding:13px 20px;text-align:center;font-size:12px;font-weight:700;color:var(--morado);cursor:pointer;border-top:1px solid var(--line2)}
-.mas:hover{background:var(--panel2)}
+.it .exp{color:var(--ink3);text-align:center;font-size:13px;transition:transform .2s}
+.it.abierta .exp{transform:rotate(180deg)}
+.ficha{background:var(--card2);border-bottom:1px solid var(--line2);padding:16px 20px 18px}
+.ficha h5{font-family:'Orbitron',sans-serif;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--ink3);font-weight:700;margin-bottom:11px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:11px}
+.fd{background:var(--card);border:1px solid var(--line2);border-radius:9px;padding:10px 12px}
+.fd .l{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.fd .v{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;margin-top:4px;color:var(--ink)}
+.fd .v.sm{font-size:11px;font-family:'Exo 2',sans-serif;font-weight:600}
+.fd .v.mut{color:var(--ink3);font-family:'Exo 2',sans-serif;font-weight:500;font-style:italic;font-size:11.5px}
+@media(max-width:980px){.it{grid-template-columns:1fr auto auto;gap:10px}.it .barra{grid-column:1/-1}.it .exp{display:none}}
+.vacio{padding:32px 20px;text-align:center;color:var(--ink3);font-size:12.5px;line-height:1.7}
+.mas{padding:13px 20px;text-align:center;font-size:12px;font-weight:700;color:var(--azul);cursor:pointer;border-top:1px solid var(--line2)}
+.mas:hover{background:#f8faff}
 
-/* ══ TABLA DEL ERP ══ */
+/* ══ TABLA ERP ══ */
 .rod{overflow-x:auto;border-top:1px solid var(--line)}
 table{border-collapse:collapse;width:100%;white-space:nowrap;font-size:11.5px;font-variant-numeric:tabular-nums}
-thead th{background:var(--panel2);color:var(--ink3);font-family:'Orbitron',sans-serif;font-size:8.5px;
+thead th{background:var(--card2);color:var(--ink3);font-family:'Orbitron',sans-serif;font-size:8.5px;
  letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:10px;border-bottom:1px solid var(--line);text-align:left}
 thead th.r{text-align:right}
 tbody td{padding:8px 10px;border-bottom:1px solid var(--line2);color:var(--ink2)}
 tbody td.r{text-align:right}
-tbody tr:hover td{background:var(--panel2)}
+tbody tr:hover td{background:var(--card2)}
 td.pn{font-family:'Orbitron',sans-serif;font-weight:700;font-size:11px;color:var(--ink)}
 td.ds{color:var(--ink);white-space:normal;min-width:185px}
 td.rp{font-family:'Orbitron',sans-serif;font-weight:800;color:var(--ambar)}
@@ -264,11 +312,17 @@ td.oc.z{font-weight:400;color:var(--ink3);font-family:'Exo 2',sans-serif}
 td.cd{font-size:10px;color:var(--ink3)}
 
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
- background:var(--panel3);border:1px solid var(--line);color:var(--ink);padding:12px 22px;border-radius:11px;
- font-size:12.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:400;box-shadow:var(--sh)}
+ background:var(--ink);color:#fff;padding:12px 22px;border-radius:10px;font-size:12.5px;font-weight:600;
+ opacity:0;pointer-events:none;transition:.25s;z-index:400;box-shadow:var(--sh-lg)}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .pie{margin-top:46px;text-align:center;font-size:11.5px;color:var(--ink3);line-height:1.9}
-@media print{.top,.tools,.back{display:none!important}}
+@media print{
+ .top,.tools,.back,.exec .acts,.mas{display:none!important}
+ body{background:#fff}
+ .panel,.exec,.cf,.mc,.blq{box-shadow:none;break-inside:avoid}
+ .al-b{max-height:none}
+}
+
 /* Pantalla de bloqueo */
 #lockScreen{position:fixed;inset:0;z-index:9999;background:#4a4f58;
  display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
@@ -373,34 +427,45 @@ td.cd{font-size:10px;color:var(--ink3)}
   <span class="brand"><span class="dot"></span>PERU TRACTOR <span>· ERP PROFICONT</span></span>
   <span class="sp"></span>
   <span class="est sm" id="est"><span class="p"></span><span id="estTxt">leyendo el ERP…</span></span>
-  <button class="tbtn" onclick="releer()">↻ Releer</button>
-  <button class="tbtn pri" onclick="exportar()">↓ Excel</button>
+  <button class="btn" onclick="releer()">↻ Releer</button>
+  <button class="btn" onclick="window.print()">Imprimir</button>
+  <button class="btn pri" onclick="exportar()">↓ Excel</button>
 </div></div>
 
 <div class="wrap">
 
-  <!-- ══ PANORAMA ══ -->
   <section id="vPanorama">
-    <div class="head">
-      <div class="eyebrow">Centro de reposición</div>
-      <h1>Dónde está la plata y <span class="ac">qué comprar primero</span></h1>
-      <p class="lead">Cada repuesto que no llega a su stock mínimo, ordenado por lo que cuesta cerrar la brecha.
-        Los datos salen del ERP PROFICONT, hoja por hoja.</p>
+    <div class="exec">
+      <div class="eyebrow">Informe de reposición · ERP PROFICONT · <span id="fechaInf"></span></div>
+      <h1 id="titular"></h1>
+      <p class="sub" id="subtitular"></p>
+      <div class="hall" id="hallazgos"></div>
+      <div class="acts">
+        <button class="btn pri" onclick="exportar()">↓ Descargar el detalle en Excel</button>
+        <button class="btn" onclick="window.print()">Imprimir el informe</button>
+      </div>
     </div>
 
-    <div class="franja" id="franja"></div>
+    <div class="cifras" id="cifras"></div>
 
     <div class="sh"><h2>Dónde está la plata</h2><span class="hint">Costo de reposición por motor · toca para entrar</span><span class="ln"></span></div>
-    <div class="rank" id="rank"></div>
+    <div class="panel" id="rank"></div>
 
     <div class="sh"><h2>Prioridad de compra</h2><span class="hint">Los repuestos que concentran el gasto, en los 7 motores</span><span class="ln"></span></div>
-    <div class="pri-box">
+    <div class="panel">
       <div class="pri-hd"><span>#</span><span>Repuesto</span><span class="r">Reponer</span><span class="r">Unitario</span><span class="r">Subtotal</span></div>
       <div id="pri"></div>
     </div>
 
-    <div class="sh"><h2>Requiere atención</h2><span class="hint">Lo que no se puede resolver solo comprando</span><span class="ln"></span></div>
-    <div class="duo" id="alertas"></div>
+    <div class="sh"><h2>Historial de movimientos</h2><span class="hint">Cuándo llegó cada carga y cuándo se compró por última vez</span><span class="ln"></span></div>
+    <div class="hist">
+      <div class="panel" id="hLlegadas"></div>
+      <div class="panel" id="hCompras"></div>
+    </div>
+    <div class="nota" id="notaHist"></div>
+
+    <div class="sh"><h2>Requiere atención</h2><span class="hint">Lo que no se resuelve solo comprando</span><span class="ln"></span></div>
+    <div class="trio" id="alertas"></div>
 
     <div class="sh"><h2>Motores</h2><span class="hint">Toca uno para ver sus repuestos</span><span class="ln"></span></div>
     <div class="grid" id="grid"></div>
@@ -413,9 +478,8 @@ td.cd{font-size:10px;color:var(--ink3)}
     <div id="resG"></div>
   </section>
 
-  <!-- ══ DETALLE ══ -->
   <section id="vMotor" class="hidden">
-    <div class="back" onclick="verPanorama()">← Volver al panorama</div>
+    <div class="back" onclick="verPanorama()">← Volver al informe</div>
     <div id="detalle"></div>
   </section>
 
@@ -424,12 +488,14 @@ td.cd{font-size:10px;color:var(--ink3)}
 
 <div class="toast" id="toast"></div>
 
+
 <script>
-const HOJAS = [{"nombre":"MOTOR 3054 / 3054C / C4.4 / C6","gid":"271455830","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","0365802*","BUSHING","0.14","CTP","2.00","4","1","1","0","8.00","","","13/08/2026","3.60","549","CTP0006425","","0.30"],["2","","105RS*","LINER..","02.05","CTP","","","4","","0","","","","13/08/2026","0.00","549","CTP0029397","","4.53"],["3","","1111815*","LINER","1.22","CTP","16.00","12","4","","0","22.00","","","13/08/2026","12.65","549","CTP0013938","","2.70"],["4","","1521390*","PISTON AS PIN Y SEGURO","1.86","CTP","4.00","4","4","","0","16.00","","","13/08/2026","25.00","549","CTP0013939","","4.10"],["5","","1850882*","GUIDE-IN VAL","0.05","CTP","56.00","100","8","36","0","71.00","","","13/08/2026","0.73","549","CTP0010960","","0.10"],["6","","2255495*","VALVE-INLE","0.18","CTP","14.00","24","4","6","0","41.00","","","13/08/2026","5.11","549","CTP0018339","","0.40"],["7","","2255499*","VALVE EXHA","0.14","CTP","18.00","12","4","","0","38.00","","","13/08/2026","8.75","549","CTP0018590","","0.30"],["8","","2257781*","BEARING SE","0.45","CTP","14.00","10","1","","0","20.00","","","13/08/2026","13.50","549","CTP0014998","","1.00"],["9","","2258329*","PUMP AS-EN","3.36","CTP","6.00","8","1","1","0","6.00","","","13/08/2026","69.00","549","CTP0021520","","7.40"],["10","","2526438*","SEAL-INLET","0.05","CTP","24.00","45","4","17","0","30.00","","","13/08/2026","1.17","549","CTP0017054","","0.10"],["11","","2543954*","SEAL-EXH V","0.05","CTP","4.00","16","4","8","0","48.00","","","13/08/2026","1.20","549","CTP0018340","","0.10"],["12","","2722232*","GASKET KT-","1.40","CTP","1.00","4","1","2","0","2.00","","","13/08/2026","59.74","549","CTP0022136","","03.09"],["13","","2767478*","BUSHING","0.09","CTP","4.00","12","4","4","0","12.00","","","13/08/2026","3.14","549","CTP0021436","","0.20"],["14","","2775156*","KIT-GASKET","01.04","CTP","3.00","2","1","","0","3.00","","","13/08/2026","50.73","549","CTP0020596","","2.30"],["15","30/09/24 15:22 NMM","3096678*","VALVE-INLE","0.09","CTP","36.00","40","8","","0","99.00","","","13/08/2026","3.00","549","CTP0017734","","0.20"],["16","","3109269*","PISTON KIT C4.4","02.04","CTP","4.00","3","4","","0","8.00","","","13/08/2026","58.06","549","CTP0021521","","4.50"],["17","","3229663*","INSERT-VAL","0.05","CTP","12.00","16","4","","0","48.00","","","13/08/2026","3.78","549","CTP0015000","","0.10"],["18","","3296655*","INSERT-INL","0.05","CTP","12.00","24","4","8","0","36.00","","","13/08/2026","2.14","549","CTP0014999","","0.10"],["19","","3399637*","VALVE-EXHA","0.09","CTP","24.00","38","8","6","0","82.00","","","13/08/2026","4.64","549","CTP0020568","","0.20"],["20","","3537427*","KIT-BEARIN","0.68","CTP","2.00","3","1","","0","11.00","","","13/08/2026","19.60","549","CTP0021124","","1.50"],["21","07/05/23 12:22 JRS","3603986*","KIT-BEARIN","0.41","CTP","2.00","4","2","","0","11.00","","","13/08/2026","22.03","549","CTP0021992","","0.90"],["22","","3668853*","BEARING","0.14","CTP","8.00","10","1","1","0","4.00","","","13/08/2026","4.40","549","CTP0022610","","0.30"],["23","","3770399*","VALVE SEAT","0.05","CTP","16.00","20","8","","0","75.00","","","13/08/2026","02.06","549","CTP0022981","","0.10"],["24","","3770400*","VALVE SEAT","0.05","CTP","12.00","18","8","","0","74.00","","","13/08/2026","3.00","549","CTP0022982","","0.10"],["25","","3802073*","GUIDE-VALV","0.05","CTP","24.00","60","16","20","0","137.00","","","13/08/2026","1.93","549","CTP0022980","","0.10"],["26","","5081898*","PISTON GP","02.04","CTP","","4","4","","0","5.00","","","13/08/2026","50.29","549","CTP0026460","","4.50"],["27","","5185437*","KIT-BEARING STD (2257772)","0.59","CTP","4.00","2","2","","0","15.00","","","13/08/2026","24.83","549","CTP0027163","","1.30"],["28","","5185891*","KIT WASHER STD (0329091, 0329090)","0.09","CTP","6.00","6","2","","0","30.00","","","13/08/2026","5.72","549","CTP0026601","","0.20"]],"pie":"28    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=271455830&single=true&output=csv","sigla":"3054","corto":"3054 · 3054C · C4.4 · C6","color":"#8b7cff","titulo":"Motor 3054 / 3054C / C4.4 / C6"},{"nombre":"MOTOR 3066","gid":"0","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","24/06/24 16:46 NMM","0947134*","PIN,PISTON","0.50","CTP","8.00","18","","10","0","42.00","","","04/12/2025","5.00","554","CTP0007662","","1.10"],["2","","0947154*","BOLT","0.09","CTP","","12","","12","0","","","","10/08/2022","1.95","554","CTP0001355","6","0.20"],["3","","0947516*","NUT","0.05","CTP","12.00","20","","8","0","","","","10/08/2022","0.83","554","CTP0001356","6","0.10"],["4","","1252950*","GEAR AS","0.49","CTP","2.00","2","","","0","4.00","","","25/12/2025","41.65","554","CTP0018457","","01.08"],["5","","1252951*","GEAR","0.32","CTP","1.00","2","","1","0","1.00","","","16/01/2025","36.50","554","CTP0009640","","0.70"],["6","","1252989*","PUMP A","3.95","CTP","1.00","1","","","0","","","","25/11/2025","54.76","554","CTP0008470","","8.70"],["7","","1252991*","WATER PUMP","4.22","CTP","1.00","1","","","0","1.00","","","01/07/2024","55.76","554","CTP0028582","","9.30"],["8","","1253005*","CRANKSHAFT","72.94","CTP","1.00","1","","","0","","","","15/12/2023","662.70","554","CTP0021593","","160.80"],["9","","1786543*","RING SET-S","0.09","CTP","26.00","24","","","0","42.00","","","13/11/2025","5.50","554","CTP0011399","","0.20"],["10","","1786633*","PUMP AS","3.86","CTP","4.00","2","","","0","6.00","","","09/09/2025","43.20","554","CTP0021796","","8.50"],["11","","1838171*","HEAD AS-CY(5I8051) MOTOR 3066","28.76","CTP","1.00","0","","","0","","","","01/07/2024","347.19","554","CTP0025335","","63.40"],["12","","1838172*","GUIDE VALVE (5I7729)","0.03","CTP","29.00","24","","","0","15.00","","","10/07/2025","0.94","554","CTP0002485","","0.07"],["13","","1838173*","GUIDE VALVE (5I7635)","0.05","CTP","17.00","24","","7","0","15.00","","","25/11/2025","0.81","554","CTP0002486","","0.10"],["14","","2128477*","VALVE","0.16","CTP","12.00","12","","","0","6.00","","","25/12/2025","9.55","554","CTP0012225","","0.35"],["15","","2977750*","PISTON","01.04","CTP","2.00","6","","4","0","6.00","","","13/11/2025","24.60","554","CTP0012752","","2.30"],["16","","2977752*","PISTON (5I7537)","01.09","CTP","10.00","6","","","0","6.00","","","27/03/2025","22.55","554","CTP0017354","","2.40"],["17","27/02/23 10:22 RFR","5I7523*","SLEEVE 320BL","0.86","CTP","12.00","12","","","0","33.00","","","13/11/2025","9.90","554","10.057.194","","1.90"],["18","","5I7528*","BUSHING","0.06","CTP","","12","","12","0","12.00","","","20/10/2025","4.70","554","10.063.042","","0.13"],["19","07/05/23 12:22 JRS","5I7529*","BEARING","0.08","CTP","2.00","4","","2","0","10.00","","","25/12/2025","4.60","554","CTP0007656","","0.17"],["20","","5I7538*","RING STD (0878758-0998418 ) 320BL","0.05","CTP","4.00","12","","8","0","5.00","","","22/02/2025","9.78","554","10.063.050","","0.10"],["21","","5I7539*","BUSHING","0.09","CTP","6.00","12","","6","0","13.00","","","25/12/2025","2.23","554","CTP0007657","","0.20"],["22","","5I7542*","BUSHING","0.09","CTP","1.00","1","","","0","1.00","","","02/01/2026","2.30","554","CTP0000975","6","0.20"],["23","","5I7558*","GEAR A","0.50","CTP","3.00","2","","","0","2.00","","","20/10/2025","48.16","554","CTP0009643","","1.10"],["24","30/07/24 18:09 NMM","5I7588*","METAL DE BANCADA","0.18","CTP","7.00","14","","7","0","71.00","","","10/07/2025","5.43","554","10.063.044","","0.40"],["25","","5I7589*","CARTRIDGE","2.00","CTP","","2","","2","0","","","","10/10/2023","107.01","554","CTP0013043","","4.40"],["26","","5I7624*","SEAL VALVE(0953418,0953417)","0.01","CTP","16.00","14","","","0","24.00","","","25/11/2025","0.41","554","10.060.391","","0.01"],["27","","5I7625*","RETAINER","0.05","CTP","12.00","15","","3","0","12.00","","","13/11/2025","01.02","554","CTP0007644","","0.10"],["28","","5I7637*","METAL DE BIELA STD 320BL","0.09","CTP","12.00","12","","","0","13.00","","","10/07/2025","4.70","554","10.057.099","","0.20"],["29","","5I7654*","PLATE 320BL","0.05","CTP","6.00","12","","6","0","25.00","","","10/11/2025","2.87","554","10.063.045","","0.10"],["30","30/07/24 17:44 NMM","5I7667*","RING","0.05","CTP","20.00","24","","4","0","36.00","","","22/02/2025","0.33","554","10.057.098","","0.10"],["31","","5I7686*","GEAR A","0.32","CTP","1.00","2","","1","0","","","","15/12/2023","40.51","554","CTP0009642","","0.70"],["32","","5I7713*","TIP A NOZZ","0.05","CTP","","5","","5","0","","","","01/07/2024","14.13","554","CTP0014780","","0.10"],["33","","5I7719*","LOCK","0.05","CTP","12.00","48","","36","0","","","","10/08/2022","0.22","554","CTP0011598","","0.10"],["34","","5I7723*","ROD","0.14","CTP","","0","","","0","","","","","0.00","554","CTP0022211","","0.30"],["35","","5I7738*","VALVE ADMISION","0.18","CTP","6.00","12","","6","0","12.00","","","03/10/2024","5.41","554","10.060.389","","0.40"],["36","","5I7739*","VALVE EXCAPE","0.14","CTP","24.00","24","","","0","12.00","","","02/10/2025","4.75","554","10.060.390","","0.30"],["37","","5I7740*","SPRING 320BL","0.09","CTP","36.00","24","","","0","12.00","","","01/07/2024","1.60","554","CTP0001384","","0.20"],["38","","5I7784*","BEARING MAIN 320BL","0.17","CTP","21.00","14","","","0","14.00","","","13/11/2025","3.60","554","CTP0001933","","0.38"],["39","","5I7785*","BEARING SE 0.020IN=0.50MM","0.18","CTP","6.00","7","","1","0","","","","29/04/2024","3.39","554","CTP0007745","","0.40"],["40","","5I7787*","PLATE","0.05","CTP","6.00","6","","","0","","","","08/09/2022","4.22","554","CTP0014171","","0.10"],["41","","5I7788*","PLATE","0.05","CTP","3.00","3","","","0","","","","09/08/2021","2.18","554","CTP0000971","","0.10"],["42","","5I7794*","BEARING 0.25","0.11","CTP","3.00","24","","21","0","3.00","","","02/10/2025","05.06","554","CTP0001934","","0.24"],["43","","5I7795*","BEARING","0.09","CTP","6.00","6","","","0","6.00","","","23/05/2025","5.19","554","CTP0014766","","0.20"],["44","07/05/23 12:22 JRS","5I7952*","TURBO GP","7.67","CTP","2.00","1","","","0","","","","01/07/2024","166.96","554","CTP0008977","","16.90"],["45","07/05/23 12:22 JRS","5I8009*","BUSHING","0.09","CTP","2.00","3","","1","0","11.00","","","02/07/2025","5.20","554","CTP0001354","","0.20"],["46","","5I8010*","REGULATOR","0.27","CTP","1.00","4","","3","0","2.00","","","25/12/2025","11.51","554","CTP0011448","","0.60"],["47","","5I8011*","INSERT (5I7737)","0.05","CTP","","12","","12","0","9.00","","","10/10/2023","1.96","554","CTP0004832","","0.10"],["48","30/07/24 18:08 NMM","5I8012*","INSERT (5I7736)","0.05","CTP","12.00","12","","","0","9.00","","","25/12/2025","1.67","554","CTP0004833","","0.10"],["49","","5I8068*","CAMSHAFT","7.12","CTP","","0","","","0","","","","","0.00","554","CTP0024933","","15.70"]],"pie":"49    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=0&single=true&output=csv","sigla":"3066","corto":"3066","color":"#2dd4a7","titulo":"Motor 3066"},{"nombre":"MOTOR 3116 / 3126 / C7","gid":"1936722591","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","0329090*","WASHER THRUST - STD CAMBIA 5185891","0.05","CTP","","0","","","0","2.00","","","02/03/2021","3.91","551","CTP0006437","","0.10"],["2","07/05/23 12:22 JRS","0329091*","CAMBIA 5185891","0.05","CTP","","0","","","0","2.00","","","17/02/2021","2.32","551","CTP0006438","","0.10"],["3","","1077545*","CROWN AS","1.45","CTP","11.00","12","6","","0","7.00","","","13/08/2026","69.84","551","CTP0006436","","3.20"],["4","07/05/23 12:22 JRS","1077545PK*","KIT PISTON,ANILLOS,PIN Y SEGUROS","2.72","CTP","10.00","12","6","","0","60.00","","","13/08/2026","92.15","551","CTP0013078","","6.00"],["5","","1077604*","SLEEVE CYL 3126","1.50","CTP","16.00","30","6","8","0","53.00","","","13/08/2026","11.66","551","CTP0002674","3","3.30"],["6","","1077708*","BEARING MAIN STD 7W9414","0.18","CTP","24.00","50","6","20","0","157.00","","","13/08/2026","5.34","551","CTP0001106","","0.40"],["7","","1136200*","GASKET (6I3034)","0.05","CTP","","40","3","37","0","28.00","","","13/08/2026","2.70","551","10.054.744","","0.10"],["8","07/05/23 12:22 JRS","1136250*","GASKET(4P1622,7W5626)","0.27","CTP","3.00","20","1","16","0","12.00","","","13/08/2026","7.28","551","CTP0002345","","0.60"],["9","","1192940*","GASKET","0.23","CTP","8.00","20","1","11","0","29.00","","","13/08/2026","6.65","551","CTP0001810","","0.50"],["10","","1193036*","SEAL(4P7750,7W9143)","0.05","CTP","12.00","170","12","146","0","92.00","","","13/08/2026","0.55","551","CTP0003517","","0.10"],["11","05/09/24 16:45 NMM","1193061*","SLEEVE HEAD(7W5749)(1013254)","0.05","CTP","12.00","48","6","30","0","55.00","","","13/08/2026","4.46","551","CTP0002343","","0.10"],["12","","1345276*","CAMSHAFT","19.73","CTP","1.00","4","1","2","0","2.00","","","13/08/2026","489.85","551","CTP0018264","","43.50"],["13","","1360819*","VALVE EXHAUST (1051779)","0.14","CTP","24.00","36","6","6","0","114.00","","","13/08/2026","9.72","551","CTP0003516","","0.30"],["14","","1450162*","BEARING MAIN 0.25(7C6961)","0.27","CTP","29.00","24","6","","0","51.00","","","13/08/2026","9.50","551","CTP0003367","3","0.60"],["15","","1450163*","BEARING(7C6971)","0.27","CTP","5.00","6","3","","0","3.00","","","13/08/2026","3.39","551","CTP0001346","","0.60"],["16","","1450164*","BEARING MA 0.20","0.27","CTP","14.00","24","6","4","0","6.00","","","13/08/2026","06.02","551","CTP0004711","","0.60"],["17","","1450165*","BEARING MA","0.27","CTP","9.00","9","3","","0","","","","13/08/2026","3.39","551","CTP0008777","","0.60"],["18","","1457390*","VALVE-INTA","0.18","CTP","16.00","30","6","8","0","32.00","","","13/08/2026","12.09","551","CTP0008037","","0.40"],["19","","1478211*","VALVE-EXH","0.23","CTP","24.00","24","6","","0","151.00","","","13/08/2026","17.47","551","CTP0008038","3","0.50"],["20","","1478220*","GUIDE-VALV","0.07","CTP","24.00","60","6","30","0","132.00","","","13/08/2026","01.07","551","CTP0008040","","0.16"],["21","","1504621*","CROWN AS. PISTON","1.72","CTP","6.00","12","6","","0","13.00","","","13/08/2026","62.00","551","CTP0017891","","3.80"],["22","07/05/23 12:22 JRS","1523952*","IMPELLER (4W0251)","0.36","CTP","6.00","10","1","3","0","13.00","","","13/08/2026","5.15","551","CTP0002014","","0.80"],["23","","1593137*","CAMBIA 3522150","6.26","CTP","","0","1","","0","","","","13/08/2026","0.00","551","CTP0008843","","13.80"],["24","","1614280*","VALVE INLET (1136180)","0.18","CTP","17.00","50","6","27","0","134.00","","","13/08/2026","9.62","551","CTP0000995","","0.40"],["25","","1632478*","SEAL-VALVE","0.05","CTP","54.00","100","24","22","0","455.00","","","13/08/2026","0.38","551","CTP0009798","3","0.10"],["26","","1639063*","INSERT VALVE INLET(1260453)","0.05","CTP","17.00","30","6","7","0","60.00","","","13/08/2026","2.48","551","CTP0005483","","0.11"],["27","","1687226*","PIN-PISTON(1013210) 316","0.73","CTP","15.00","24","6","3","0","29.00","","","13/08/2026","6.00","551","CTP0002999","","1.60"],["28","","1753234*","GASKET-CYL(4P2590)","0.91","CTP","3.00","6","1","2","0","1.00","","","13/08/2026","25.42","551","10.056.173","","2.00"],["29","07/05/23 12:22 JRS","1898777*","PUMP GP(1192924,2W8625)","2.72","CTP","","10","1","9","0","10.00","","","13/08/2026","125.13","551","CTP0003000","","6.00"],["30","04/09/24 10:27 NMM","1979277*","RING-INTME(1077630) 3126","0.05","CTP","19.00","30","6","5","0","49.00","","","13/08/2026","2.00","551","CTP0004324","","0.10"],["31","","1979353*","RING-INTME","0.05","CTP","7.00","40","6","27","0","39.00","","","13/08/2026","4.94","551","CTP0018119","","0.10"],["32","07/10/24 11:21 NMM","1979354*","RING-PISTON (1077566) 3126","0.05","CTP","20.00","36","6","10","0","37.00","","","13/08/2026","2.71","551","CTP0004325","","0.10"],["33","","1979386*","RING-PISTON(1325246) 3126","0.05","CTP","14.00","60","6","40","0","112.00","","","13/08/2026","4.50","551","CTP0002996","3","0.10"],["34","","1981845*","TURBO GP-B 1397741","16.33","CTP","","4","1","3","0","6.00","","","13/08/2026","368.60","551","CTP0002953","","36.00"],["35","","1W2715*","LOCK-RETAINER","0.00","CTP","48.00","64","24","","0","352.00","","","13/08/2026","0.12","551","10.040.480","","0.01"],["36","","2051293*","GASKET HEAD(1443450)","0.95","CTP","3.00","10","1","6","0","10.00","","","13/08/2026","15.33","551","CTP0003003","","2.10"],["37","","2124893*","BEARING-TH STD(7W9416,1077602) 3116","0.29","CTP","6.00","15","1","8","0","33.00","","","13/08/2026","14.55","551","CTP0000969","","0.64"],["38","","2133193*","ROD AS-CON","2.18","CTP","48.00","18","6","","0","18.00","","","13/08/2026","45.94","551","CTP0013166","1","4.80"],["39","","2223910*","SEAL GRP (1154120)","0.36","CTP","6.00","7","1","","0","19.00","","","13/08/2026","10.59","551","CTP0009033","","0.80"],["40","24/06/24 16:47 NMM","2246638*","BEARING ROD STD (7W9415)","0.15","CTP","39.00","48","6","3","0","117.00","","","13/08/2026","5.98","551","CTP0005237","","0.34"],["41","","2271200*","SLEEVE-INJ","0.09","CTP","5.00","48","6","37","0","119.00","","","13/08/2026","5.32","551","CTP0018513","3","0.20"],["42","07/05/23 12:22 JRS","2272911*","SLEEVE INJ","0.09","CTP","12.00","30","6","12","0","36.00","","","13/08/2026","4.58","551","CTP0008036","","0.20"],["43","","2295153*","BEARING-TH (7C6966 )","0.45","CTP","3.00","10","1","6","0","9.00","","","13/08/2026","15.04","551","CTP0002842","3","1.00"],["44","","2295154*","BEARING-TH","0.32","CTP","1.00","4","1","2","0","2.00","","","13/08/2026","14.55","551","CTP0008776","3","0.70"],["45","19/11/24 17:30 NMM","2382706*","RING-PISTO","0.05","CTP","","40","6","34","0","50.00","","","13/08/2026","3.58","551","CTP0018515","3","0.10"],["46","","2382716*","SKIRT-PIST (1077791 ) 3116","0.32","CTP","7.00","24","6","11","0","19.00","","","13/08/2026","11.15","551","CTP0004601","","0.70"],["47","","2457339*","SEAL GP-CS(1192921)","0.14","CTP","6.00","16","1","9","0","21.00","","","13/08/2026","4.50","551","CTP0008265","","0.30"],["48","","2613816*","GASKET-OIL (1154202)","0.41","CTP","","4","1","3","0","6.00","","","13/08/2026","11.23","551","CTP0008626","","0.90"],["49","19/11/24 17:30 NMM","2646157*","INSERT-VLV","0.05","CTP","14.00","48","12","22","0","96.00","","","13/08/2026","03.08","551","CTP0021698","3","0.10"],["50","","2M6471*","PLUG-CORE(5A6026)9S1343","0.05","CTP","22.00","20","2","","0","12.00","","","13/08/2026","0.53","551","CTP0011946","","0.10"],["51","","2W0027*","BUSHING ROD","0.03","CTP","5.00","24","6","13","0","93.00","","","13/08/2026","3.42","551","10.054.645","","0.06"],["52","","2W7213*","BEARING P/ 3116","0.05","CTP","13.00","50","6","31","0","65.00","","","13/08/2026","3.10","551","CTP0001089","3","0.10"],["53","","2W7566*","BEARING-SL","0.15","CTP","4.00","20","1","15","0","11.00","","","13/08/2026","6.73","551","CTP0004211","","0.33"],["54","","3522150*","PUMP AS-WA (1593137)","6.49","CTP","3.00","3","1","","0","11.00","","","13/08/2026","57.98","551","CTP0022086","","14.30"],["55","07/05/23 12:22 JRS","3522151*","PUMP GP-WA (7C4508)","7.26","CTP","5.00","6","1","","0","12.00","","","13/08/2026","60.48","551","CTP0022680","","16.00"],["56","","3537423*","KIT-BEARIN CAMBIA 5185437","0.59","CTP","","0","","","0","","","","18/12/2020","16.72","551","CTP0022613","","1.30"],["57","","4W7592*","GASKET","0.05","CTP","5.00","20","1","14","0","14.00","","","13/08/2026","0.77","551","CTP0002289","","0.10"],["58","","7C0111*","RETAINER 3116 / 3126","0.05","CTP","26.00","48","12","10","0","50.00","","","13/08/2026","0.22","551","CTP0000993","","0.10"],["59","07/05/23 12:22 JRS","7C1152*","GASKET","0.18","CTP","5.00","6","1","","0","26.00","","","13/08/2026","03.02","551","10.040.486","","0.40"],["60","","7C3901*","PIN PISTON","0.68","CTP","9.00","24","6","9","0","","","","13/08/2026","6.00","551","CTP0003388","","1.50"],["61","27/02/23 10:07 RFR","7C4273*","SPRING-VALVE","0.09","CTP","18.00","36","6","12","0","54.00","","","13/08/2026","2.30","551","10.040.464","","0.20"],["62","","7C6976*","BEARING CONN ROD 0.25MM","0.18","CTP","18.00","36","6","12","0","67.00","","","13/08/2026","10.00","551","CTP0002346","","0.40"],["63","","7C6977*","BRG-CON RO 0.50","0.18","CTP","17.00","12","6","","0","7.00","","","13/08/2026","5.63","551","CTP0003361","","0.40"],["64","","7E5213*","RING GRP.","0.14","CTP","26.00","48","6","16","0","31.00","","","13/08/2026","5.95","551","CTP0003455","","0.30"],["65","","7W6552*","GASKET","0.32","CTP","2.00","10","1","7","0","12.00","","","13/08/2026","6.28","551","CTP0003523","","0.70"],["66","","7W8065*","INSERT-VALVE (1696862)","0.05","CTP","6.00","24","6","12","0","36.00","","","13/08/2026","2.18","551","CTP0003373","","0.10"],["67","","7W9930*","BEARING-SL","0.05","CTP","2.00","20","1","17","0","20.00","","","13/08/2026","1.95","551","CTP0001040","","0.10"],["68","","9Y8848*","GUIDE VALVE (2W5358)","0.05","CTP","60.00","40","12","","0","120.00","","","13/08/2026","0.96","551","CTP0000937","","0.10"],["69","","CTP3116*","KIT GASKET COMPLET 3116","2.29","CTP","1.00","4","1","2","0","7.00","","","13/08/2026","112.81","551","CTP0007634","1","05.05"],["70","","CTP3126001A*","OUT OF FRAME O/H GASKET SET","4.99","CTP","","0","1","","0","","","","13/08/2026","0.00","551","CTP0028505","","11.00"]],"pie":"70    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=1936722591&single=true&output=csv","sigla":"3116","corto":"3116 · 3126 · C7","color":"#4d8cff","titulo":"Motor 3116 / 3126 / C7"},{"nombre":"MOTOR 3304 / 3306 ID/PC","gid":"552732054","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","02/09/24 12:31 NMM","1003652*","PLATE THRUST (7N9342)","0.15","CTP","26.00","50","","24","0","68.00","","","17/07/2025","8.20","553","CTP0001960","","0.32"],["2","02/09/24 11:18 NMM","1007860*","VALVE INLET (6N9915)","0.23","CTP","35.00","100","","65","0","99.00","","","11/07/2025","9.24","553","10.056.468","","0.50"],["3","","1044253*","LINE A. #3 (4P9383)","0.32","CTP","1.00","2","","1","0","3.00","","","12/04/2025","9.86","553","CTP0003384","","0.70"],["4","","1044254*","LINE A. #4 (4P9384)","0.27","CTP","1.00","10","","9","0","4.00","","","11/07/2025","10.41","553","CTP0000984","","0.60"],["5","19/11/24 17:29 NMM","1070265*","INSERT EX (2W4837)","0.05","CTP","4.00","60","","56","0","22.00","","","11/07/2025","4.75","553","CTP0003225","","0.10"],["6","02/09/24 11:53 NMM","1070268*","INSER VALVE IN (7N4448)","0.03","CTP","3.00","48","","45","0","36.00","","","10/07/2025","02.09","553","CTP0001564","","0.07"],["7","30/07/24 15:47 JRS","1487425*","GUIDE-VALVE (2P1262)","0.07","CTP","","300","","300","0","400.00","","","10/11/2025","1.12","553","10.052.148","","0.16"],["8","","1487455*","VALVE EXHAUST(6N9916)","0.18","CTP","59.00","48","","","0","94.00","","","11/07/2025","10.04","553","CTP0001748","","0.40"],["9","","1654262*","PISTON ( 1290338 )","2.31","CTP","18.00","8","","","0","18.00","","","09/09/2025","27.31","553","CTP0000510","","5.10"],["10","30/07/24 17:39 NMM","1727767*","PUMP GP-WT(7N5909,1550068)D6D","13.47","CTP","2.00","4","","2","0","14.00","","","29/11/2025","105.00","553","CTP0005806","","29.70"],["11","","1727775*","PUMP GP-WT","13.20","CTP","1.00","3","","2","0","4.00","","","25/08/2025","163.19","553","CTP0022462","","29.10"],["12","","1727776*","PUMP GP-WT","13.34","CTP","1.00","2","","1","0","5.00","","","06/08/2025","136.78","553","CTP0028291","","29.40"],["13","","1N3574*","CYL BLK G 3304","200.67","CTP","","0","","","0","2.00","","","13/04/2011","1,850.70","553","CTP0014312","","442.40"],["14","","1N3576*","CYL BLK G 3306(7N6550)","283.00","CTP","","0","","","0","1.00","","","","0.00","553","CTP0006834","","623.90"],["15","","1N4304*","CYLINDER HEAD","74.30","CTP","1.00","4","","3","0","10.00","","","25/11/2025","789.67","553","CTP0019757","","163.80"],["16","","1P1216*","MANIFOLD","14.65","CTP","2.00","6","","4","0","22.00","","","29/12/2025","157.00","553","CTP0002912","","32.30"],["17","27/02/23 10:07 RFR","1S9543*","RETAINER","0.05","CTP","3.00","48","","45","0","20.00","","","25/11/2025","0.96","553","10.004.410","","0.10"],["18","","1W5300*","ROTOCOIL A","0.05","CTP","88.00","48","","","0","152.00","","","13/11/2025","2.40","553","CTP0014537","","0.10"],["19","","1W5321*","INSERT","0.05","CTP","28.00","60","","32","0","78.00","","","07/01/2026","02.06","553","CTP0008881","","0.10"],["20","","2114321*","RING GRP.","0.23","CTP","8.00","48","","40","0","68.00","","","19/12/2025","9.55","553","CTP0000351","","0.50"],["21","","2323233*","BEARING MAIN STD (4W5738)","0.32","CTP","16.00","100","","84","0","173.00","","","25/08/2025","5.72","553","CTP0001969","","0.70"],["22","24/06/24 16:47 NMM","2A4429*","SEGURO DE VALVULA","0.05","CTP","200.00","100","","","0","793.00","","","13/11/2025","0.11","553","10.036.511","99","0.10"],["23","","2W1086*","COVER A.","6.53","CTP","","0","","","0","1.00","","","","0.00","553","CTP0000628","","14.40"],["24","","2W2621*","VALVE","0.20","CTP","14.00","24","","10","0","122.00","","","07/01/2026","9.51","553","CTP0007730","","0.44"],["25","","2W7458*","CAMBIA 3348389","81.65","CTP","","0","","","0","","","","","0.00","553","CTP0022290","","180.00"],["26","","3285572*","BEARING-RO (8N8220) 4W5739","0.27","CTP","23.00","90","","67","0","160.00","","","25/11/2025","5.34","553","CTP0020562","","0.60"],["27","","3348389*","CRANKSHAFT (2W7458)","112.49","CTP","","2","","2","0","13.00","","","25/11/2025","1,046.44","553","CTP0023090","","248.00"],["28","","3715941*","LINER (1105800)","5.58","CTP","52.00","24","","","0","86.00","","","08/10/2025","33.10","553","CTP0023014","","12.30"],["29","24/06/24 16:47 NMM","4N3281*","LINE A","0.21","CTP","1.00","3","","2","0","2.00","","","25/11/2025","6.64","553","CTP0007526","","0.47"],["30","","4N3282*","LINE A","0.27","CTP","4.00","5","","1","0","1.00","","","10/11/2025","6.76","553","CTP0011234","","0.60"],["31","","4N3283*","LINE A","0.23","CTP","","2","","2","0","2.00","","","10/11/2025","6.76","553","CTP0009486","","0.50"],["32","","4N3284*","LINES A","0.21","CTP","4.00","1","","","0","1.00","","","10/11/2025","6.61","553","CTP0010160","","0.46"],["33","","4N6859*","TURBO G","13.29","CTP","2.00","5","","3","0","7.00","","","06/08/2025","166.96","553","CTP0009074","","29.30"],["34","24/06/24 16:47 NMM","4N7692*","CRANKSHAFT","71.21","CTP","","2","","2","0","2.00","","","25/08/2025","649.90","553","CTP0014054","","157.00"],["35","07/05/23 12:22 JRS","4N7977*","SHAFT AS RH","6.80","CTP","2.00","10","","8","0","14.00","","","10/07/2025","78.42","553","CTP0011333","","15.00"],["36","","4N7978*","SHAFT AS","6.53","CTP","","10","","10","0","7.00","","","10/07/2025","70.64","553","CTP0011334","","14.40"],["37","","4P2942*","CAMSHAFT (8N3981) (7E9980,7C3863)","10.52","CTP","","3","","3","0","17.00","","","10/11/2025","135.80","553","CTP0000954","","23.20"],["38","","4P9381*","LINE A. #1 (4P9381)","0.23","CTP","2.00","10","","8","0","5.00","","","10/07/2025","6.53","553","CTP0000528","","0.50"],["39","","4P9382*","LINE A. #2 (4P9382)","0.32","CTP","1.00","10","","9","0","6.00","","","25/08/2025","08.04","553","CTP0003502","","0.70"],["40","07/05/23 12:22 JRS","4P9385*","LINE A.FUEL INJ.#5(8N6015","0.23","CTP","2.00","10","","8","0","7.00","","","07/01/2026","07.08","553","CTP0004071","","0.50"],["41","07/05/23 12:22 JRS","4P9386*","LINE A FUEL #6 (7C5556)","0.32","CTP","3.00","10","","7","0","7.00","","","25/08/2025","7.90","553","CTP0004072","","0.70"],["42","","4P9961*","LINE AS","0.27","CTP","4.00","10","","6","0","11.00","","","25/11/2025","5.81","553","CTP0010162","","0.60"],["43","","4P9962*","LINE AS","0.21","CTP","5.00","10","","5","0","11.00","","","25/11/2025","7.31","553","CTP0013379","","0.46"],["44","","4P9963*","LINE AS","0.20","CTP","1.00","12","","11","0","13.00","","","10/11/2025","5.94","553","CTP0010079","","0.45"],["45","","4P9964*","LINE AS","0.27","CTP","","10","","10","0","13.00","","","25/11/2025","7.31","553","CTP0013606","","0.60"],["46","","5M2667*","GASKET PRECOMB CHAMBER 4.93MM","0.05","CTP","5.00","100","","95","0","65.00","","","25/08/2025","0.45","553","10.001.960","","0.10"],["47","","5P8768*","KIT SEAL","0.01","CTP","16.00","25","","9","0","29.00","","","12/05/2025","1.68","553","10.036.738","","0.02"],["48","","5S6795*","CHAMBER","1.18","CTP","","50","","50","0","157.00","","","25/11/2025","15.71","553","CTP0003241","","2.60"],["49","","5S7218*","INSERT","0.05","CTP","7.00","36","","29","0","52.00","","","10/11/2025","1.86","553","CTP0008999","","0.10"],["50","","6I0923*","HOUSING AS","22.14","CTP","","0","","","0","","","","","0.00","553","CTP0014000","","48.80"],["51","07/05/23 12:22 JRS","6I1346*","PUMP GRP. OIL (4W2448)","10.70","CTP","24.00","12","","","0","43.00","","","13/11/2025","74.00","553","CTP0003359","","23.60"],["52","","6N8940*","PLATE THR (2P0716 )","0.09","CTP","4.00","20","","16","0","20.00","","","08/11/2024","3.58","553","CTP0002555","","0.20"],["53","02/09/24 12:11 NMM","7M4046*","BEARING SLEEVE(8H9654)","0.14","CTP","","52","","52","0","105.00","","","02/01/2026","3.77","553","10.003.737","","0.30"],["54","","7N0165*","CORE A OIL","4.17","CTP","6.00","6","","","0","14.00","","","13/11/2025","79.58","553","CTP0002737","","9.20"],["55","","7N2871*","LINE A","0.21","CTP","1.00","4","","3","0","3.00","","","17/07/2025","8.81","553","CTP0009057","","0.47"],["56","","7N2872*","LINE A","0.27","CTP","","4","","4","0","2.00","","","30/10/2024","7.54","553","CTP0004835","","0.60"],["57","","7N2874*","LINE A","0.27","CTP","1.00","2","","1","0","2.00","","","25/08/2025","7.67","553","CTP0007460","","0.60"],["58","","7N2875*","LINE A","0.24","CTP","1.00","2","","1","0","3.00","","","17/07/2025","7.54","553","CTP0016650","","0.53"],["59","","7N2876*","LINE A","0.24","CTP","2.00","4","","2","0","5.00","","","17/07/2025","8.81","553","CTP0007504","","0.53"],["60","28/08/24 12:25 NMM","7N3486*","MANIFOLD 3306","18.14","CTP","","4","","4","0","12.00","1.00","","25/11/2025","147.64","553","CTP0001131","","40.00"],["61","07/05/23 12:22 JRS","7N4651*","TURBO GROUP","09.03","CTP","","10","","10","0","25.00","","","07/01/2026","232.22","553","CTP0002747","","19.90"],["62","","7N7748*","TURBO G","13.52","CTP","","6","","6","0","10.00","","","16/12/2025","410.00","553","CTP0002745","","29.80"],["63","","7N7998*","PLATE BLOC","8.80","CTP","4.00","10","","6","0","7.00","","","24/11/2025","357.00","553","CTP0007396","","19.40"],["64","07/05/23 12:22 JRS","7N8021*","PLATE, BLO","06.08","CTP","","5","","5","0","40.00","","","25/11/2025","197.40","553","CTP0007002","","13.40"],["65","","7N9145*","GEAR FLYWHELL","4.45","CTP","3.00","12","","9","0","5.00","","","25/08/2025","23.07","553","CTP0000616","","9.80"],["66","","7N9146*","GEAR","4.94","CTP","1.00","1","","","0","1.00","","","07/01/2026","28.78","553","CTP0012096","","10.90"],["67","","7N9804*","PIN DELGADO DE PISTON","0.68","CTP","5.00","24","","19","0","10.00","","","25/08/2025","5.31","553","CTP0006760","","1.50"],["68","","7N9805*","PIN PISTON(8M6487)","0.91","CTP","","40","","40","0","31.00","","","07/01/2026","7.63","553","CTP0003759","","2.00"],["69","","7S3206*","SEAL CHAMBER ( 2S6971)","0.05","CTP","64.00","100","","36","0","140.00","","","12/05/2025","0.40","553","CTP0021861","","0.10"],["70","02/09/24 15:46 NMM","7S7144*","RESORTE VALVULA","0.09","CTP","9.00","100","","91","0","131.00","","","26/09/2025","1.31","553","10.004.578","","0.19"],["71","","8M1584*","SERVICE GRP (8N4697)","0.05","CTP","8.00","24","","16","0","7.00","","","09/09/2025","15.21","553","10.036.639","","0.10"],["72","","8N0702*","BEARING CONN ROD (7S9347)","0.05","CTP","18.00","50","","32","0","22.00","","","25/08/2025","3.33","553","10.004.108","","0.10"],["73","","8N0875*","VALVE EXH (5S6449,5S7232)","0.23","CTP","4.00","48","","44","0","88.00","","","10/11/2025","8.63","553","CTP0000525","","0.50"],["74","","8N1187*","CYLINDER HEAD (6N8120)","84.64","CTP","2.00","3","","1","0","6.00","","","11/07/2025","550.00","553","CTP0002772","","186.60"],["75","","8N1188*","CYLINDER HEAD G","59.51","CTP","4.00","3","","","0","3.00","","","10/10/2023","688.68","553","CTP0019960","","131.20"],["76","","8N1721*","ROD A","3.22","CTP","","10","","10","0","39.00","","","13/11/2025","55.99","553","CTP0000017","","7.10"],["77","","8N1849*","BEARING CONN ROD","0.05","CTP","8.00","50","","42","0","130.00","","","09/09/2025","3.10","553","10.001.348","","0.10"],["78","","8N1984*","ROD A-CONN","3.36","CTP","5.00","10","","5","0","13.00","","","20/12/2023","55.30","553","CTP0005065","","7.40"],["79","","8N1985*","BRG-CONN R","0.05","CTP","20.00","24","","4","0","18.00","","","29/04/2024","2.54","553","CTP0003358","","0.10"],["80","","8N3182*","BODY A-PISTON (7N9183)","2.13","CTP","6.00","12","","6","0","29.00","","","11/07/2025","27.20","553","10.036.691","","4.70"],["81","","8N4110*","BEARING SLEEVE","0.09","CTP","5.00","20","","15","0","35.00","","","06/08/2025","2.25","553","10.001.825","","0.20"],["82","","8N6184*","PAN-OIL","10.12","CTP","","0","","","0","","","","10/02/2022","253.61","553","CTP0017409","","22.30"],["83","","8N6796*","CULATA INYEC DIREC","88.27","CTP","1.00","3","","2","0","8.00","","","27/03/2025","590.00","553","CTP0019961","","194.60"],["84","","8N7005*","NOZZLE A(8N7001)","0.18","CTP","60.00","24","","","0","2.00","","","13/11/2025","39.30","553","CTP0002158","","0.40"],["85","","8N8221*","BEARING ROD 0.10","0.45","CTP","5.00","50","","45","0","52.00","","","17/07/2025","4.86","553","CTP0001798","","1.00"],["86","","8N8222*","BEARING ROD 0.20","0.32","CTP","15.00","48","","33","0","70.00","","","29/04/2024","4.24","553","FP0000051","","0.70"],["87","","8N8223*","BEARING ROD 0.30","0.32","CTP","49.00","36","","","0","29.00","","","07/11/2023","7.87","553","CTP0002639","","0.70"],["88","","8N8225*","BEARING MAIN 0.10","0.27","CTP","","100","","100","0","40.00","","","06/08/2025","5.10","553","CTP0001800","","0.60"],["89","","8N8226*","BEARING MAIN 0.20","0.27","CTP","9.00","27","","18","0","118.00","","","22/02/2025","8.25","553","FP0000054","","0.59"],["90","","8N8227*","BEARING MAIN 0.30","0.32","CTP","68.00","48","","","0","47.00","","","04/02/2024","09.04","553","CTP0002464","","0.70"],["91","","8N9733*","LINE A","0.32","CTP","1.00","4","","3","0","7.00","","","09/01/2023","5.72","553","CTP0007501","","0.70"],["92","","8S2389*","BODY","0.14","CTP","20.00","24","","4","0","34.00","","","07/01/2026","05.08","553","CTP0002054","","0.30"],["93","","8S6045*","SHIM","0.05","CTP","4.00","10","","6","0","4.00","","","12/05/2025","1.57","553","CTP0004313","","0.10"],["94","07/05/23 12:22 JRS","8S6046*","SHIM","0.01","CTP","78.00","30","","","0","16.00","","","12/08/2024","2.50","553","CTP0001712","","0.03"],["95","","8S6047*","SHIM","0.05","CTP","7.00","10","","3","0","6.00","","","20/12/2023","1.68","553","CTP0004314","","0.10"],["96","","8S6048*","SHIM LINER .0150 THICK","0.05","CTP","6.00","8","","2","0","2.00","","","20/12/2023","1.96","553","10.002.035","","0.10"],["97","","8S6049*","SHIM LINER .0297 THICK","0.01","CTP","25.00","24","","","0","6.00","","","20/12/2023","2.54","553","CTP0002634","","0.03"],["98","","9H4015*","RETAINER PISTON PIN","0.05","CTP","59.00","50","","","0","60.00","","","03/09/2013","0.46","553","10.003.083","","0.10"],["99","","9S3068*","RING GRP. (7S9404)","0.09","CTP","4.00","50","","46","0","54.00","","","17/11/2025","9.31","553","CTP0000221","","0.20"],["100","07/05/23 12:22 JRS","9Y1723*","CAMSHAFT W/O GEAR (7C3861- 1W1231)","8.44","CTP","","4","","4","0","11.00","","","07/01/2026","127.26","553","CTP0000658","","18.60"],["101","","9Y2991*","BEARING SLEEVE (5S6419)","0.09","CTP","4.00","30","","26","0","48.00","","","25/08/2025","3.72","553","CTP0000103","","0.20"],["102","","9Y2992*","BEARING ( 5S6420 )","0.18","CTP","3.00","30","","27","0","25.00","","","09/09/2025","5.45","553","CTP0002470","","0.40"],["103","","LK3182*","LINER KIT CYL","","CTP","","","","","0","","","","","0.00","553","CTP0029109","",""]],"pie":"103    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=552732054&single=true&output=csv","sigla":"3304","corto":"3304 · 3306 ID/PC","color":"#c084fc","titulo":"Motor 3304 / 3306 ID/PC"},{"nombre":"MOTOR C9","gid":"1882503845","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","1512939*","BEARING MAIN STD C-9","0.32","CTP","21.00","35","","14","0","22.00","","","27/03/2025","9.00","547","CTP0013682","99","0.70"],["2","","1608194*","BEARING","0.11","CTP","18.00","18","","","0","31.00","","","25/08/2025","7.50","547","CTP0018511","","0.24"],["3","","1608199*","ROD AS","3.49","CTP","3.00","12","","9","0","13.00","","","17/07/2025","62.30","547","CTP0025703","","7.70"],["4","","1613398 *","MANIFOLD-E","2.68","CTP","","0","","","0","2.00","","","","0.00","547","CTP0021885","","5.90"],["5","","1663648*","PIN-PISTON","1.00","CTP","18.00","12","","","0","18.00","","","22/02/2025","7.95","547","CTP0015074","","2.20"],["6","","1670024*","SEAL-LINER","0.05","CTP","6.00","30","","24","0","48.00","6.00","","25/11/2025","2.28","547","CTP0014589","","0.10"],["7","","1670172","MANIFOLD-E","4.13","CAT","","0","","","0","1.00","","","","0.00","547","CAT0041880","","9.10"],["8","","1743847","PAN - OIL","18.14","CAT","","0","","","0","","","","","0.00","547","CAT0034251","","40.00"],["9","","1906115*","SPRING-VAL","0.05","CTP","10.00","20","","10","0","23.00","","","15/01/2024","01.06","547","CTP0012852","","0.10"],["10","","1906117*","SPRING-VAL","0.09","CTP","10.00","24","","14","0","23.00","","","15/01/2024","1.29","547","CTP0012851","5","0.20"],["11","07/05/23 12:22 JRS","2035805*","BEARING (LEVAS) C-9","0.09","CTP","10.00","8","","","0","25.00","2.00","","22/02/2025","3.23","547","CTP0017402","","0.20"],["12","","2036090*","BEARING (LEVAS) C-9","0.18","CTP","102.00","16","","","0","11.00","","","16/01/2025","2.87","547","CTP0018244","","0.40"],["13","","2037775 *","MANIFOLD","4.54","CTP","","0","","","0","1.00","","","","0.00","547","CTP0021886","","10.00"],["14","27/02/23 10:27 RFR","2112134*","RETAINER-S","0.05","CTP","46.00","48","","2","0","85.00","","","01/07/2024","1.80","547","CTP0013697","","0.10"],["15","07/05/23 12:22 JRS","2128917*","INSERT VALVE EX C-9","0.05","CTP","","62","","62","0","109.00","","","22/02/2025","5.14","547","CTP0017100","","0.10"],["16","24/06/24 16:47 NMM","2133190*","BEARING ROD STD (1608172)","0.23","CTP","24.00","42","6","12","0","26.00","","","13/08/2026","6.00","547","CTP0014006","","0.50"],["17","","2165586*","BEARING (2W7211 )","0.14","CTP","6.00","20","1","13","0","32.00","","","13/08/2026","3.24","547","CTP0002843","","0.30"],["18","","2370229","FLYWHEEL A","62.05","CAT","","","","","0","","","","","0.00","547","CAT0055076","","136.80"],["19","","2418382*","CAMBIA AL 4901726","0.18","CTP","","0","","","0","","","","18/02/2022","11.52","547","CTP0018354","","0.40"],["20","","2418383*","CAMBIA 4901723","0.18","CTP","","0","","","0","1.00","","","21/02/2022","27.35","547","CTP0018355","","0.40"],["21","","2418384*","RETAINER","0.05","CTP","","30","","30","0","25.00","","","22/02/2025","2.17","547","CTP0013741","","0.10"],["22","","2418385*","SPRING-VAL","0.09","CTP","49.00","36","","","0","25.00","","","07/01/2026","1.44","547","CTP0019986","","0.20"],["23","","2418386*","SPRING-VAL","0.05","CTP","44.00","12","","","0","13.00","","","07/01/2026","1.26","547","CTP0019987","","0.10"],["24","","2418388*","INSERT VALVE IN C-9","0.05","CTP","12.00","24","","12","0","85.00","","","22/02/2025","2.54","547","CTP0017101","","0.10"],["25","","2420673*","CAMSHAFT A","19.01","CTP","1.00","2","","1","0","11.00","","","07/01/2026","619.00","547","CTP0025256","","41.90"],["26","","2453261","HOUSING-FR","15.56","CAT","","0","","","0","","","","","0.00","547","CAT0046113","","34.30"],["27","","2463150*","PLATE-THRU","0.14","CTP","6.00","10","","4","0","10.00","","","01/07/2024","12.41","547","CTP0014938","","0.30"],["28","","2525165*","TURBO GP-B","17.24","CTP","","2","","2","0","5.00","","","26/04/2024","606.25","547","CTP0023437","","38.00"],["29","","2528439*","HEAD GP-CY C9","135.62","CTP","","0","","","0","","","","","0.00","547","CTP0024965","","299.00"],["30","","2595829*","GUIDE VALVE (IN)","0.09","CTP","24.00","100","","76","0","133.00","","","10/07/2025","1.12","547","CTP0018512","","0.20"],["31","07/05/23 12:22 JRS","2604856*","GUIDE VALVE (EX)","0.09","CTP","","74","","74","0","73.00","","","23/05/2025","1.24","547","CTP0014694","","0.20"],["32","","2611544","CRANKSHAFT C9","105.69","CAT","","0","","","0","1.00","","","","0.00","547","CAT0042157","","233.00"],["33","","2637825","COVER GP-M","3.13","CAT","","0","","","0","","","","","0.00","547","CAT0023534","","6.90"],["34","","2821771*","BEARING-MA","0.32","CTP","14.00","14","","","0","35.00","","","08/09/2022","10.34","547","CTP0021758","5","0.70"],["35","","2821772*","BEARING-MA 0.50.","0.32","CTP","","0","","","0","14.00","","","27/11/2025","19.50","547","CTP0020848","5","0.70"],["36","","2939367*","CORE AS-OI","8.12","CTP","1.00","2","","1","0","3.00","","","11/07/2025","140.76","547","CTP0023142","","17.90"],["37","","3190678*","PUMP GP","11.97","CTP","","0","","","0","","","","","0.00","547","CTP0017998","","26.40"],["38","07/05/23 12:22 JRS","3247380*","SKIRT-PIST","0.45","CTP","10.00","12","","2","0","24.00","","","01/07/2024","11.89","547","CTP0016103","","1.00"],["39","07/05/23 12:22 JRS","3318905*","PUMP AS.-E","3.22","CTP","5.00","4","","","0","10.00","","","10/07/2025","124.94","547","CTP0021266","5","7.10"],["40","","3472380*","RING TOP (1979392)","0.05","CTP","6.00","24","","18","0","18.00","","","08/10/2025","5.10","547","CTP0021540","5","0.12"],["41","","3472381*","RING-INTERM (1613424)","0.06","CTP","6.00","24","","18","0","18.00","","","08/10/2025","3.99","547","CTP0021539","","0.13"],["42","","3472382*","RING- OIL PISTON (1687211)","0.05","CTP","16.00","24","","8","0","24.00","","","08/11/2024","10.90","547","CTP0021599","5","0.10"],["43","","3502536*","PUMP WATER","10.89","CTP","3.00","4","","1","0","13.00","","","08/10/2025","99.89","547","CTP0017375","","24.00"],["44","07/05/23 12:22 JRS","3851657*","CROWN AS PISTON (2651401) C-9","1.68","CTP","5.00","12","","7","0","11.00","","","01/07/2024","78.40","547","CTP0022458","","3.70"],["45","","3851657LK*","LINER KIT C9","7.00","CTP","","6","","6","0","6.00","","","09/09/2025","157.00","547","CTP0029023","","15.43"],["46","","3879434","INJECTOR G-FUEL (3282573)","2.00","CAT","","6","","6","0","","","","25/07/2024","1,423.26","547","CAT0035750","","4.40"],["47","","4695312*","LINER (1903562)","3.49","CTP","15.00","24","","9","0","54.00","","","27/03/2025","26.45","547","CTP0024065","","7.70"],["48","","4881675","BLOCK AS-CYLINDER (2298568)","","CTP","","","","","0","","","","","0.00","547","CTP0030337","",""],["49","","4901726*","VALVE INTA (2418382)","0.18","CTP","12.00","24","","12","0","110.00","","","27/11/2025","13.42","547","CTP0026814","","0.40"],["50","","4N2514*","GEAR","5.26","CTP","","0","","","0","1.00","","","04/04/2014","50.93","547","CTP0004246","","11.60"],["51","27/02/23 10:08 RFR","7X2908*","RING","0.05","CTP","24.00","12","","","0","24.00","","","26/09/2025","0.54","547","CTP0015070","","0.10"]],"pie":"51    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=1882503845&single=true&output=csv","sigla":"C9","corto":"C9","color":"#38bdf8","titulo":"Motor C9"},{"nombre":"MOTOR C15","gid":"1488669216","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","1227375*","GUIDE","0.08","CTP","12.00","70","","58","0","192.00","","","10/11/2025","1.20","548","CTP0006343","","0.17"],["2","","1330125*","CORE AS","10.30","CTP","","0","","","0","","","","06/12/2017","189.31","548","CTP0021175","","22.70"],["3","","1333359*","MANIFOLD-EXHAUST","3.20","CTP","","0","","","0","","","","","0.00","548","CTP0026293","","07.06"],["4","","1503136","COVER AS-V","2.90","CAT","","0","","","0","","","","","0.00","548","CAT0047381","","6.40"],["5","","1614113*","PUMP GP-EO","10.07","CTP","3.00","3","","","0","7.00","","","20/11/2024","181.30","548","CTP0013108","","22.20"],["6","27/02/23 10:09 RFR","1644187*","RING-PSTN-","0.09","CTP","17.00","20","","3","0","30.00","","","25/07/2025","6.88","548","CTP0015010","","0.20"],["7","","1807350*","PIN-PISTON","1.68","CTP","5.00","6","","1","0","7.00","","","16/01/2025","18.11","548","CTP0020652","","3.70"],["8","","1862001*","ROTOCOIL A","0.05","CTP","44.00","24","","","0","72.00","4.00","","10/11/2025","2.62","548","CTP0009678","","0.10"],["9","","1979322*","COD DUPLICADO","8.26","CTP","","0","","","0","6.00","","","01/07/2024","36.00","548","10.062.000","","18.20"],["10","","2113122*","SPRING-VAL","0.09","CTP","72.00","48","","","0","25.00","","","07/01/2026","1.41","548","CTP0016685","","0.20"],["11","","2165582*","BEARING-SL","0.22","CTP","14.00","14","","","0","42.00","","","10/11/2025","11.11","548","CTP0006340","","0.48"],["12","","2219360 USADO","CRANKSHAFT USADO C15","217.72","CAT","","","","","0","","","","","0.00","548","CAT0048278","","479.98"],["13","","2230533","PLATE","18.96","CAT","","","","","0","","","","","0.00","548","CAT0055149","","41.80"],["14","","2237263*","HEAD AS","228.52","CTP","1.00","1","","","0","6.00","","","01/07/2024","1,850.00","548","CTP0021512","","503.80"],["15","","2243245*","ROD AS","5.99","CTP","","0","","","0","","","","","0.00","548","CTP0024781","","13.20"],["16","","2265561*","INSERT-VAL","0.05","CTP","12.00","12","","","0","62.00","","","02/10/2025","8.83","548","CTP0016686","","0.10"],["17","","2296259*","BEARING","0.27","CTP","12.00","10","","","0","6.00","","","01/07/2024","9.00","548","CTP0020654","","0.60"],["18","","2377580","COVER-VALV","2.90","CAT","","0","","","0","","","","","0.00","548","CAT0047382","","6.40"],["19","","2380294*","RING-PISTO","0.09","CTP","11.00","20","","9","0","12.00","","","16/01/2025","10.77","548","CTP0019760","","0.20"],["20","","2388683*","TURBO GRP (3808711)","38.78","CTP","","1","","1","0","","","","25/07/2025","754.59","548","CTP0021304","","85.50"],["21","27/02/23 10:18 RFR","2476130*","RING-PISTO","0.05","CTP","11.00","20","","9","0","19.00","","","03/02/2025","10.40","548","CTP0021247","","0.10"],["22","","2479908*","SPRING-VAL","0.14","CTP","72.00","24","","","0","49.00","","","07/01/2026","3.32","548","CTP0023089","","0.30"],["23","","2502940*","RETAINER-P","0.05","CTP","","0","","","0","15.00","","","","0.00","548","CTP0020653","","0.10"],["24","","2613450*","BEARING-RO","0.41","CTP","11.00","18","","7","0","40.00","","","03/10/2024","21.87","548","CTP0020655","","0.90"],["25","24/06/24 16:47 NMM","2803979*","INSERT-VAL","0.05","CTP","28.00","24","","","0","62.00","","","25/11/2025","3.78","548","CTP0024745","","0.10"],["26","","3327298*","CAMSHAFT C15","33.34","CTP","1.00","1","","","0","1.00","","","23/05/2025","579.57","548","CTP0028611","","73.50"],["27","","3367595","MANIFOLD-E","6.26","CAT","","","","","0","","","","","0.00","548","CAT0055091","","13.80"],["28","07/05/23 12:22 JRS","3520211*","PUMP GP-WA","16.65","CTP","1.00","2","","1","0","4.00","","","17/09/2024","152.54","548","CTP0018752","","36.70"],["29","","3627866","FLYWHEEL A","71.35","CAT","","","","","0","","","","","0.00","548","CAT0055150","","157.30"],["30","","3740750*","INJECTOR G (10R3264)","2.68","CTP","","0","","","0","1.00","","","","0.00","548","CTP0025701","","5.90"],["31","24/06/24 16:47 NMM","3848612*","PUMP GP-F","2.41","CTP","","2","","2","0","7.00","","","25/11/2025","189.15","548","CTP0023215","","5.31"],["32","","3889354*","BODY AS-PI","4.31","CTP","4.00","5","","1","0","","","","01/07/2024","163.00","548","CTP0024259","","9.50"],["33","","4907198*","VALVE-INTAKE","0.23","CTP","16.00","24","","8","0","84.00","","","25/11/2025","9.51","548","CTP0026128","","0.50"],["34","","4907200*","VALVE EXHAUST (1537024)","0.23","CTP","12.00","24","","12","0","72.00","","","10/11/2025","24.96","548","CTP0028298","","0.50"],["35","","6I4421*","PLATE SPAC","8.62","CTP","","1","","1","0","2.00","","","17/07/2025","216.00","548","CTP0023088","","19.00"]],"pie":"35    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=1488669216&single=true&output=csv","sigla":"C15","corto":"C15","color":"#f5a623","titulo":"Motor C15"},{"nombre":"MOTOR 3406","gid":"575456819","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","1007408*","CAMSHAFT A","23.36","CTP","","1","","1","0","5.00","","","26/09/2025","349.20","552","CTP0002350","","51.50"],["2","31/07/24 12:00 JRS","1007562*","NOZZLE","0.27","CTP","6.00","6","","","0","","","","03/03/2025","80.81","552","CTP0011818","","0.60"],["3","","1028608*","MANIFOLD","5.35","CTP","","0","","","0","","","","17/10/2016","40.48","552","CTP0019347","","11.80"],["4","","1045283*","MANIFOLD","9.12","CTP","","0","","","0","","","","17/10/2016","94.75","552","CTP0016220","","20.10"],["5","","1105096*","HEAD A.CYL(7W0007) P-D8N D8R","150.00","CTP","","2","","2","0","","","","17/12/2009","690.00","552","CTP0006832","","330.70"],["6","","1105097*","HEAD AS","129.27","CTP","","0","","","0","","","","08/06/2017","952.79","552","CTP0023578","","285.00"],["7","","1152367*","VALVE EXHA(1W3860,1061111","0.23","CTP","36.00","24","","","0","24.00","","","25/11/2025","9.70","552","10.041.868","99","0.50"],["8","","1152368*","VALVE INLE","0.23","CTP","24.00","24","","","0","60.00","","","10/11/2025","8.94","552","CTP0002917","","0.50"],["9","","1167885*","PAN OIL","11.52","CTP","","0","","","0","","","","","0.00","552","CTP0013942","","25.40"],["10","","1168154*","PISTON AS D8R","2.90","CTP","1.00","5","","4","0","6.00","","","18/12/2020","61.75","552","CTP0004749","","6.40"],["11","","1168154LK*","LINER KIT D8R","13.15","CTP","","12","","12","0","12.00","","","09/09/2025","139.68","552","CTP0026412","","29.00"],["12","","1317123*","BEARING(4N0343,7N2483)","0.27","CTP","7.00","4","","","0","4.00","","","30/12/2024","3.83","552","10.049.485","","0.60"],["13","","1609874*","GASKET KIT SINGLE CYL (5P8057)","0.05","CTP","36.00","24","","","0","63.00","","","25/07/2025","4.66","552","CTP0003146","","0.10"],["14","","1614112*","PUMP OIL(4N4294,4N0735)","14.65","CTP","","2","","2","0","1.00","","","23/05/2025","460.00","552","CTP0001143","4","32.30"],["15","","1737188*","GUIDE VALV.(4N2803/1227374)","0.09","FP","76.00","100","","24","0","262.00","24.00","","12/12/2025","1.38","552","FP0000299","4","0.20"],["16","07/05/23 12:22 JRS","1737188*","GUIDE VALV.(4N2803/1227374)","0.11","CTP","24.00","100","","76","0","160.00","","","10/11/2025","1.21","552","CTP0002288","","0.24"],["17","","1795922*","TURBO GP-B","25.85","CTP","","0","","","0","","","","25/07/2025","684.43","552","CTP0015190","","57.00"],["18","","1917941*","LINE AS-FUEL # 1 (4P9661)","0.23","CTP","1.00","10","","9","0","6.00","","","10/07/2025","6.95","552","CTP0001028","","0.50"],["19","","1917942*","LINE AS-FUEL # 2 (4P9662)","0.23","CTP","1.00","10","","9","0","7.00","","","10/11/2025","6.83","552","CTP0008464","","0.50"],["20","","1917943*","LINE AS-FUEL # 3 (4P9663)","0.18","CTP","3.00","8","","5","0","10.00","","","12/04/2025","6.95","552","CTP0000960","","0.40"],["21","","1917944*","LINE AS-FU # 4 (4P9664)","0.23","CTP","1.00","10","","9","0","11.00","","","10/11/2025","6.96","552","CTP0001029","","0.51"],["22","","1917945*","LINE AS-FU # 5 (4P9665)","0.27","CTP","1.00","20","","19","0","8.00","","","30/10/2024","6.89","552","CTP0002416","","0.60"],["23","","1917946*","LINE AS-FU # 6 (4P9666)","0.27","CTP","1.00","20","","19","0","8.00","","","30/10/2024","6.82","552","CTP0007181","","0.60"],["24","","1979322*","LINER(4N1627,2W6000)","8.26","CTP","5.00","36","","31","0","87.00","","","07/01/2026","46.86","552","CTP0005111","","18.20"],["25","","1W1469","HOUSING","27.31","CAT","","0","","","0","","","","","0.00","552","10.034.909","","60.20"],["26","","1W5283*","INSERT EXH","0.02","CTP","","20","","20","0","18.00","","","12/05/2025","3.78","552","10.040.920","","0.05"],["27","02/09/24 12:45 NMM","1W8922*","RING G","0.18","CTP","18.00","30","","12","0","12.00","","","08/04/2025","14.84","552","CTP0001397","","0.40"],["28","27/02/23 10:18 RFR","2531752*","PLATE-THRUST (7E9262)","0.18","CTP","14.00","10","","","0","37.00","","","16/01/2025","13.10","552","CTP0012204","","0.40"],["29","","2W9750","FLYWHEEL A","60.46","CAT","","0","","","0","","","","","0.00","552","CAT0012012","","133.30"],["30","","3178766*","BEARING MAIN STD (4W5492)","0.68","CTP","7.00","21","","14","0","63.00","","","22/02/2025","13.92","552","CTP0013895","4","1.50"],["31","","3285573*","BEARING-RO (217-0578)","0.37","CTP","6.00","6","","","0","18.00","","","25/11/2025","12.73","552","CTP0013894","","0.82"],["32","","3520203*","PUMP GP-WA","17.92","CTP","2.00","6","","4","0","3.00","","","23/05/2025","149.80","552","CTP0020091","","39.50"],["33","","4N0685*","BEARING","0.14","CTP","3.00","12","","9","0","36.00","","","16/01/2025","3.60","552","10.041.853","","0.30"],["34","","4N5893*","INSERT INTAKE","0.03","CTP","35.00","18","","","0","70.00","","","07/01/2026","2.23","552","10.024.227","","0.07"],["35","","4N6658*","BEARING","0.23","CTP","5.00","5","","","0","6.00","","","29/04/2024","05.08","552","10.036.671","","0.50"],["36","","4P8495*","BEARING SLEEVE (8N2018)","0.18","CTP","39.00","12","","","0","32.00","","","16/12/2024","09.08","552","10.053.666","","0.40"],["37","","4W2471*","SPRING","0.14","CTP","72.00","48","","","0","92.00","","","25/11/2025","4.36","552","CTP0017152","","0.30"],["38","","4W2474*","ROTOCOIL AS","0.05","CTP","20.00","48","","28","0","76.00","","","17/11/2025","03.01","552","10.039.846","","0.10"],["39","","4W3897","BOMBA DE INJECCION","0.00","CAT","","0","","","0","","","","","0.00","552","CAT0038385","","0.00"],["40","","4W5698*","BEARING MAIN 0.25","0.59","CTP","14.00","7","","","0","21.00","","","16/01/2025","16.31","552","10.049.066","","1.30"],["41","","4W5699*","BEARING-MAIN 0.50","0.73","CTP","","7","","7","0","26.00","","","25/11/2025","16.45","552","CTP0006402","","1.60"],["42","","6I1453*","CRANKSHAFT A (4P4334)","167.38","CTP","","0","","","0","1.00","","","24/01/2014","2,528.16","552","CTP0005308","","369.00"],["43","","6I2981*","PLATE BLOCK","11.52","CTP","2.00","1","","","0","2.00","","","06/08/2025","204.70","552","CTP0008824","","25.40"],["44","","7C3039*","CORE OIL (4W6039,2W1008)","9.34","CTP","2.00","3","","1","0","2.00","","","25/08/2025","310.56","552","CTP0003156","","20.60"],["45","","7E0330","COVER","03.04","CAT","","0","","","0","","","","","0.00","552","10.052.295","","6.70"],["46","","7E0558*","BEARING ROD 0.25","0.45","CTP","7.00","12","","5","0","13.00","","","16/01/2025","11.30","552","CTP0006602","","1.00"],["47","","7E0559*","BEARING RO 0.50 3406","0.45","CTP","","6","","6","0","6.00","","","12/05/2025","11.03","552","CTP0003362","","1.00"],["48","06/05/23 11:52 JRS","7E5665*","RETAINER(8N7295)","0.00","CTP","8.00","10","","2","0","37.00","","","25/08/2025","1.55","552","10.038.878","","0.01"],["49","","7E5996*","ROD AS","5.58","CTP","","0","","","0","9.00","","","30/01/2007","85.78","552","CTP0002535","","12.30"],["50","","7W0843","PAN OIL","3.72","CAT","","0","","","0","","","","","0.00","552","CAT0010515","","8.20"],["51","","7W0844*","PAN-OIL","6.53","CTP","","0","","","0","","","","","0.00","552","CTP0024283","","14.40"],["52","27/02/23 10:16 RFR","8N1608*","PIN","1.32","CTP","6.00","12","","6","0","6.00","","","19/11/2025","18.00","552","CTP0001306","","2.90"]],"pie":"52    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=575456819&single=true&output=csv","sigla":"3406","corto":"3406","color":"#fb7185","titulo":"Motor 3406"}];
+const HOJAS = [{"nombre":"MOTOR 3054 / 3054C / C4.4 / C6","gid":"271455830","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","0365802*","BUSHING","0.14","CTP","2.00","4","1","1","0","8.00","","","13/08/2026","3.60","549","CTP0006425","","0.30"],["2","","105RS*","LINER..","02.05","CTP","","","4","","0","","","","13/08/2026","0.00","549","CTP0029397","","4.53"],["3","","1111815*","LINER","1.22","CTP","16.00","12","4","","0","22.00","","","13/08/2026","12.65","549","CTP0013938","","2.70"],["4","","1521390*","PISTON AS PIN Y SEGURO","1.86","CTP","4.00","4","4","","0","16.00","","","13/08/2026","25.00","549","CTP0013939","","4.10"],["5","","1850882*","GUIDE-IN VAL","0.05","CTP","56.00","100","8","36","0","71.00","","","13/08/2026","0.73","549","CTP0010960","","0.10"],["6","","2255495*","VALVE-INLE","0.18","CTP","14.00","24","4","6","0","41.00","","","13/08/2026","5.11","549","CTP0018339","","0.40"],["7","","2255499*","VALVE EXHA","0.14","CTP","18.00","12","4","","0","38.00","","","13/08/2026","8.75","549","CTP0018590","","0.30"],["8","","2257781*","BEARING SE","0.45","CTP","14.00","10","1","","0","20.00","","","13/08/2026","13.50","549","CTP0014998","","1.00"],["9","","2258329*","PUMP AS-EN","3.36","CTP","6.00","8","1","1","0","6.00","","","13/08/2026","69.00","549","CTP0021520","","7.40"],["10","","2526438*","SEAL-INLET","0.05","CTP","24.00","45","4","17","0","30.00","","","13/08/2026","1.17","549","CTP0017054","","0.10"],["11","","2543954*","SEAL-EXH V","0.05","CTP","4.00","16","4","8","0","48.00","","","13/08/2026","1.20","549","CTP0018340","","0.10"],["12","","2722232*","GASKET KT-","1.40","CTP","1.00","4","1","2","0","2.00","","","13/08/2026","59.74","549","CTP0022136","","03.09"],["13","","2767478*","BUSHING","0.09","CTP","4.00","12","4","4","0","12.00","","","13/08/2026","3.14","549","CTP0021436","","0.20"],["14","","2775156*","KIT-GASKET","01.04","CTP","3.00","2","1","","0","3.00","","","13/08/2026","50.73","549","CTP0020596","","2.30"],["15","30/09/24 15:22 NMM","3096678*","VALVE-INLE","0.09","CTP","36.00","40","8","","0","99.00","","","13/08/2026","3.00","549","CTP0017734","","0.20"],["16","","3109269*","PISTON KIT C4.4","02.04","CTP","4.00","3","4","","0","8.00","","","13/08/2026","58.06","549","CTP0021521","","4.50"],["17","","3229663*","INSERT-VAL","0.05","CTP","12.00","16","4","","0","48.00","","","13/08/2026","3.78","549","CTP0015000","","0.10"],["18","","3296655*","INSERT-INL","0.05","CTP","12.00","24","4","8","0","36.00","","","13/08/2026","2.14","549","CTP0014999","","0.10"],["19","","3399637*","VALVE-EXHA","0.09","CTP","24.00","38","8","6","0","82.00","","","13/08/2026","4.64","549","CTP0020568","","0.20"],["20","","3537427*","KIT-BEARIN","0.68","CTP","2.00","3","1","","0","11.00","","","13/08/2026","19.60","549","CTP0021124","","1.50"],["21","07/05/23 12:22 JRS","3603986*","KIT-BEARIN","0.41","CTP","2.00","4","2","","0","11.00","","","13/08/2026","22.03","549","CTP0021992","","0.90"],["22","","3668853*","BEARING","0.14","CTP","8.00","10","1","1","0","4.00","","","13/08/2026","4.40","549","CTP0022610","","0.30"],["23","","3770399*","VALVE SEAT","0.05","CTP","16.00","20","8","","0","75.00","","","13/08/2026","02.06","549","CTP0022981","","0.10"],["24","","3770400*","VALVE SEAT","0.05","CTP","12.00","18","8","","0","74.00","","","13/08/2026","3.00","549","CTP0022982","","0.10"],["25","","3802073*","GUIDE-VALV","0.05","CTP","24.00","60","16","20","0","137.00","","","13/08/2026","1.93","549","CTP0022980","","0.10"],["26","","5081898*","PISTON GP","02.04","CTP","","4","4","","0","5.00","","","13/08/2026","50.29","549","CTP0026460","","4.50"],["27","","5185437*","KIT-BEARING STD (2257772)","0.59","CTP","4.00","2","2","","0","15.00","","","13/08/2026","24.83","549","CTP0027163","","1.30"],["28","","5185891*","KIT WASHER STD (0329091, 0329090)","0.09","CTP","6.00","6","2","","0","30.00","","","13/08/2026","5.72","549","CTP0026601","","0.20"]],"pie":"28    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=271455830&single=true&output=csv","sigla":"3054","corto":"3054 · 3054C · C4.4 · C6","color":"#5b4bd6","titulo":"Motor 3054 / 3054C / C4.4 / C6"},{"nombre":"MOTOR 3066","gid":"0","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","24/06/24 16:46 NMM","0947134*","PIN,PISTON","0.50","CTP","8.00","18","","10","0","42.00","","","04/12/2025","5.00","554","CTP0007662","","1.10"],["2","","0947154*","BOLT","0.09","CTP","","12","","12","0","","","","10/08/2022","1.95","554","CTP0001355","6","0.20"],["3","","0947516*","NUT","0.05","CTP","12.00","20","","8","0","","","","10/08/2022","0.83","554","CTP0001356","6","0.10"],["4","","1252950*","GEAR AS","0.49","CTP","2.00","2","","","0","4.00","","","25/12/2025","41.65","554","CTP0018457","","01.08"],["5","","1252951*","GEAR","0.32","CTP","1.00","2","","1","0","1.00","","","16/01/2025","36.50","554","CTP0009640","","0.70"],["6","","1252989*","PUMP A","3.95","CTP","1.00","1","","","0","","","","25/11/2025","54.76","554","CTP0008470","","8.70"],["7","","1252991*","WATER PUMP","4.22","CTP","1.00","1","","","0","1.00","","","01/07/2024","55.76","554","CTP0028582","","9.30"],["8","","1253005*","CRANKSHAFT","72.94","CTP","1.00","1","","","0","","","","15/12/2023","662.70","554","CTP0021593","","160.80"],["9","","1786543*","RING SET-S","0.09","CTP","26.00","24","","","0","42.00","","","13/11/2025","5.50","554","CTP0011399","","0.20"],["10","","1786633*","PUMP AS","3.86","CTP","4.00","2","","","0","6.00","","","09/09/2025","43.20","554","CTP0021796","","8.50"],["11","","1838171*","HEAD AS-CY(5I8051) MOTOR 3066","28.76","CTP","1.00","0","","","0","","","","01/07/2024","347.19","554","CTP0025335","","63.40"],["12","","1838172*","GUIDE VALVE (5I7729)","0.03","CTP","29.00","24","","","0","15.00","","","10/07/2025","0.94","554","CTP0002485","","0.07"],["13","","1838173*","GUIDE VALVE (5I7635)","0.05","CTP","17.00","24","","7","0","15.00","","","25/11/2025","0.81","554","CTP0002486","","0.10"],["14","","2128477*","VALVE","0.16","CTP","12.00","12","","","0","6.00","","","25/12/2025","9.55","554","CTP0012225","","0.35"],["15","","2977750*","PISTON","01.04","CTP","2.00","6","","4","0","6.00","","","13/11/2025","24.60","554","CTP0012752","","2.30"],["16","","2977752*","PISTON (5I7537)","01.09","CTP","10.00","6","","","0","6.00","","","27/03/2025","22.55","554","CTP0017354","","2.40"],["17","27/02/23 10:22 RFR","5I7523*","SLEEVE 320BL","0.86","CTP","12.00","12","","","0","33.00","","","13/11/2025","9.90","554","10.057.194","","1.90"],["18","","5I7528*","BUSHING","0.06","CTP","","12","","12","0","12.00","","","20/10/2025","4.70","554","10.063.042","","0.13"],["19","07/05/23 12:22 JRS","5I7529*","BEARING","0.08","CTP","2.00","4","","2","0","10.00","","","25/12/2025","4.60","554","CTP0007656","","0.17"],["20","","5I7538*","RING STD (0878758-0998418 ) 320BL","0.05","CTP","4.00","12","","8","0","5.00","","","22/02/2025","9.78","554","10.063.050","","0.10"],["21","","5I7539*","BUSHING","0.09","CTP","6.00","12","","6","0","13.00","","","25/12/2025","2.23","554","CTP0007657","","0.20"],["22","","5I7542*","BUSHING","0.09","CTP","1.00","1","","","0","1.00","","","02/01/2026","2.30","554","CTP0000975","6","0.20"],["23","","5I7558*","GEAR A","0.50","CTP","3.00","2","","","0","2.00","","","20/10/2025","48.16","554","CTP0009643","","1.10"],["24","30/07/24 18:09 NMM","5I7588*","METAL DE BANCADA","0.18","CTP","7.00","14","","7","0","71.00","","","10/07/2025","5.43","554","10.063.044","","0.40"],["25","","5I7589*","CARTRIDGE","2.00","CTP","","2","","2","0","","","","10/10/2023","107.01","554","CTP0013043","","4.40"],["26","","5I7624*","SEAL VALVE(0953418,0953417)","0.01","CTP","16.00","14","","","0","24.00","","","25/11/2025","0.41","554","10.060.391","","0.01"],["27","","5I7625*","RETAINER","0.05","CTP","12.00","15","","3","0","12.00","","","13/11/2025","01.02","554","CTP0007644","","0.10"],["28","","5I7637*","METAL DE BIELA STD 320BL","0.09","CTP","12.00","12","","","0","13.00","","","10/07/2025","4.70","554","10.057.099","","0.20"],["29","","5I7654*","PLATE 320BL","0.05","CTP","6.00","12","","6","0","25.00","","","10/11/2025","2.87","554","10.063.045","","0.10"],["30","30/07/24 17:44 NMM","5I7667*","RING","0.05","CTP","20.00","24","","4","0","36.00","","","22/02/2025","0.33","554","10.057.098","","0.10"],["31","","5I7686*","GEAR A","0.32","CTP","1.00","2","","1","0","","","","15/12/2023","40.51","554","CTP0009642","","0.70"],["32","","5I7713*","TIP A NOZZ","0.05","CTP","","5","","5","0","","","","01/07/2024","14.13","554","CTP0014780","","0.10"],["33","","5I7719*","LOCK","0.05","CTP","12.00","48","","36","0","","","","10/08/2022","0.22","554","CTP0011598","","0.10"],["34","","5I7723*","ROD","0.14","CTP","","0","","","0","","","","","0.00","554","CTP0022211","","0.30"],["35","","5I7738*","VALVE ADMISION","0.18","CTP","6.00","12","","6","0","12.00","","","03/10/2024","5.41","554","10.060.389","","0.40"],["36","","5I7739*","VALVE EXCAPE","0.14","CTP","24.00","24","","","0","12.00","","","02/10/2025","4.75","554","10.060.390","","0.30"],["37","","5I7740*","SPRING 320BL","0.09","CTP","36.00","24","","","0","12.00","","","01/07/2024","1.60","554","CTP0001384","","0.20"],["38","","5I7784*","BEARING MAIN 320BL","0.17","CTP","21.00","14","","","0","14.00","","","13/11/2025","3.60","554","CTP0001933","","0.38"],["39","","5I7785*","BEARING SE 0.020IN=0.50MM","0.18","CTP","6.00","7","","1","0","","","","29/04/2024","3.39","554","CTP0007745","","0.40"],["40","","5I7787*","PLATE","0.05","CTP","6.00","6","","","0","","","","08/09/2022","4.22","554","CTP0014171","","0.10"],["41","","5I7788*","PLATE","0.05","CTP","3.00","3","","","0","","","","09/08/2021","2.18","554","CTP0000971","","0.10"],["42","","5I7794*","BEARING 0.25","0.11","CTP","3.00","24","","21","0","3.00","","","02/10/2025","05.06","554","CTP0001934","","0.24"],["43","","5I7795*","BEARING","0.09","CTP","6.00","6","","","0","6.00","","","23/05/2025","5.19","554","CTP0014766","","0.20"],["44","07/05/23 12:22 JRS","5I7952*","TURBO GP","7.67","CTP","2.00","1","","","0","","","","01/07/2024","166.96","554","CTP0008977","","16.90"],["45","07/05/23 12:22 JRS","5I8009*","BUSHING","0.09","CTP","2.00","3","","1","0","11.00","","","02/07/2025","5.20","554","CTP0001354","","0.20"],["46","","5I8010*","REGULATOR","0.27","CTP","1.00","4","","3","0","2.00","","","25/12/2025","11.51","554","CTP0011448","","0.60"],["47","","5I8011*","INSERT (5I7737)","0.05","CTP","","12","","12","0","9.00","","","10/10/2023","1.96","554","CTP0004832","","0.10"],["48","30/07/24 18:08 NMM","5I8012*","INSERT (5I7736)","0.05","CTP","12.00","12","","","0","9.00","","","25/12/2025","1.67","554","CTP0004833","","0.10"],["49","","5I8068*","CAMSHAFT","7.12","CTP","","0","","","0","","","","","0.00","554","CTP0024933","","15.70"]],"pie":"49    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=0&single=true&output=csv","sigla":"3066","corto":"3066","color":"#0d9488","titulo":"Motor 3066"},{"nombre":"MOTOR 3116 / 3126 / C7","gid":"1936722591","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","0329090*","WASHER THRUST - STD CAMBIA 5185891","0.05","CTP","","0","","","0","2.00","","","02/03/2021","3.91","551","CTP0006437","","0.10"],["2","07/05/23 12:22 JRS","0329091*","CAMBIA 5185891","0.05","CTP","","0","","","0","2.00","","","17/02/2021","2.32","551","CTP0006438","","0.10"],["3","","1077545*","CROWN AS","1.45","CTP","11.00","12","6","","0","7.00","","","13/08/2026","69.84","551","CTP0006436","","3.20"],["4","07/05/23 12:22 JRS","1077545PK*","KIT PISTON,ANILLOS,PIN Y SEGUROS","2.72","CTP","10.00","12","6","","0","60.00","","","13/08/2026","92.15","551","CTP0013078","","6.00"],["5","","1077604*","SLEEVE CYL 3126","1.50","CTP","16.00","30","6","8","0","53.00","","","13/08/2026","11.66","551","CTP0002674","3","3.30"],["6","","1077708*","BEARING MAIN STD 7W9414","0.18","CTP","24.00","50","6","20","0","157.00","","","13/08/2026","5.34","551","CTP0001106","","0.40"],["7","","1136200*","GASKET (6I3034)","0.05","CTP","","40","3","37","0","28.00","","","13/08/2026","2.70","551","10.054.744","","0.10"],["8","07/05/23 12:22 JRS","1136250*","GASKET(4P1622,7W5626)","0.27","CTP","3.00","20","1","16","0","12.00","","","13/08/2026","7.28","551","CTP0002345","","0.60"],["9","","1192940*","GASKET","0.23","CTP","8.00","20","1","11","0","29.00","","","13/08/2026","6.65","551","CTP0001810","","0.50"],["10","","1193036*","SEAL(4P7750,7W9143)","0.05","CTP","12.00","170","12","146","0","92.00","","","13/08/2026","0.55","551","CTP0003517","","0.10"],["11","05/09/24 16:45 NMM","1193061*","SLEEVE HEAD(7W5749)(1013254)","0.05","CTP","12.00","48","6","30","0","55.00","","","13/08/2026","4.46","551","CTP0002343","","0.10"],["12","","1345276*","CAMSHAFT","19.73","CTP","1.00","4","1","2","0","2.00","","","13/08/2026","489.85","551","CTP0018264","","43.50"],["13","","1360819*","VALVE EXHAUST (1051779)","0.14","CTP","24.00","36","6","6","0","114.00","","","13/08/2026","9.72","551","CTP0003516","","0.30"],["14","","1450162*","BEARING MAIN 0.25(7C6961)","0.27","CTP","29.00","24","6","","0","51.00","","","13/08/2026","9.50","551","CTP0003367","3","0.60"],["15","","1450163*","BEARING(7C6971)","0.27","CTP","5.00","6","3","","0","3.00","","","13/08/2026","3.39","551","CTP0001346","","0.60"],["16","","1450164*","BEARING MA 0.20","0.27","CTP","14.00","24","6","4","0","6.00","","","13/08/2026","06.02","551","CTP0004711","","0.60"],["17","","1450165*","BEARING MA","0.27","CTP","9.00","9","3","","0","","","","13/08/2026","3.39","551","CTP0008777","","0.60"],["18","","1457390*","VALVE-INTA","0.18","CTP","16.00","30","6","8","0","32.00","","","13/08/2026","12.09","551","CTP0008037","","0.40"],["19","","1478211*","VALVE-EXH","0.23","CTP","24.00","24","6","","0","151.00","","","13/08/2026","17.47","551","CTP0008038","3","0.50"],["20","","1478220*","GUIDE-VALV","0.07","CTP","24.00","60","6","30","0","132.00","","","13/08/2026","01.07","551","CTP0008040","","0.16"],["21","","1504621*","CROWN AS. PISTON","1.72","CTP","6.00","12","6","","0","13.00","","","13/08/2026","62.00","551","CTP0017891","","3.80"],["22","07/05/23 12:22 JRS","1523952*","IMPELLER (4W0251)","0.36","CTP","6.00","10","1","3","0","13.00","","","13/08/2026","5.15","551","CTP0002014","","0.80"],["23","","1593137*","CAMBIA 3522150","6.26","CTP","","0","1","","0","","","","13/08/2026","0.00","551","CTP0008843","","13.80"],["24","","1614280*","VALVE INLET (1136180)","0.18","CTP","17.00","50","6","27","0","134.00","","","13/08/2026","9.62","551","CTP0000995","","0.40"],["25","","1632478*","SEAL-VALVE","0.05","CTP","54.00","100","24","22","0","455.00","","","13/08/2026","0.38","551","CTP0009798","3","0.10"],["26","","1639063*","INSERT VALVE INLET(1260453)","0.05","CTP","17.00","30","6","7","0","60.00","","","13/08/2026","2.48","551","CTP0005483","","0.11"],["27","","1687226*","PIN-PISTON(1013210) 316","0.73","CTP","15.00","24","6","3","0","29.00","","","13/08/2026","6.00","551","CTP0002999","","1.60"],["28","","1753234*","GASKET-CYL(4P2590)","0.91","CTP","3.00","6","1","2","0","1.00","","","13/08/2026","25.42","551","10.056.173","","2.00"],["29","07/05/23 12:22 JRS","1898777*","PUMP GP(1192924,2W8625)","2.72","CTP","","10","1","9","0","10.00","","","13/08/2026","125.13","551","CTP0003000","","6.00"],["30","04/09/24 10:27 NMM","1979277*","RING-INTME(1077630) 3126","0.05","CTP","19.00","30","6","5","0","49.00","","","13/08/2026","2.00","551","CTP0004324","","0.10"],["31","","1979353*","RING-INTME","0.05","CTP","7.00","40","6","27","0","39.00","","","13/08/2026","4.94","551","CTP0018119","","0.10"],["32","07/10/24 11:21 NMM","1979354*","RING-PISTON (1077566) 3126","0.05","CTP","20.00","36","6","10","0","37.00","","","13/08/2026","2.71","551","CTP0004325","","0.10"],["33","","1979386*","RING-PISTON(1325246) 3126","0.05","CTP","14.00","60","6","40","0","112.00","","","13/08/2026","4.50","551","CTP0002996","3","0.10"],["34","","1981845*","TURBO GP-B 1397741","16.33","CTP","","4","1","3","0","6.00","","","13/08/2026","368.60","551","CTP0002953","","36.00"],["35","","1W2715*","LOCK-RETAINER","0.00","CTP","48.00","64","24","","0","352.00","","","13/08/2026","0.12","551","10.040.480","","0.01"],["36","","2051293*","GASKET HEAD(1443450)","0.95","CTP","3.00","10","1","6","0","10.00","","","13/08/2026","15.33","551","CTP0003003","","2.10"],["37","","2124893*","BEARING-TH STD(7W9416,1077602) 3116","0.29","CTP","6.00","15","1","8","0","33.00","","","13/08/2026","14.55","551","CTP0000969","","0.64"],["38","","2133193*","ROD AS-CON","2.18","CTP","48.00","18","6","","0","18.00","","","13/08/2026","45.94","551","CTP0013166","1","4.80"],["39","","2223910*","SEAL GRP (1154120)","0.36","CTP","6.00","7","1","","0","19.00","","","13/08/2026","10.59","551","CTP0009033","","0.80"],["40","24/06/24 16:47 NMM","2246638*","BEARING ROD STD (7W9415)","0.15","CTP","39.00","48","6","3","0","117.00","","","13/08/2026","5.98","551","CTP0005237","","0.34"],["41","","2271200*","SLEEVE-INJ","0.09","CTP","5.00","48","6","37","0","119.00","","","13/08/2026","5.32","551","CTP0018513","3","0.20"],["42","07/05/23 12:22 JRS","2272911*","SLEEVE INJ","0.09","CTP","12.00","30","6","12","0","36.00","","","13/08/2026","4.58","551","CTP0008036","","0.20"],["43","","2295153*","BEARING-TH (7C6966 )","0.45","CTP","3.00","10","1","6","0","9.00","","","13/08/2026","15.04","551","CTP0002842","3","1.00"],["44","","2295154*","BEARING-TH","0.32","CTP","1.00","4","1","2","0","2.00","","","13/08/2026","14.55","551","CTP0008776","3","0.70"],["45","19/11/24 17:30 NMM","2382706*","RING-PISTO","0.05","CTP","","40","6","34","0","50.00","","","13/08/2026","3.58","551","CTP0018515","3","0.10"],["46","","2382716*","SKIRT-PIST (1077791 ) 3116","0.32","CTP","7.00","24","6","11","0","19.00","","","13/08/2026","11.15","551","CTP0004601","","0.70"],["47","","2457339*","SEAL GP-CS(1192921)","0.14","CTP","6.00","16","1","9","0","21.00","","","13/08/2026","4.50","551","CTP0008265","","0.30"],["48","","2613816*","GASKET-OIL (1154202)","0.41","CTP","","4","1","3","0","6.00","","","13/08/2026","11.23","551","CTP0008626","","0.90"],["49","19/11/24 17:30 NMM","2646157*","INSERT-VLV","0.05","CTP","14.00","48","12","22","0","96.00","","","13/08/2026","03.08","551","CTP0021698","3","0.10"],["50","","2M6471*","PLUG-CORE(5A6026)9S1343","0.05","CTP","22.00","20","2","","0","12.00","","","13/08/2026","0.53","551","CTP0011946","","0.10"],["51","","2W0027*","BUSHING ROD","0.03","CTP","5.00","24","6","13","0","93.00","","","13/08/2026","3.42","551","10.054.645","","0.06"],["52","","2W7213*","BEARING P/ 3116","0.05","CTP","13.00","50","6","31","0","65.00","","","13/08/2026","3.10","551","CTP0001089","3","0.10"],["53","","2W7566*","BEARING-SL","0.15","CTP","4.00","20","1","15","0","11.00","","","13/08/2026","6.73","551","CTP0004211","","0.33"],["54","","3522150*","PUMP AS-WA (1593137)","6.49","CTP","3.00","3","1","","0","11.00","","","13/08/2026","57.98","551","CTP0022086","","14.30"],["55","07/05/23 12:22 JRS","3522151*","PUMP GP-WA (7C4508)","7.26","CTP","5.00","6","1","","0","12.00","","","13/08/2026","60.48","551","CTP0022680","","16.00"],["56","","3537423*","KIT-BEARIN CAMBIA 5185437","0.59","CTP","","0","","","0","","","","18/12/2020","16.72","551","CTP0022613","","1.30"],["57","","4W7592*","GASKET","0.05","CTP","5.00","20","1","14","0","14.00","","","13/08/2026","0.77","551","CTP0002289","","0.10"],["58","","7C0111*","RETAINER 3116 / 3126","0.05","CTP","26.00","48","12","10","0","50.00","","","13/08/2026","0.22","551","CTP0000993","","0.10"],["59","07/05/23 12:22 JRS","7C1152*","GASKET","0.18","CTP","5.00","6","1","","0","26.00","","","13/08/2026","03.02","551","10.040.486","","0.40"],["60","","7C3901*","PIN PISTON","0.68","CTP","9.00","24","6","9","0","","","","13/08/2026","6.00","551","CTP0003388","","1.50"],["61","27/02/23 10:07 RFR","7C4273*","SPRING-VALVE","0.09","CTP","18.00","36","6","12","0","54.00","","","13/08/2026","2.30","551","10.040.464","","0.20"],["62","","7C6976*","BEARING CONN ROD 0.25MM","0.18","CTP","18.00","36","6","12","0","67.00","","","13/08/2026","10.00","551","CTP0002346","","0.40"],["63","","7C6977*","BRG-CON RO 0.50","0.18","CTP","17.00","12","6","","0","7.00","","","13/08/2026","5.63","551","CTP0003361","","0.40"],["64","","7E5213*","RING GRP.","0.14","CTP","26.00","48","6","16","0","31.00","","","13/08/2026","5.95","551","CTP0003455","","0.30"],["65","","7W6552*","GASKET","0.32","CTP","2.00","10","1","7","0","12.00","","","13/08/2026","6.28","551","CTP0003523","","0.70"],["66","","7W8065*","INSERT-VALVE (1696862)","0.05","CTP","6.00","24","6","12","0","36.00","","","13/08/2026","2.18","551","CTP0003373","","0.10"],["67","","7W9930*","BEARING-SL","0.05","CTP","2.00","20","1","17","0","20.00","","","13/08/2026","1.95","551","CTP0001040","","0.10"],["68","","9Y8848*","GUIDE VALVE (2W5358)","0.05","CTP","60.00","40","12","","0","120.00","","","13/08/2026","0.96","551","CTP0000937","","0.10"],["69","","CTP3116*","KIT GASKET COMPLET 3116","2.29","CTP","1.00","4","1","2","0","7.00","","","13/08/2026","112.81","551","CTP0007634","1","05.05"],["70","","CTP3126001A*","OUT OF FRAME O/H GASKET SET","4.99","CTP","","0","1","","0","","","","13/08/2026","0.00","551","CTP0028505","","11.00"]],"pie":"70    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=1936722591&single=true&output=csv","sigla":"3116","corto":"3116 · 3126 · C7","color":"#1e5eff","titulo":"Motor 3116 / 3126 / C7"},{"nombre":"MOTOR 3304 / 3306 ID/PC","gid":"552732054","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","02/09/24 12:31 NMM","1003652*","PLATE THRUST (7N9342)","0.15","CTP","26.00","50","","24","0","68.00","","","17/07/2025","8.20","553","CTP0001960","","0.32"],["2","02/09/24 11:18 NMM","1007860*","VALVE INLET (6N9915)","0.23","CTP","35.00","100","","65","0","99.00","","","11/07/2025","9.24","553","10.056.468","","0.50"],["3","","1044253*","LINE A. #3 (4P9383)","0.32","CTP","1.00","2","","1","0","3.00","","","12/04/2025","9.86","553","CTP0003384","","0.70"],["4","","1044254*","LINE A. #4 (4P9384)","0.27","CTP","1.00","10","","9","0","4.00","","","11/07/2025","10.41","553","CTP0000984","","0.60"],["5","19/11/24 17:29 NMM","1070265*","INSERT EX (2W4837)","0.05","CTP","4.00","60","","56","0","22.00","","","11/07/2025","4.75","553","CTP0003225","","0.10"],["6","02/09/24 11:53 NMM","1070268*","INSER VALVE IN (7N4448)","0.03","CTP","3.00","48","","45","0","36.00","","","10/07/2025","02.09","553","CTP0001564","","0.07"],["7","30/07/24 15:47 JRS","1487425*","GUIDE-VALVE (2P1262)","0.07","CTP","","300","","300","0","400.00","","","10/11/2025","1.12","553","10.052.148","","0.16"],["8","","1487455*","VALVE EXHAUST(6N9916)","0.18","CTP","59.00","48","","","0","94.00","","","11/07/2025","10.04","553","CTP0001748","","0.40"],["9","","1654262*","PISTON ( 1290338 )","2.31","CTP","18.00","8","","","0","18.00","","","09/09/2025","27.31","553","CTP0000510","","5.10"],["10","30/07/24 17:39 NMM","1727767*","PUMP GP-WT(7N5909,1550068)D6D","13.47","CTP","2.00","4","","2","0","14.00","","","29/11/2025","105.00","553","CTP0005806","","29.70"],["11","","1727775*","PUMP GP-WT","13.20","CTP","1.00","3","","2","0","4.00","","","25/08/2025","163.19","553","CTP0022462","","29.10"],["12","","1727776*","PUMP GP-WT","13.34","CTP","1.00","2","","1","0","5.00","","","06/08/2025","136.78","553","CTP0028291","","29.40"],["13","","1N3574*","CYL BLK G 3304","200.67","CTP","","0","","","0","2.00","","","13/04/2011","1,850.70","553","CTP0014312","","442.40"],["14","","1N3576*","CYL BLK G 3306(7N6550)","283.00","CTP","","0","","","0","1.00","","","","0.00","553","CTP0006834","","623.90"],["15","","1N4304*","CYLINDER HEAD","74.30","CTP","1.00","4","","3","0","10.00","","","25/11/2025","789.67","553","CTP0019757","","163.80"],["16","","1P1216*","MANIFOLD","14.65","CTP","2.00","6","","4","0","22.00","","","29/12/2025","157.00","553","CTP0002912","","32.30"],["17","27/02/23 10:07 RFR","1S9543*","RETAINER","0.05","CTP","3.00","48","","45","0","20.00","","","25/11/2025","0.96","553","10.004.410","","0.10"],["18","","1W5300*","ROTOCOIL A","0.05","CTP","88.00","48","","","0","152.00","","","13/11/2025","2.40","553","CTP0014537","","0.10"],["19","","1W5321*","INSERT","0.05","CTP","28.00","60","","32","0","78.00","","","07/01/2026","02.06","553","CTP0008881","","0.10"],["20","","2114321*","RING GRP.","0.23","CTP","8.00","48","","40","0","68.00","","","19/12/2025","9.55","553","CTP0000351","","0.50"],["21","","2323233*","BEARING MAIN STD (4W5738)","0.32","CTP","16.00","100","","84","0","173.00","","","25/08/2025","5.72","553","CTP0001969","","0.70"],["22","24/06/24 16:47 NMM","2A4429*","SEGURO DE VALVULA","0.05","CTP","200.00","100","","","0","793.00","","","13/11/2025","0.11","553","10.036.511","99","0.10"],["23","","2W1086*","COVER A.","6.53","CTP","","0","","","0","1.00","","","","0.00","553","CTP0000628","","14.40"],["24","","2W2621*","VALVE","0.20","CTP","14.00","24","","10","0","122.00","","","07/01/2026","9.51","553","CTP0007730","","0.44"],["25","","2W7458*","CAMBIA 3348389","81.65","CTP","","0","","","0","","","","","0.00","553","CTP0022290","","180.00"],["26","","3285572*","BEARING-RO (8N8220) 4W5739","0.27","CTP","23.00","90","","67","0","160.00","","","25/11/2025","5.34","553","CTP0020562","","0.60"],["27","","3348389*","CRANKSHAFT (2W7458)","112.49","CTP","","2","","2","0","13.00","","","25/11/2025","1,046.44","553","CTP0023090","","248.00"],["28","","3715941*","LINER (1105800)","5.58","CTP","52.00","24","","","0","86.00","","","08/10/2025","33.10","553","CTP0023014","","12.30"],["29","24/06/24 16:47 NMM","4N3281*","LINE A","0.21","CTP","1.00","3","","2","0","2.00","","","25/11/2025","6.64","553","CTP0007526","","0.47"],["30","","4N3282*","LINE A","0.27","CTP","4.00","5","","1","0","1.00","","","10/11/2025","6.76","553","CTP0011234","","0.60"],["31","","4N3283*","LINE A","0.23","CTP","","2","","2","0","2.00","","","10/11/2025","6.76","553","CTP0009486","","0.50"],["32","","4N3284*","LINES A","0.21","CTP","4.00","1","","","0","1.00","","","10/11/2025","6.61","553","CTP0010160","","0.46"],["33","","4N6859*","TURBO G","13.29","CTP","2.00","5","","3","0","7.00","","","06/08/2025","166.96","553","CTP0009074","","29.30"],["34","24/06/24 16:47 NMM","4N7692*","CRANKSHAFT","71.21","CTP","","2","","2","0","2.00","","","25/08/2025","649.90","553","CTP0014054","","157.00"],["35","07/05/23 12:22 JRS","4N7977*","SHAFT AS RH","6.80","CTP","2.00","10","","8","0","14.00","","","10/07/2025","78.42","553","CTP0011333","","15.00"],["36","","4N7978*","SHAFT AS","6.53","CTP","","10","","10","0","7.00","","","10/07/2025","70.64","553","CTP0011334","","14.40"],["37","","4P2942*","CAMSHAFT (8N3981) (7E9980,7C3863)","10.52","CTP","","3","","3","0","17.00","","","10/11/2025","135.80","553","CTP0000954","","23.20"],["38","","4P9381*","LINE A. #1 (4P9381)","0.23","CTP","2.00","10","","8","0","5.00","","","10/07/2025","6.53","553","CTP0000528","","0.50"],["39","","4P9382*","LINE A. #2 (4P9382)","0.32","CTP","1.00","10","","9","0","6.00","","","25/08/2025","08.04","553","CTP0003502","","0.70"],["40","07/05/23 12:22 JRS","4P9385*","LINE A.FUEL INJ.#5(8N6015","0.23","CTP","2.00","10","","8","0","7.00","","","07/01/2026","07.08","553","CTP0004071","","0.50"],["41","07/05/23 12:22 JRS","4P9386*","LINE A FUEL #6 (7C5556)","0.32","CTP","3.00","10","","7","0","7.00","","","25/08/2025","7.90","553","CTP0004072","","0.70"],["42","","4P9961*","LINE AS","0.27","CTP","4.00","10","","6","0","11.00","","","25/11/2025","5.81","553","CTP0010162","","0.60"],["43","","4P9962*","LINE AS","0.21","CTP","5.00","10","","5","0","11.00","","","25/11/2025","7.31","553","CTP0013379","","0.46"],["44","","4P9963*","LINE AS","0.20","CTP","1.00","12","","11","0","13.00","","","10/11/2025","5.94","553","CTP0010079","","0.45"],["45","","4P9964*","LINE AS","0.27","CTP","","10","","10","0","13.00","","","25/11/2025","7.31","553","CTP0013606","","0.60"],["46","","5M2667*","GASKET PRECOMB CHAMBER 4.93MM","0.05","CTP","5.00","100","","95","0","65.00","","","25/08/2025","0.45","553","10.001.960","","0.10"],["47","","5P8768*","KIT SEAL","0.01","CTP","16.00","25","","9","0","29.00","","","12/05/2025","1.68","553","10.036.738","","0.02"],["48","","5S6795*","CHAMBER","1.18","CTP","","50","","50","0","157.00","","","25/11/2025","15.71","553","CTP0003241","","2.60"],["49","","5S7218*","INSERT","0.05","CTP","7.00","36","","29","0","52.00","","","10/11/2025","1.86","553","CTP0008999","","0.10"],["50","","6I0923*","HOUSING AS","22.14","CTP","","0","","","0","","","","","0.00","553","CTP0014000","","48.80"],["51","07/05/23 12:22 JRS","6I1346*","PUMP GRP. OIL (4W2448)","10.70","CTP","24.00","12","","","0","43.00","","","13/11/2025","74.00","553","CTP0003359","","23.60"],["52","","6N8940*","PLATE THR (2P0716 )","0.09","CTP","4.00","20","","16","0","20.00","","","08/11/2024","3.58","553","CTP0002555","","0.20"],["53","02/09/24 12:11 NMM","7M4046*","BEARING SLEEVE(8H9654)","0.14","CTP","","52","","52","0","105.00","","","02/01/2026","3.77","553","10.003.737","","0.30"],["54","","7N0165*","CORE A OIL","4.17","CTP","6.00","6","","","0","14.00","","","13/11/2025","79.58","553","CTP0002737","","9.20"],["55","","7N2871*","LINE A","0.21","CTP","1.00","4","","3","0","3.00","","","17/07/2025","8.81","553","CTP0009057","","0.47"],["56","","7N2872*","LINE A","0.27","CTP","","4","","4","0","2.00","","","30/10/2024","7.54","553","CTP0004835","","0.60"],["57","","7N2874*","LINE A","0.27","CTP","1.00","2","","1","0","2.00","","","25/08/2025","7.67","553","CTP0007460","","0.60"],["58","","7N2875*","LINE A","0.24","CTP","1.00","2","","1","0","3.00","","","17/07/2025","7.54","553","CTP0016650","","0.53"],["59","","7N2876*","LINE A","0.24","CTP","2.00","4","","2","0","5.00","","","17/07/2025","8.81","553","CTP0007504","","0.53"],["60","28/08/24 12:25 NMM","7N3486*","MANIFOLD 3306","18.14","CTP","","4","","4","0","12.00","1.00","","25/11/2025","147.64","553","CTP0001131","","40.00"],["61","07/05/23 12:22 JRS","7N4651*","TURBO GROUP","09.03","CTP","","10","","10","0","25.00","","","07/01/2026","232.22","553","CTP0002747","","19.90"],["62","","7N7748*","TURBO G","13.52","CTP","","6","","6","0","10.00","","","16/12/2025","410.00","553","CTP0002745","","29.80"],["63","","7N7998*","PLATE BLOC","8.80","CTP","4.00","10","","6","0","7.00","","","24/11/2025","357.00","553","CTP0007396","","19.40"],["64","07/05/23 12:22 JRS","7N8021*","PLATE, BLO","06.08","CTP","","5","","5","0","40.00","","","25/11/2025","197.40","553","CTP0007002","","13.40"],["65","","7N9145*","GEAR FLYWHELL","4.45","CTP","3.00","12","","9","0","5.00","","","25/08/2025","23.07","553","CTP0000616","","9.80"],["66","","7N9146*","GEAR","4.94","CTP","1.00","1","","","0","1.00","","","07/01/2026","28.78","553","CTP0012096","","10.90"],["67","","7N9804*","PIN DELGADO DE PISTON","0.68","CTP","5.00","24","","19","0","10.00","","","25/08/2025","5.31","553","CTP0006760","","1.50"],["68","","7N9805*","PIN PISTON(8M6487)","0.91","CTP","","40","","40","0","31.00","","","07/01/2026","7.63","553","CTP0003759","","2.00"],["69","","7S3206*","SEAL CHAMBER ( 2S6971)","0.05","CTP","64.00","100","","36","0","140.00","","","12/05/2025","0.40","553","CTP0021861","","0.10"],["70","02/09/24 15:46 NMM","7S7144*","RESORTE VALVULA","0.09","CTP","9.00","100","","91","0","131.00","","","26/09/2025","1.31","553","10.004.578","","0.19"],["71","","8M1584*","SERVICE GRP (8N4697)","0.05","CTP","8.00","24","","16","0","7.00","","","09/09/2025","15.21","553","10.036.639","","0.10"],["72","","8N0702*","BEARING CONN ROD (7S9347)","0.05","CTP","18.00","50","","32","0","22.00","","","25/08/2025","3.33","553","10.004.108","","0.10"],["73","","8N0875*","VALVE EXH (5S6449,5S7232)","0.23","CTP","4.00","48","","44","0","88.00","","","10/11/2025","8.63","553","CTP0000525","","0.50"],["74","","8N1187*","CYLINDER HEAD (6N8120)","84.64","CTP","2.00","3","","1","0","6.00","","","11/07/2025","550.00","553","CTP0002772","","186.60"],["75","","8N1188*","CYLINDER HEAD G","59.51","CTP","4.00","3","","","0","3.00","","","10/10/2023","688.68","553","CTP0019960","","131.20"],["76","","8N1721*","ROD A","3.22","CTP","","10","","10","0","39.00","","","13/11/2025","55.99","553","CTP0000017","","7.10"],["77","","8N1849*","BEARING CONN ROD","0.05","CTP","8.00","50","","42","0","130.00","","","09/09/2025","3.10","553","10.001.348","","0.10"],["78","","8N1984*","ROD A-CONN","3.36","CTP","5.00","10","","5","0","13.00","","","20/12/2023","55.30","553","CTP0005065","","7.40"],["79","","8N1985*","BRG-CONN R","0.05","CTP","20.00","24","","4","0","18.00","","","29/04/2024","2.54","553","CTP0003358","","0.10"],["80","","8N3182*","BODY A-PISTON (7N9183)","2.13","CTP","6.00","12","","6","0","29.00","","","11/07/2025","27.20","553","10.036.691","","4.70"],["81","","8N4110*","BEARING SLEEVE","0.09","CTP","5.00","20","","15","0","35.00","","","06/08/2025","2.25","553","10.001.825","","0.20"],["82","","8N6184*","PAN-OIL","10.12","CTP","","0","","","0","","","","10/02/2022","253.61","553","CTP0017409","","22.30"],["83","","8N6796*","CULATA INYEC DIREC","88.27","CTP","1.00","3","","2","0","8.00","","","27/03/2025","590.00","553","CTP0019961","","194.60"],["84","","8N7005*","NOZZLE A(8N7001)","0.18","CTP","60.00","24","","","0","2.00","","","13/11/2025","39.30","553","CTP0002158","","0.40"],["85","","8N8221*","BEARING ROD 0.10","0.45","CTP","5.00","50","","45","0","52.00","","","17/07/2025","4.86","553","CTP0001798","","1.00"],["86","","8N8222*","BEARING ROD 0.20","0.32","CTP","15.00","48","","33","0","70.00","","","29/04/2024","4.24","553","FP0000051","","0.70"],["87","","8N8223*","BEARING ROD 0.30","0.32","CTP","49.00","36","","","0","29.00","","","07/11/2023","7.87","553","CTP0002639","","0.70"],["88","","8N8225*","BEARING MAIN 0.10","0.27","CTP","","100","","100","0","40.00","","","06/08/2025","5.10","553","CTP0001800","","0.60"],["89","","8N8226*","BEARING MAIN 0.20","0.27","CTP","9.00","27","","18","0","118.00","","","22/02/2025","8.25","553","FP0000054","","0.59"],["90","","8N8227*","BEARING MAIN 0.30","0.32","CTP","68.00","48","","","0","47.00","","","04/02/2024","09.04","553","CTP0002464","","0.70"],["91","","8N9733*","LINE A","0.32","CTP","1.00","4","","3","0","7.00","","","09/01/2023","5.72","553","CTP0007501","","0.70"],["92","","8S2389*","BODY","0.14","CTP","20.00","24","","4","0","34.00","","","07/01/2026","05.08","553","CTP0002054","","0.30"],["93","","8S6045*","SHIM","0.05","CTP","4.00","10","","6","0","4.00","","","12/05/2025","1.57","553","CTP0004313","","0.10"],["94","07/05/23 12:22 JRS","8S6046*","SHIM","0.01","CTP","78.00","30","","","0","16.00","","","12/08/2024","2.50","553","CTP0001712","","0.03"],["95","","8S6047*","SHIM","0.05","CTP","7.00","10","","3","0","6.00","","","20/12/2023","1.68","553","CTP0004314","","0.10"],["96","","8S6048*","SHIM LINER .0150 THICK","0.05","CTP","6.00","8","","2","0","2.00","","","20/12/2023","1.96","553","10.002.035","","0.10"],["97","","8S6049*","SHIM LINER .0297 THICK","0.01","CTP","25.00","24","","","0","6.00","","","20/12/2023","2.54","553","CTP0002634","","0.03"],["98","","9H4015*","RETAINER PISTON PIN","0.05","CTP","59.00","50","","","0","60.00","","","03/09/2013","0.46","553","10.003.083","","0.10"],["99","","9S3068*","RING GRP. (7S9404)","0.09","CTP","4.00","50","","46","0","54.00","","","17/11/2025","9.31","553","CTP0000221","","0.20"],["100","07/05/23 12:22 JRS","9Y1723*","CAMSHAFT W/O GEAR (7C3861- 1W1231)","8.44","CTP","","4","","4","0","11.00","","","07/01/2026","127.26","553","CTP0000658","","18.60"],["101","","9Y2991*","BEARING SLEEVE (5S6419)","0.09","CTP","4.00","30","","26","0","48.00","","","25/08/2025","3.72","553","CTP0000103","","0.20"],["102","","9Y2992*","BEARING ( 5S6420 )","0.18","CTP","3.00","30","","27","0","25.00","","","09/09/2025","5.45","553","CTP0002470","","0.40"],["103","","LK3182*","LINER KIT CYL","","CTP","","","","","0","","","","","0.00","553","CTP0029109","",""]],"pie":"103    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=552732054&single=true&output=csv","sigla":"3304","corto":"3304 · 3306 ID/PC","color":"#7c3aed","titulo":"Motor 3304 / 3306 ID/PC"},{"nombre":"MOTOR C9","gid":"1882503845","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","1512939*","BEARING MAIN STD C-9","0.32","CTP","21.00","35","","14","0","22.00","","","27/03/2025","9.00","547","CTP0013682","99","0.70"],["2","","1608194*","BEARING","0.11","CTP","18.00","18","","","0","31.00","","","25/08/2025","7.50","547","CTP0018511","","0.24"],["3","","1608199*","ROD AS","3.49","CTP","3.00","12","","9","0","13.00","","","17/07/2025","62.30","547","CTP0025703","","7.70"],["4","","1613398 *","MANIFOLD-E","2.68","CTP","","0","","","0","2.00","","","","0.00","547","CTP0021885","","5.90"],["5","","1663648*","PIN-PISTON","1.00","CTP","18.00","12","","","0","18.00","","","22/02/2025","7.95","547","CTP0015074","","2.20"],["6","","1670024*","SEAL-LINER","0.05","CTP","6.00","30","","24","0","48.00","6.00","","25/11/2025","2.28","547","CTP0014589","","0.10"],["7","","1670172","MANIFOLD-E","4.13","CAT","","0","","","0","1.00","","","","0.00","547","CAT0041880","","9.10"],["8","","1743847","PAN - OIL","18.14","CAT","","0","","","0","","","","","0.00","547","CAT0034251","","40.00"],["9","","1906115*","SPRING-VAL","0.05","CTP","10.00","20","","10","0","23.00","","","15/01/2024","01.06","547","CTP0012852","","0.10"],["10","","1906117*","SPRING-VAL","0.09","CTP","10.00","24","","14","0","23.00","","","15/01/2024","1.29","547","CTP0012851","5","0.20"],["11","07/05/23 12:22 JRS","2035805*","BEARING (LEVAS) C-9","0.09","CTP","10.00","8","","","0","25.00","2.00","","22/02/2025","3.23","547","CTP0017402","","0.20"],["12","","2036090*","BEARING (LEVAS) C-9","0.18","CTP","102.00","16","","","0","11.00","","","16/01/2025","2.87","547","CTP0018244","","0.40"],["13","","2037775 *","MANIFOLD","4.54","CTP","","0","","","0","1.00","","","","0.00","547","CTP0021886","","10.00"],["14","27/02/23 10:27 RFR","2112134*","RETAINER-S","0.05","CTP","46.00","48","","2","0","85.00","","","01/07/2024","1.80","547","CTP0013697","","0.10"],["15","07/05/23 12:22 JRS","2128917*","INSERT VALVE EX C-9","0.05","CTP","","62","","62","0","109.00","","","22/02/2025","5.14","547","CTP0017100","","0.10"],["16","24/06/24 16:47 NMM","2133190*","BEARING ROD STD (1608172)","0.23","CTP","24.00","42","6","12","0","26.00","","","13/08/2026","6.00","547","CTP0014006","","0.50"],["17","","2165586*","BEARING (2W7211 )","0.14","CTP","6.00","20","1","13","0","32.00","","","13/08/2026","3.24","547","CTP0002843","","0.30"],["18","","2370229","FLYWHEEL A","62.05","CAT","","","","","0","","","","","0.00","547","CAT0055076","","136.80"],["19","","2418382*","CAMBIA AL 4901726","0.18","CTP","","0","","","0","","","","18/02/2022","11.52","547","CTP0018354","","0.40"],["20","","2418383*","CAMBIA 4901723","0.18","CTP","","0","","","0","1.00","","","21/02/2022","27.35","547","CTP0018355","","0.40"],["21","","2418384*","RETAINER","0.05","CTP","","30","","30","0","25.00","","","22/02/2025","2.17","547","CTP0013741","","0.10"],["22","","2418385*","SPRING-VAL","0.09","CTP","49.00","36","","","0","25.00","","","07/01/2026","1.44","547","CTP0019986","","0.20"],["23","","2418386*","SPRING-VAL","0.05","CTP","44.00","12","","","0","13.00","","","07/01/2026","1.26","547","CTP0019987","","0.10"],["24","","2418388*","INSERT VALVE IN C-9","0.05","CTP","12.00","24","","12","0","85.00","","","22/02/2025","2.54","547","CTP0017101","","0.10"],["25","","2420673*","CAMSHAFT A","19.01","CTP","1.00","2","","1","0","11.00","","","07/01/2026","619.00","547","CTP0025256","","41.90"],["26","","2453261","HOUSING-FR","15.56","CAT","","0","","","0","","","","","0.00","547","CAT0046113","","34.30"],["27","","2463150*","PLATE-THRU","0.14","CTP","6.00","10","","4","0","10.00","","","01/07/2024","12.41","547","CTP0014938","","0.30"],["28","","2525165*","TURBO GP-B","17.24","CTP","","2","","2","0","5.00","","","26/04/2024","606.25","547","CTP0023437","","38.00"],["29","","2528439*","HEAD GP-CY C9","135.62","CTP","","0","","","0","","","","","0.00","547","CTP0024965","","299.00"],["30","","2595829*","GUIDE VALVE (IN)","0.09","CTP","24.00","100","","76","0","133.00","","","10/07/2025","1.12","547","CTP0018512","","0.20"],["31","07/05/23 12:22 JRS","2604856*","GUIDE VALVE (EX)","0.09","CTP","","74","","74","0","73.00","","","23/05/2025","1.24","547","CTP0014694","","0.20"],["32","","2611544","CRANKSHAFT C9","105.69","CAT","","0","","","0","1.00","","","","0.00","547","CAT0042157","","233.00"],["33","","2637825","COVER GP-M","3.13","CAT","","0","","","0","","","","","0.00","547","CAT0023534","","6.90"],["34","","2821771*","BEARING-MA","0.32","CTP","14.00","14","","","0","35.00","","","08/09/2022","10.34","547","CTP0021758","5","0.70"],["35","","2821772*","BEARING-MA 0.50.","0.32","CTP","","0","","","0","14.00","","","27/11/2025","19.50","547","CTP0020848","5","0.70"],["36","","2939367*","CORE AS-OI","8.12","CTP","1.00","2","","1","0","3.00","","","11/07/2025","140.76","547","CTP0023142","","17.90"],["37","","3190678*","PUMP GP","11.97","CTP","","0","","","0","","","","","0.00","547","CTP0017998","","26.40"],["38","07/05/23 12:22 JRS","3247380*","SKIRT-PIST","0.45","CTP","10.00","12","","2","0","24.00","","","01/07/2024","11.89","547","CTP0016103","","1.00"],["39","07/05/23 12:22 JRS","3318905*","PUMP AS.-E","3.22","CTP","5.00","4","","","0","10.00","","","10/07/2025","124.94","547","CTP0021266","5","7.10"],["40","","3472380*","RING TOP (1979392)","0.05","CTP","6.00","24","","18","0","18.00","","","08/10/2025","5.10","547","CTP0021540","5","0.12"],["41","","3472381*","RING-INTERM (1613424)","0.06","CTP","6.00","24","","18","0","18.00","","","08/10/2025","3.99","547","CTP0021539","","0.13"],["42","","3472382*","RING- OIL PISTON (1687211)","0.05","CTP","16.00","24","","8","0","24.00","","","08/11/2024","10.90","547","CTP0021599","5","0.10"],["43","","3502536*","PUMP WATER","10.89","CTP","3.00","4","","1","0","13.00","","","08/10/2025","99.89","547","CTP0017375","","24.00"],["44","07/05/23 12:22 JRS","3851657*","CROWN AS PISTON (2651401) C-9","1.68","CTP","5.00","12","","7","0","11.00","","","01/07/2024","78.40","547","CTP0022458","","3.70"],["45","","3851657LK*","LINER KIT C9","7.00","CTP","","6","","6","0","6.00","","","09/09/2025","157.00","547","CTP0029023","","15.43"],["46","","3879434","INJECTOR G-FUEL (3282573)","2.00","CAT","","6","","6","0","","","","25/07/2024","1,423.26","547","CAT0035750","","4.40"],["47","","4695312*","LINER (1903562)","3.49","CTP","15.00","24","","9","0","54.00","","","27/03/2025","26.45","547","CTP0024065","","7.70"],["48","","4881675","BLOCK AS-CYLINDER (2298568)","","CTP","","","","","0","","","","","0.00","547","CTP0030337","",""],["49","","4901726*","VALVE INTA (2418382)","0.18","CTP","12.00","24","","12","0","110.00","","","27/11/2025","13.42","547","CTP0026814","","0.40"],["50","","4N2514*","GEAR","5.26","CTP","","0","","","0","1.00","","","04/04/2014","50.93","547","CTP0004246","","11.60"],["51","27/02/23 10:08 RFR","7X2908*","RING","0.05","CTP","24.00","12","","","0","24.00","","","26/09/2025","0.54","547","CTP0015070","","0.10"]],"pie":"51    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=1882503845&single=true&output=csv","sigla":"C9","corto":"C9","color":"#0284c7","titulo":"Motor C9"},{"nombre":"MOTOR C15","gid":"1488669216","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","1227375*","GUIDE","0.08","CTP","12.00","70","","58","0","192.00","","","10/11/2025","1.20","548","CTP0006343","","0.17"],["2","","1330125*","CORE AS","10.30","CTP","","0","","","0","","","","06/12/2017","189.31","548","CTP0021175","","22.70"],["3","","1333359*","MANIFOLD-EXHAUST","3.20","CTP","","0","","","0","","","","","0.00","548","CTP0026293","","07.06"],["4","","1503136","COVER AS-V","2.90","CAT","","0","","","0","","","","","0.00","548","CAT0047381","","6.40"],["5","","1614113*","PUMP GP-EO","10.07","CTP","3.00","3","","","0","7.00","","","20/11/2024","181.30","548","CTP0013108","","22.20"],["6","27/02/23 10:09 RFR","1644187*","RING-PSTN-","0.09","CTP","17.00","20","","3","0","30.00","","","25/07/2025","6.88","548","CTP0015010","","0.20"],["7","","1807350*","PIN-PISTON","1.68","CTP","5.00","6","","1","0","7.00","","","16/01/2025","18.11","548","CTP0020652","","3.70"],["8","","1862001*","ROTOCOIL A","0.05","CTP","44.00","24","","","0","72.00","4.00","","10/11/2025","2.62","548","CTP0009678","","0.10"],["9","","1979322*","COD DUPLICADO","8.26","CTP","","0","","","0","6.00","","","01/07/2024","36.00","548","10.062.000","","18.20"],["10","","2113122*","SPRING-VAL","0.09","CTP","72.00","48","","","0","25.00","","","07/01/2026","1.41","548","CTP0016685","","0.20"],["11","","2165582*","BEARING-SL","0.22","CTP","14.00","14","","","0","42.00","","","10/11/2025","11.11","548","CTP0006340","","0.48"],["12","","2219360 USADO","CRANKSHAFT USADO C15","217.72","CAT","","","","","0","","","","","0.00","548","CAT0048278","","479.98"],["13","","2230533","PLATE","18.96","CAT","","","","","0","","","","","0.00","548","CAT0055149","","41.80"],["14","","2237263*","HEAD AS","228.52","CTP","1.00","1","","","0","6.00","","","01/07/2024","1,850.00","548","CTP0021512","","503.80"],["15","","2243245*","ROD AS","5.99","CTP","","0","","","0","","","","","0.00","548","CTP0024781","","13.20"],["16","","2265561*","INSERT-VAL","0.05","CTP","12.00","12","","","0","62.00","","","02/10/2025","8.83","548","CTP0016686","","0.10"],["17","","2296259*","BEARING","0.27","CTP","12.00","10","","","0","6.00","","","01/07/2024","9.00","548","CTP0020654","","0.60"],["18","","2377580","COVER-VALV","2.90","CAT","","0","","","0","","","","","0.00","548","CAT0047382","","6.40"],["19","","2380294*","RING-PISTO","0.09","CTP","11.00","20","","9","0","12.00","","","16/01/2025","10.77","548","CTP0019760","","0.20"],["20","","2388683*","TURBO GRP (3808711)","38.78","CTP","","1","","1","0","","","","25/07/2025","754.59","548","CTP0021304","","85.50"],["21","27/02/23 10:18 RFR","2476130*","RING-PISTO","0.05","CTP","11.00","20","","9","0","19.00","","","03/02/2025","10.40","548","CTP0021247","","0.10"],["22","","2479908*","SPRING-VAL","0.14","CTP","72.00","24","","","0","49.00","","","07/01/2026","3.32","548","CTP0023089","","0.30"],["23","","2502940*","RETAINER-P","0.05","CTP","","0","","","0","15.00","","","","0.00","548","CTP0020653","","0.10"],["24","","2613450*","BEARING-RO","0.41","CTP","11.00","18","","7","0","40.00","","","03/10/2024","21.87","548","CTP0020655","","0.90"],["25","24/06/24 16:47 NMM","2803979*","INSERT-VAL","0.05","CTP","28.00","24","","","0","62.00","","","25/11/2025","3.78","548","CTP0024745","","0.10"],["26","","3327298*","CAMSHAFT C15","33.34","CTP","1.00","1","","","0","1.00","","","23/05/2025","579.57","548","CTP0028611","","73.50"],["27","","3367595","MANIFOLD-E","6.26","CAT","","","","","0","","","","","0.00","548","CAT0055091","","13.80"],["28","07/05/23 12:22 JRS","3520211*","PUMP GP-WA","16.65","CTP","1.00","2","","1","0","4.00","","","17/09/2024","152.54","548","CTP0018752","","36.70"],["29","","3627866","FLYWHEEL A","71.35","CAT","","","","","0","","","","","0.00","548","CAT0055150","","157.30"],["30","","3740750*","INJECTOR G (10R3264)","2.68","CTP","","0","","","0","1.00","","","","0.00","548","CTP0025701","","5.90"],["31","24/06/24 16:47 NMM","3848612*","PUMP GP-F","2.41","CTP","","2","","2","0","7.00","","","25/11/2025","189.15","548","CTP0023215","","5.31"],["32","","3889354*","BODY AS-PI","4.31","CTP","4.00","5","","1","0","","","","01/07/2024","163.00","548","CTP0024259","","9.50"],["33","","4907198*","VALVE-INTAKE","0.23","CTP","16.00","24","","8","0","84.00","","","25/11/2025","9.51","548","CTP0026128","","0.50"],["34","","4907200*","VALVE EXHAUST (1537024)","0.23","CTP","12.00","24","","12","0","72.00","","","10/11/2025","24.96","548","CTP0028298","","0.50"],["35","","6I4421*","PLATE SPAC","8.62","CTP","","1","","1","0","2.00","","","17/07/2025","216.00","548","CTP0023088","","19.00"]],"pie":"35    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=1488669216&single=true&output=csv","sigla":"C15","corto":"C15","color":"#c2760a","titulo":"Motor C15"},{"nombre":"MOTOR 3406","gid":"575456819","cols":["","ULT.compra","Part Number","DESCRIPCION","Peso Kg","MARCA","STK.GRAL.*","STK MIN.","TRANSITO","REPONER","b","Qcotiz YY","Qventas YY","Qcompras YY","Arribo","O/C Unit$","FAM.","COD.","Subfamilia","Pesolb"],"filas":[["1","","1007408*","CAMSHAFT A","23.36","CTP","","1","","1","0","5.00","","","26/09/2025","349.20","552","CTP0002350","","51.50"],["2","31/07/24 12:00 JRS","1007562*","NOZZLE","0.27","CTP","6.00","6","","","0","","","","03/03/2025","80.81","552","CTP0011818","","0.60"],["3","","1028608*","MANIFOLD","5.35","CTP","","0","","","0","","","","17/10/2016","40.48","552","CTP0019347","","11.80"],["4","","1045283*","MANIFOLD","9.12","CTP","","0","","","0","","","","17/10/2016","94.75","552","CTP0016220","","20.10"],["5","","1105096*","HEAD A.CYL(7W0007) P-D8N D8R","150.00","CTP","","2","","2","0","","","","17/12/2009","690.00","552","CTP0006832","","330.70"],["6","","1105097*","HEAD AS","129.27","CTP","","0","","","0","","","","08/06/2017","952.79","552","CTP0023578","","285.00"],["7","","1152367*","VALVE EXHA(1W3860,1061111","0.23","CTP","36.00","24","","","0","24.00","","","25/11/2025","9.70","552","10.041.868","99","0.50"],["8","","1152368*","VALVE INLE","0.23","CTP","24.00","24","","","0","60.00","","","10/11/2025","8.94","552","CTP0002917","","0.50"],["9","","1167885*","PAN OIL","11.52","CTP","","0","","","0","","","","","0.00","552","CTP0013942","","25.40"],["10","","1168154*","PISTON AS D8R","2.90","CTP","1.00","5","","4","0","6.00","","","18/12/2020","61.75","552","CTP0004749","","6.40"],["11","","1168154LK*","LINER KIT D8R","13.15","CTP","","12","","12","0","12.00","","","09/09/2025","139.68","552","CTP0026412","","29.00"],["12","","1317123*","BEARING(4N0343,7N2483)","0.27","CTP","7.00","4","","","0","4.00","","","30/12/2024","3.83","552","10.049.485","","0.60"],["13","","1609874*","GASKET KIT SINGLE CYL (5P8057)","0.05","CTP","36.00","24","","","0","63.00","","","25/07/2025","4.66","552","CTP0003146","","0.10"],["14","","1614112*","PUMP OIL(4N4294,4N0735)","14.65","CTP","","2","","2","0","1.00","","","23/05/2025","460.00","552","CTP0001143","4","32.30"],["15","","1737188*","GUIDE VALV.(4N2803/1227374)","0.09","FP","76.00","100","","24","0","262.00","24.00","","12/12/2025","1.38","552","FP0000299","4","0.20"],["16","07/05/23 12:22 JRS","1737188*","GUIDE VALV.(4N2803/1227374)","0.11","CTP","24.00","100","","76","0","160.00","","","10/11/2025","1.21","552","CTP0002288","","0.24"],["17","","1795922*","TURBO GP-B","25.85","CTP","","0","","","0","","","","25/07/2025","684.43","552","CTP0015190","","57.00"],["18","","1917941*","LINE AS-FUEL # 1 (4P9661)","0.23","CTP","1.00","10","","9","0","6.00","","","10/07/2025","6.95","552","CTP0001028","","0.50"],["19","","1917942*","LINE AS-FUEL # 2 (4P9662)","0.23","CTP","1.00","10","","9","0","7.00","","","10/11/2025","6.83","552","CTP0008464","","0.50"],["20","","1917943*","LINE AS-FUEL # 3 (4P9663)","0.18","CTP","3.00","8","","5","0","10.00","","","12/04/2025","6.95","552","CTP0000960","","0.40"],["21","","1917944*","LINE AS-FU # 4 (4P9664)","0.23","CTP","1.00","10","","9","0","11.00","","","10/11/2025","6.96","552","CTP0001029","","0.51"],["22","","1917945*","LINE AS-FU # 5 (4P9665)","0.27","CTP","1.00","20","","19","0","8.00","","","30/10/2024","6.89","552","CTP0002416","","0.60"],["23","","1917946*","LINE AS-FU # 6 (4P9666)","0.27","CTP","1.00","20","","19","0","8.00","","","30/10/2024","6.82","552","CTP0007181","","0.60"],["24","","1979322*","LINER(4N1627,2W6000)","8.26","CTP","5.00","36","","31","0","87.00","","","07/01/2026","46.86","552","CTP0005111","","18.20"],["25","","1W1469","HOUSING","27.31","CAT","","0","","","0","","","","","0.00","552","10.034.909","","60.20"],["26","","1W5283*","INSERT EXH","0.02","CTP","","20","","20","0","18.00","","","12/05/2025","3.78","552","10.040.920","","0.05"],["27","02/09/24 12:45 NMM","1W8922*","RING G","0.18","CTP","18.00","30","","12","0","12.00","","","08/04/2025","14.84","552","CTP0001397","","0.40"],["28","27/02/23 10:18 RFR","2531752*","PLATE-THRUST (7E9262)","0.18","CTP","14.00","10","","","0","37.00","","","16/01/2025","13.10","552","CTP0012204","","0.40"],["29","","2W9750","FLYWHEEL A","60.46","CAT","","0","","","0","","","","","0.00","552","CAT0012012","","133.30"],["30","","3178766*","BEARING MAIN STD (4W5492)","0.68","CTP","7.00","21","","14","0","63.00","","","22/02/2025","13.92","552","CTP0013895","4","1.50"],["31","","3285573*","BEARING-RO (217-0578)","0.37","CTP","6.00","6","","","0","18.00","","","25/11/2025","12.73","552","CTP0013894","","0.82"],["32","","3520203*","PUMP GP-WA","17.92","CTP","2.00","6","","4","0","3.00","","","23/05/2025","149.80","552","CTP0020091","","39.50"],["33","","4N0685*","BEARING","0.14","CTP","3.00","12","","9","0","36.00","","","16/01/2025","3.60","552","10.041.853","","0.30"],["34","","4N5893*","INSERT INTAKE","0.03","CTP","35.00","18","","","0","70.00","","","07/01/2026","2.23","552","10.024.227","","0.07"],["35","","4N6658*","BEARING","0.23","CTP","5.00","5","","","0","6.00","","","29/04/2024","05.08","552","10.036.671","","0.50"],["36","","4P8495*","BEARING SLEEVE (8N2018)","0.18","CTP","39.00","12","","","0","32.00","","","16/12/2024","09.08","552","10.053.666","","0.40"],["37","","4W2471*","SPRING","0.14","CTP","72.00","48","","","0","92.00","","","25/11/2025","4.36","552","CTP0017152","","0.30"],["38","","4W2474*","ROTOCOIL AS","0.05","CTP","20.00","48","","28","0","76.00","","","17/11/2025","03.01","552","10.039.846","","0.10"],["39","","4W3897","BOMBA DE INJECCION","0.00","CAT","","0","","","0","","","","","0.00","552","CAT0038385","","0.00"],["40","","4W5698*","BEARING MAIN 0.25","0.59","CTP","14.00","7","","","0","21.00","","","16/01/2025","16.31","552","10.049.066","","1.30"],["41","","4W5699*","BEARING-MAIN 0.50","0.73","CTP","","7","","7","0","26.00","","","25/11/2025","16.45","552","CTP0006402","","1.60"],["42","","6I1453*","CRANKSHAFT A (4P4334)","167.38","CTP","","0","","","0","1.00","","","24/01/2014","2,528.16","552","CTP0005308","","369.00"],["43","","6I2981*","PLATE BLOCK","11.52","CTP","2.00","1","","","0","2.00","","","06/08/2025","204.70","552","CTP0008824","","25.40"],["44","","7C3039*","CORE OIL (4W6039,2W1008)","9.34","CTP","2.00","3","","1","0","2.00","","","25/08/2025","310.56","552","CTP0003156","","20.60"],["45","","7E0330","COVER","03.04","CAT","","0","","","0","","","","","0.00","552","10.052.295","","6.70"],["46","","7E0558*","BEARING ROD 0.25","0.45","CTP","7.00","12","","5","0","13.00","","","16/01/2025","11.30","552","CTP0006602","","1.00"],["47","","7E0559*","BEARING RO 0.50 3406","0.45","CTP","","6","","6","0","6.00","","","12/05/2025","11.03","552","CTP0003362","","1.00"],["48","06/05/23 11:52 JRS","7E5665*","RETAINER(8N7295)","0.00","CTP","8.00","10","","2","0","37.00","","","25/08/2025","1.55","552","10.038.878","","0.01"],["49","","7E5996*","ROD AS","5.58","CTP","","0","","","0","9.00","","","30/01/2007","85.78","552","CTP0002535","","12.30"],["50","","7W0843","PAN OIL","3.72","CAT","","0","","","0","","","","","0.00","552","CAT0010515","","8.20"],["51","","7W0844*","PAN-OIL","6.53","CTP","","0","","","0","","","","","0.00","552","CTP0024283","","14.40"],["52","27/02/23 10:16 RFR","8N1608*","PIN","1.32","CTP","6.00","12","","6","0","6.00","","","19/11/2025","18.00","552","CTP0001306","","2.90"]],"pie":"52    * stock todos los almacenes","csv":"https://docs.google.com/spreadsheets/d/e/2PACX-1vTPHtlHcu5LczFRQzVyJg1joB-4qIX1iklyQUB88rjG-Q_LN0zOSFJT84eFV4CkRI5GiI4XbJ9EwftZ/pub?gid=575456819&single=true&output=csv","sigla":"3406","corto":"3406","color":"#be123c","titulo":"Motor 3406"}];
 const IDX = {n:0, ult:1, pn:2, desc:3, peso:4, marca:5, stk:6, min:7, tra:8, rep:9,
-             cot:11, arr:14, oc:15, fam:16, cod:17, sub:18, lb:19};
+             cot:11, ven:12, com:13, arr:14, oc:15, fam:16, cod:17, sub:18, lb:19};
 const NUM = [4,6,7,8,9,10,11,12,13,15,19];
-let MOTOR=-1, FILT={rep:false,nop:false}, TOPE={}, VER_TABLA={}, TOPE_PRI=15;
+const MES = ['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
+let MOTOR=-1, FILT={rep:false,nop:false}, TOPE={}, VER_TABLA={}, TOPE_PRI=15, ABIERTA=null;
 
 const $ = s => document.querySelector(s);
 const nu = v => { const x=parseFloat(String(v||'').replace(/[^\d.\-]/g,'')); return isNaN(x)?0:x; };
@@ -441,10 +507,27 @@ const ico = p => `<svg viewBox="0 0 24 24">${p}</svg>`;
 const CHEV = '<svg class="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>';
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2600); }
 
+// ── fechas del ERP ──
+// Arribo viene como dd/mm/aaaa; ULT.compra como "dd/mm/aa hh:mm INICIALES"
+function fArribo(s){
+  const m=/^(\d{2})\/(\d{2})\/(\d{4})/.exec(String(s||'').trim());
+  return m? {a:+m[3], m:+m[2], d:+m[1], txt:m[0]} : null;
+}
+function fCompra(s){
+  const m=/^(\d{2})\/(\d{2})\/(\d{2})(?:\s+(\d{2}:\d{2}))?(?:\s+([A-Z]{2,4}))?/.exec(String(s||'').trim());
+  return m? {a:2000+ +m[3], m:+m[2], d:+m[1], hora:m[4]||'', quien:m[5]||'',
+             txt:m[1]+'/'+m[2]+'/20'+m[3]} : null;
+}
+const claveMes = f => f.a*100+f.m;
+const etiqMes  = k => MES[(k%100)-1]+' '+String(Math.floor(k/100)).slice(2);
+
 function leer(f,h,hi){
+  const arr=fArribo(f[IDX.arr]), ult=fCompra(f[IDX.ult]);
   return {cod:f[IDX.pn], desc:f[IDX.desc]||'—', marca:f[IDX.marca]||'', codErp:f[IDX.cod]||'',
     stk:nu(f[IDX.stk]), min:nu(f[IDX.min]), tra:nu(f[IDX.tra]), rep:nu(f[IDX.rep]),
-    oc:nu(f[IDX.oc]), arr:f[IDX.arr]||'', cot:nu(f[IDX.cot]), fam:f[IDX.fam]||'',
+    oc:nu(f[IDX.oc]), cot:nu(f[IDX.cot]), ven:nu(f[IDX.ven]), com:nu(f[IDX.com]),
+    peso:nu(f[IDX.peso]), lb:nu(f[IDX.lb]), fam:f[IDX.fam]||'', sub:f[IDX.sub]||'',
+    arr:arr, ult:ult, arrTxt:f[IDX.arr]||'', ultTxt:f[IDX.ult]||'',
     motor:h.corto, color:h.color, hi:hi, raw:f, val:nu(f[IDX.rep])*nu(f[IDX.oc])};
 }
 const itemsDe = hi => HOJAS[hi].filas.map(f=>leer(f,HOJAS[hi],hi));
@@ -457,167 +540,251 @@ function resumen(its){
   });
   return r;
 }
-// anillo de cobertura
-function anillo(pc, color, size){
-  const s=size||66, rr=(s/2)-6, c=2*Math.PI*rr;
+function anillo(pc,color,size){
+  const s=size||62, rr=(s/2)-6, c=2*Math.PI*rr;
   return `<svg viewBox="0 0 ${s} ${s}">
-    <circle cx="${s/2}" cy="${s/2}" r="${rr}" fill="none" stroke="#1c2739" stroke-width="7"/>
+    <circle cx="${s/2}" cy="${s/2}" r="${rr}" fill="none" stroke="#eef2f7" stroke-width="7"/>
     <circle cx="${s/2}" cy="${s/2}" r="${rr}" fill="none" stroke="${color}" stroke-width="7" stroke-linecap="round"
       stroke-dasharray="${c}" stroke-dashoffset="${c*(1-pc/100)}" style="transition:stroke-dashoffset .6s"/>
     <text x="${s/2}" y="${s/2}" transform="rotate(90 ${s/2} ${s/2})" text-anchor="middle" dominant-baseline="central"
-      font-family="Orbitron,sans-serif" font-size="${s*0.23}" font-weight="900" fill="#e9eefb">${Math.round(pc)}</text>
-  </svg>`;
+      font-family="Orbitron,sans-serif" font-size="${s*0.24}" font-weight="900" fill="#0f2440">${Math.round(pc)}</text></svg>`;
+}
+
+// ══ RESUMEN EJECUTIVO ══
+function pintarExec(its,g){
+  const porMotor=HOJAS.map((h,i)=>({h,r:resumen(itemsDe(i))})).sort((a,b)=>b.r.val-a.r.val);
+  const lider=porMotor[0], pcLider=g.val?Math.round(lider.r.val/g.val*100):0;
+  const conVal=its.filter(x=>x.rep>0&&x.val>0).sort((a,b)=>b.val-a.val);
+  let ac=0, k50=0;
+  for(const x of conVal){ ac+=x.val; k50++; if(ac>=g.val*0.5) break; }
+  const enCamino=its.filter(x=>x.tra>0);
+  $('#titular').innerHTML=`Cerrar la brecha de stock cuesta <span class="n">${usd(g.val)}</span>`;
+  $('#subtitular').textContent=`${fmt(g.rep)} de ${fmt(g.n)} repuestos están por debajo de su stock mínimo, `
+    +`repartidos en ${HOJAS.length} grupos de motor. Son ${fmt(g.uds)} unidades por comprar.`;
+  $('#hallazgos').innerHTML=`
+    <div class="hl" style="--c:var(--ambar)"><div class="ic">${ico('<path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/>')}</div>
+      <div class="tx"><b>${k50} repuestos son la mitad del gasto.</b> Negociar solo esos mueve la aguja más que revisar los ${fmt(g.rep)}.</div></div>
+    <div class="hl" style="--c:${lider.h.color}"><div class="ic">${ico('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 15V9M12 15v-3M17 15v-6"/>')}</div>
+      <div class="tx"><b>${esc(lider.h.corto)} concentra el ${pcLider}%</b> del costo total, con ${usd(lider.r.val)} en ${lider.r.rep} repuestos.</div></div>
+    <div class="hl" style="--c:var(--azul)"><div class="ic">${ico('<path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/>')}</div>
+      <div class="tx"><b>${fmt(g.tra)} unidades ya vienen en camino</b> en ${enCamino.length} repuestos. Conviene revisarlas antes de volver a pedir.</div></div>`;
+  $('#cifras').innerHTML=`
+    <div class="cf" style="--c:var(--ambar)"><div class="r">Hay que reponer</div><div class="n">${fmt(g.rep)}</div>
+      <div class="s">de ${fmt(g.n)} repuestos · ${fmt(g.uds)} uds</div></div>
+    <div class="cf" style="--c:var(--teal)"><div class="r">Costo estimado</div><div class="n mo">${usd(g.val)}</div>
+      <div class="s">según la última orden de compra</div></div>
+    <div class="cf" style="--c:var(--azul)"><div class="r">En camino</div><div class="n">${fmt(g.tra)}</div>
+      <div class="s">unidades en tránsito</div></div>
+    <div class="cf" style="--c:var(--rojo)"><div class="r">Sin stock</div><div class="n">${fmt(g.sin)}</div>
+      <div class="s">en cero en todos los almacenes</div></div>
+    <div class="cf" style="--c:var(--morado)"><div class="r">Falta cotizar</div><div class="n">${fmt(g.nop)}</div>
+      <div class="s">sin precio de compra en el ERP</div></div>`;
+}
+
+// ══ HISTORIAL ══
+function pintarHistorial(its){
+  // llegadas al almacén, por mes
+  const cuenta={}, uds={};
+  its.forEach(x=>{ if(!x.arr) return; const k=claveMes(x.arr);
+    cuenta[k]=(cuenta[k]||0)+1; uds[k]=(uds[k]||0)+(x.tra||0); });
+  const claves=Object.keys(cuenta).map(Number).sort((a,b)=>a-b);
+  const ult=claves.slice(-16);
+  const maxC=Math.max(...ult.map(k=>cuenta[k]),1);
+  const hoy=new Date(), kHoy=hoy.getFullYear()*100+(hoy.getMonth()+1);
+  const viejos=claves.length-ult.length;
+  const totalLleg=claves.reduce((a,k)=>a+cuenta[k],0);
+  $('#hLlegadas').innerHTML=`
+    <div class="hcab"><div><h4>Llegadas al almacén</h4>
+      <p>Repuestos por mes de arribo${viejos>0?` · hay ${viejos} meses anteriores fuera del gráfico`:''}</p></div>
+      <span class="tot">${fmt(totalLleg)}</span></div>
+    <div class="meses">${ult.map(k=>{
+      const h=Math.max(3,Math.round(cuenta[k]/maxC*118));
+      return `<div class="mes${k>=kHoy?' fut':''}" title="${etiqMes(k)}: ${cuenta[k]} repuestos">
+        <span class="vv">${cuenta[k]}</span><span class="bar" style="height:${h}px"></span></div>`;}).join('')}</div>
+    <div class="meses-x">${ult.map(k=>`<div class="mes-x"><b>${MES[(k%100)-1]}</b>${String(Math.floor(k/100)).slice(2)}</div>`).join('')}</div>
+    <div class="leyenda"><span><i style="background:var(--azul)"></i>Ya llegó</span>
+      <span><i style="background:var(--ambar)"></i>Por llegar (en tránsito)</span></div>`;
+
+  // últimas compras registradas
+  const conU=its.filter(x=>x.ult);
+  const porAnio={}, porQuien={};
+  conU.forEach(x=>{ porAnio[x.ult.a]=(porAnio[x.ult.a]||0)+1;
+    if(x.ult.quien) porQuien[x.ult.quien]=(porQuien[x.ult.quien]||0)+1; });
+  const anios=Object.keys(porAnio).map(Number).sort();
+  const maxA=Math.max(...anios.map(a=>porAnio[a]),1);
+  $('#hCompras').innerHTML=`
+    <div class="hcab"><div><h4>Últimas compras registradas</h4>
+      <p>Año de la última compra de cada repuesto</p></div><span class="tot">${conU.length}</span></div>
+    <div class="anios">${anios.length?anios.map(a=>`<div class="anio">
+      <span class="y">${a}</span><span class="tr"><i style="width:${Math.round(porAnio[a]/maxA*100)}%"></i></span>
+      <span class="c">${porAnio[a]} repuestos</span></div>`).join('')
+      :'<div class="vacio">El ERP no trae fechas de compra.</div>'}</div>
+    ${Object.keys(porQuien).length?`<div class="compradores">${Object.entries(porQuien).sort((a,b)=>b[1]-a[1])
+      .map(([q,n])=>`<span class="comp"><b>${esc(q)}</b> · ${n} compras</span>`).join('')}</div>`:''}`;
+
+  const sinU=its.length-conU.length;
+  $('#notaHist').innerHTML=`<div class="ic">${ico('<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>')}</div>
+    <div class="tx">El ERP exporta la columna <b>Qcompras YY vacía en los ${fmt(its.length)} repuestos</b>, y la fecha de
+    última compra solo en ${conU.length} de ellos (faltan ${sinU}). Con eso no se puede armar el historial de
+    <b>cuánto se compró de cada producto en cada fecha</b>: lo que ves arriba es lo máximo que dan estos datos.
+    Para el historial completo hace falta que PROFICONT exporte esa columna con valores, o un reporte aparte de
+    órdenes de compra con fecha y cantidad. En cuanto exista, entra solo por la misma sincronización.</div>`;
 }
 
 // ══ PANORAMA ══
 function pintarPanorama(){
   const its=todos(), g=resumen(its);
-  $('#franja').innerHTML=`
-    <div class="cif" style="--c:var(--ambar)"><div class="r"><i></i>Hay que reponer</div>
-      <div class="n">${fmt(g.rep)}</div><div class="s">de ${fmt(g.n)} repuestos · ${fmt(g.uds)} unidades</div></div>
-    <div class="cif" style="--c:var(--teal)"><div class="r"><i></i>Costo de cerrar la brecha</div>
-      <div class="n mo">${usd(g.val)}</div><div class="s">según la última orden de compra</div></div>
-    <div class="cif" style="--c:var(--azul)"><div class="r"><i></i>Ya viene en camino</div>
-      <div class="n">${fmt(g.tra)}</div><div class="s">unidades en tránsito</div></div>
-    <div class="cif" style="--c:var(--rojo)"><div class="r"><i></i>Sin stock</div>
-      <div class="n">${fmt(g.sin)}</div><div class="s">en cero en todos los almacenes</div></div>
-    <div class="cif" style="--c:var(--morado)"><div class="r"><i></i>Falta cotizar</div>
-      <div class="n">${fmt(g.nop)}</div><div class="s">no tienen precio en el ERP</div></div>`;
+  pintarExec(its,g);
+  pintarHistorial(its);
 
-  // ranking por costo
   const res=HOJAS.map((h,i)=>({h,i,r:resumen(itemsDe(i))})).sort((a,b)=>b.r.val-a.r.val);
   const max=Math.max(...res.map(x=>x.r.val),1);
   $('#rank').innerHTML=res.map(({h,i,r})=>{
-    const w=Math.max(3,Math.round(r.val/max*100));
-    const dentro = w>26;
+    const w=Math.max(3,Math.round(r.val/max*100)), dentro=w>28;
     return `<div class="rk" style="--c:${h.color}" onclick="verMotor(${i})">
       <div class="rk-id"><span class="pt"></span><span class="nm">${esc(h.corto)}</span></div>
       <div class="rk-bar" style="--w:${w}%"><span class="tr"></span>
         <span class="fl" style="width:${w}%">${dentro?`<b>${usdK(r.val)}</b>`:''}</span>
         ${dentro?'':`<span class="out">${usdK(r.val)}</span>`}</div>
-      <div class="rk-val"><div class="v">${fmt(r.uds)}</div><div class="k">uds · ${r.rep} ítems</div></div>
-    </div>`;
+      <div class="rk-val"><div class="v">${fmt(r.uds)}</div><div class="k">uds · ${r.rep} ítems</div></div></div>`;
   }).join('');
 
-  // prioridad de compra (los que concentran el gasto)
-  const conVal=its.filter(x=>x.rep>0 && x.val>0).sort((a,b)=>b.val-a.val);
-  const totV=conVal.reduce((a,x)=>a+x.val,0);
-  const maxV=conVal.length?conVal[0].val:1;
+  const conVal=its.filter(x=>x.rep>0&&x.val>0).sort((a,b)=>b.val-a.val);
+  const totV=conVal.reduce((a,x)=>a+x.val,0), maxV=conVal.length?conVal[0].val:1;
   let acum=0;
   const filas=conVal.slice(0,TOPE_PRI).map((x,k)=>{
-    acum+=x.val;
-    const pc=totV?Math.round(acum/totV*100):0;
+    acum+=x.val; const pc=totV?Math.round(acum/totV*100):0;
     return `<div class="pr" style="--c:${x.color}">
       <div class="pos${k<3?' top':''}">${k+1}</div>
-      <div class="pr-id">
-        <div class="cd">${esc(x.cod)}</div>
+      <div class="pr-id"><div class="cd">${esc(x.cod)}</div>
         <div class="ds" title="${esc(x.desc)}">${esc(x.desc)}</div>
         <div class="mt"><i></i>${esc(x.motor)}</div>
-        <div class="pr-sp"><i style="width:${Math.max(2,Math.round(x.val/maxV*100))}%"></i></div>
-      </div>
+        <div class="pr-sp"><i style="width:${Math.max(2,Math.round(x.val/maxV*100))}%"></i></div></div>
       <div class="q"><div class="v">${fmt(x.rep)}</div><div class="k">unidades</div></div>
       <div class="u">${usd(x.oc)}</div>
-      <div class="tot"><div class="v">${usd(x.val)}</div><div class="ac">${pc}% acumulado</div></div>
-    </div>`;
+      <div class="tot"><div class="v">${usd(x.val)}</div><div class="ac">${pc}% acumulado</div></div></div>`;
   }).join('');
   const resto=conVal.length-Math.min(TOPE_PRI,conVal.length);
   $('#pri').innerHTML=filas+(resto>0?`<div class="mas" onclick="TOPE_PRI+=20;pintarPanorama()">Ver 20 más · quedan ${resto}</div>`:'');
 
-  // alertas
   const sinStk=its.filter(x=>x.stk<=0&&x.rep>0).sort((a,b)=>b.val-a.val);
+  const enCam=its.filter(x=>x.tra>0&&x.arrTxt).sort((a,b)=>b.tra-a.tra);
   const sinPre=its.filter(x=>x.oc<=0&&x.rep>0).sort((a,b)=>b.rep-a.rep);
-  const enCamino=its.filter(x=>x.tra>0&&x.arr).sort((a,b)=>b.tra-a.tra);
   const lista=(arr,campo)=>arr.slice(0,12).map(x=>`<div class="al">
       <span class="cd">${esc(x.cod)}</span><span class="ds" title="${esc(x.desc)}">${esc(x.desc)}</span>
       <span class="mo">${esc(x.motor)}</span><span class="vv">${campo(x)}</span></div>`).join('');
   $('#alertas').innerHTML=`
-    <div class="alert" style="--c:var(--rojo)">
-      <div class="alert-h"><div class="ic">${ico('<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>')}</div>
+    <div class="panel" style="--c:var(--rojo)">
+      <div class="al-h"><div class="ic">${ico('<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>')}</div>
         <div class="tt"><h4>Quiebre de stock</h4><p>En cero y además faltan para el mínimo</p></div>
         <span class="n">${sinStk.length}</span></div>
-      <div class="alert-b">${sinStk.length?lista(sinStk,x=>usd(x.val)):'<div class="vacio">Ninguno. 🎉</div>'}</div>
-      ${sinStk.length>12?`<div class="alert-f">…y ${sinStk.length-12} más</div>`:''}
-    </div>
-    <div class="alert" style="--c:var(--azul)">
-      <div class="alert-h"><div class="ic">${ico('<path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/>')}</div>
+      <div class="al-b">${sinStk.length?lista(sinStk,x=>usd(x.val)):'<div class="vacio">Ninguno.</div>'}</div>
+      ${sinStk.length>12?`<div class="al-f">…y ${sinStk.length-12} más</div>`:''}</div>
+    <div class="panel" style="--c:var(--azul)">
+      <div class="al-h"><div class="ic">${ico('<path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/>')}</div>
         <div class="tt"><h4>Llega pronto</h4><p>Ya está pedido, con fecha de arribo</p></div>
-        <span class="n">${fmt(enCamino.reduce((a,x)=>a+x.tra,0))}</span></div>
-      <div class="alert-b">${enCamino.length?lista(enCamino,x=>fmt(x.tra)+' uds · '+esc(x.arr)):'<div class="vacio">Nada en tránsito.</div>'}</div>
-      ${enCamino.length>12?`<div class="alert-f">…y ${enCamino.length-12} más</div>`:''}
-    </div>
-    <div class="alert" style="--c:var(--morado)">
-      <div class="alert-h"><div class="ic">${ico('<circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4"/><path d="M12 17h.01"/>')}</div>
+        <span class="n">${fmt(enCam.reduce((a,x)=>a+x.tra,0))}</span></div>
+      <div class="al-b">${enCam.length?lista(enCam,x=>fmt(x.tra)+' uds · '+esc(x.arrTxt)):'<div class="vacio">Nada en tránsito.</div>'}</div>
+      ${enCam.length>12?`<div class="al-f">…y ${enCam.length-12} más</div>`:''}</div>
+    <div class="panel" style="--c:var(--morado)">
+      <div class="al-h"><div class="ic">${ico('<circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4"/><path d="M12 17h.01"/>')}</div>
         <div class="tt"><h4>Falta cotizar</h4><p>Sin precio de compra en el ERP</p></div>
         <span class="n">${sinPre.length}</span></div>
-      <div class="alert-b">${sinPre.length
-        ? lista(sinPre,x=>x.rep?fmt(x.rep)+' uds':'cubierto')
-        : `<div class="vacio">Ninguno de los ${fmt(g.rep)} repuestos que hay que comprar se quedó sin precio.<br>
-             Los ${fmt(g.nop)} sin cotizar ya están cubiertos, así que no frenan la compra.</div>`}</div>
-      ${sinPre.length>12?`<div class="alert-f">…y ${sinPre.length-12} más</div>`:''}
-    </div>`;
+      <div class="al-b">${sinPre.length?lista(sinPre,x=>fmt(x.rep)+' uds')
+        :`<div class="vacio">Ninguno de los ${fmt(g.rep)} repuestos por comprar se quedó sin precio.<br>
+          Los ${fmt(g.nop)} sin cotizar ya están cubiertos, así que no frenan la compra.</div>`}</div>
+      ${sinPre.length>12?`<div class="al-f">…y ${sinPre.length-12} más</div>`:''}</div>`;
 
-  // tarjetas
   $('#grid').innerHTML=HOJAS.map((h,i)=>{
     const r=resumen(itemsDe(i)), cob=r.n?Math.round(r.ok/r.n*100):0;
     return `<div class="mc" style="--c:${h.color}" onclick="verMotor(${i})">
       <div class="mc-t"><div class="mc-av">${esc(h.sigla)}</div>
         <div class="hd"><div class="fm">Familia ${esc(r.n?itemsDe(i)[0].fam:'')}</div><h3>${esc(h.corto)}</h3></div></div>
-      <div class="mc-anillo">${anillo(cob,h.color)}
+      <div class="mc-an">${anillo(cob,h.color)}
         <div class="tk"><div class="l">Costo de reponer</div><div class="v">${r.val?usdK(r.val):'—'}</div>
           <div class="s">${cob}% ya cubierto · ${r.n} repuestos</div></div></div>
       <div class="mc-f">
         ${r.rep?`<span class="tag" style="--tc:var(--ambar)">${r.rep} a reponer</span>`:''}
         ${r.tra?`<span class="tag" style="--tc:var(--azul)">${fmt(r.tra)} en camino</span>`:''}
         ${r.sin?`<span class="tag" style="--tc:var(--rojo)">${r.sin} sin stock</span>`:''}
-        ${r.nop?`<span class="tag" style="--tc:var(--morado)">${r.nop} sin precio</span>`:''}
-      </div></div>`;
+        ${r.nop?`<span class="tag" style="--tc:var(--morado)">${r.nop} sin precio</span>`:''}</div></div>`;
   }).join('');
   buscarGlobal();
 }
 
 function buscarGlobal(){
   const q=($('#qg').value||'').trim().toUpperCase(), cont=$('#resG');
-  if(!q){ cont.innerHTML='<div class="blq"><div class="vacio">Escribe un part number o una descripción para buscarlo en los 7 motores.</div></div>'; return; }
+  if(!q){ cont.innerHTML='<div class="panel"><div class="vacio">Escribe un part number o una descripción para buscarlo en los 7 motores.</div></div>'; return; }
   const hits=todos().filter(x=>(x.cod+' '+x.desc+' '+x.marca+' '+x.codErp).toUpperCase().indexOf(q)>=0)
                     .sort((a,b)=>b.val-a.val||b.rep-a.rep);
-  if(!hits.length){ cont.innerHTML=`<div class="blq"><div class="vacio">No encontré ningún repuesto que diga «${esc(q)}».</div></div>`; return; }
-  cont.innerHTML=`<div class="blq" style="--c:var(--morado)">
+  if(!hits.length){ cont.innerHTML=`<div class="panel"><div class="vacio">No encontré ningún repuesto que diga «${esc(q)}».</div></div>`; return; }
+  cont.innerHTML=`<div class="blq" style="--c:var(--azul)">
     <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
       <div class="ic">${ico('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}</div>
       <div class="tt"><h4>${hits.length} resultado${hits.length>1?'s':''}</h4><p>para «${esc(q)}»</p></div>
       <span class="cnt">${hits.length}</span>${CHEV}</div>
-    <div class="blq-b">${hits.slice(0,60).map(x=>itemHTML(x,true)).join('')}
+    <div class="blq-b">${hits.slice(0,60).map((x,i)=>itemHTML(x,'g'+i,true)).join('')}
       ${hits.length>60?`<div class="vacio">…y ${hits.length-60} más. Afina la búsqueda.</div>`:''}</div></div>`;
 }
 
-// ── una fila de repuesto ──
-function itemHTML(x, conMotor){
-  const obj=x.min||x.stk+x.rep||1;
+// ── fila + ficha del repuesto ──
+function itemHTML(x,id,conMotor){
+  const obj=Math.max(x.min, x.stk+x.rep, 1);
   const pStk=Math.min(100,Math.round(x.stk/obj*100));
   const pFal=Math.min(100-pStk,Math.round(x.rep/obj*100));
-  return `<div class="it">
+  return `<div class="it" id="it${id}" onclick="verFicha('${id}')">
     <div class="cd">${esc(x.cod)}${x.codErp?`<small>${esc(x.codErp)}</small>`:''}</div>
     <div class="ds"><div class="d" title="${esc(x.desc)}">${esc(x.desc)}</div>
       <div class="m">${x.marca?`<span class="mk">${esc(x.marca)}</span>`:''}
         ${conMotor?`<span>${esc(x.motor)}</span>`:''}
-        ${x.cot?`<span>cotizado ${fmt(x.cot)} este año</span>`:''}
-        ${x.tra&&x.arr?`<span>llega el ${esc(x.arr)}</span>`:''}</div></div>
-    <div class="barra"><span class="tr"><i class="stk" style="width:${pStk}%"></i><i class="fal" style="width:${pFal}%;margin-top:-6px;margin-left:${pStk}%"></i></span>
+        ${x.ult?`<span>última compra ${esc(x.ult.txt)}</span>`:''}
+        ${x.tra&&x.arrTxt?`<span>llega el ${esc(x.arrTxt)}</span>`:''}</div></div>
+    <div class="barra"><span class="tr"><i class="stk" style="width:${pStk}%"></i><i class="fal" style="width:${pFal}%"></i></span>
       <span class="lb">${fmt(x.stk)}/${fmt(x.min)}</span></div>
     <div class="rp${x.rep>0?'':' ok'}">${x.rep>0?`<div class="v">${fmt(x.rep)}</div><div class="k">Reponer</div>`
-                                               :`<div class="v">✓</div><div class="k">Cubierto</div>`}</div>
+                                              :`<div class="v">✓</div><div class="k">Cubierto</div>`}</div>
     <div class="mn">${x.oc?`<div class="u">${usd(x.oc)} c/u</div><div class="t">${x.val?usd(x.val):'—'}</div>`
-                          :`<div class="t no">falta cotizar</div>`}</div>
-  </div>`;
+                         :`<div class="t no">falta cotizar</div>`}</div>
+    <div class="exp">⌄</div></div>
+  <div class="ficha hidden" id="fi${id}">
+    <h5>Ficha del repuesto</h5>
+    <div class="fgrid">
+      ${fd('Part number',esc(x.cod))}
+      ${fd('Código PROFICONT',esc(x.codErp)||'—')}
+      ${fd('Marca',esc(x.marca)||'—')}
+      ${fd('Peso',x.peso?x.peso+' kg'+(x.lb?' · '+x.lb+' lb':''):'—','sm')}
+      ${fd('Familia',esc(x.fam)+(x.sub?' · '+esc(x.sub):''),'sm')}
+      ${fd('Stock general',fmt(x.stk))}
+      ${fd('Stock mínimo',fmt(x.min))}
+      ${fd('En tránsito',x.tra?fmt(x.tra):'—')}
+      ${fd('Fecha de arribo',esc(x.arrTxt)||'—','sm')}
+      ${fd('Última compra',x.ult?esc(x.ult.txt)+(x.ult.quien?' · '+esc(x.ult.quien):''):'sin registro','sm')}
+      ${fd('Cotizado este año',x.cot?fmt(x.cot)+' uds':'—')}
+      ${fd('Vendido este año',x.ven?fmt(x.ven)+' uds':'sin registro')}
+      ${fd('Comprado este año',x.com?fmt(x.com)+' uds':'el ERP no lo exporta')}
+      ${fd('Últ. orden de compra',x.oc?usd(x.oc):'sin precio','sm')}
+    </div></div>`;
+}
+function fd(l,v,cl){
+  const mut=/^(—|sin registro|sin precio|el ERP no lo exporta)$/.test(v);
+  return `<div class="fd"><div class="l">${l}</div><div class="v ${cl||''}${mut?' mut':''}">${v}</div></div>`;
+}
+function verFicha(id){
+  const f=$('#fi'+id), it=$('#it'+id); if(!f) return;
+  const abrir=f.classList.contains('hidden');
+  if(ABIERTA && ABIERTA!==id){ const p=$('#fi'+ABIERTA), q=$('#it'+ABIERTA);
+    if(p) p.classList.add('hidden'); if(q) q.classList.remove('abierta'); }
+  f.classList.toggle('hidden',!abrir); it.classList.toggle('abierta',abrir);
+  ABIERTA = abrir? id : null;
 }
 
 // ══ DETALLE ══
 function verMotor(i){
-  MOTOR=i; FILT={rep:false,nop:false}; TOPE[i]=40; VER_TABLA[i]=false;
+  MOTOR=i; FILT={rep:false,nop:false}; TOPE[i]=40; VER_TABLA[i]=false; ABIERTA=null;
   $('#vPanorama').classList.add('hidden'); $('#vMotor').classList.remove('hidden');
   pintarDetalle(); window.scrollTo(0,0);
 }
-function verPanorama(){ MOTOR=-1; $('#vMotor').classList.add('hidden'); $('#vPanorama').classList.remove('hidden'); window.scrollTo(0,0); }
+function verPanorama(){ MOTOR=-1; ABIERTA=null; $('#vMotor').classList.add('hidden'); $('#vPanorama').classList.remove('hidden'); window.scrollTo(0,0); }
 function filtroD(k,v){ FILT[k]=v; $({rep:'#d1',nop:'#d2'}[k]).classList.toggle('on',v); pintarDetalle(); }
 function masFilas(){ TOPE[MOTOR]=(TOPE[MOTOR]||40)+60; pintarDetalle(); }
 function verTabla(){ VER_TABLA[MOTOR]=!VER_TABLA[MOTOR]; pintarDetalle(); }
@@ -625,6 +792,7 @@ function verTabla(){ VER_TABLA[MOTOR]=!VER_TABLA[MOTOR]; pintarDetalle(); }
 function pintarDetalle(){
   const h=HOJAS[MOTOR], its=itemsDe(MOTOR), r=resumen(its);
   const q=(($('#qd')&&$('#qd').value)||'').trim().toUpperCase();
+  ABIERTA=null;
   const vis=its.filter(x=>{
     if(q && (x.cod+' '+x.desc+' '+x.marca+' '+x.codErp).toUpperCase().indexOf(q)<0) return false;
     if(FILT.rep && x.rep<=0) return false;
@@ -642,21 +810,15 @@ function pintarDetalle(){
       <div><h2>${esc(h.titulo)}</h2>
         <div class="mt">${r.n} repuestos · familia <b>${esc(its.length?its[0].fam:'')}</b> · hoja del ERP PROFICONT</div></div>
       <div class="side">
-        <a class="tbtn" href="${esc(h.csv)}" target="_blank" rel="noopener" style="text-decoration:none">Ver la hoja ↗</a>
-        <button class="tbtn pri" onclick="exportar(${MOTOR})">↓ Excel</button></div>
-    </div>
+        <a class="btn" href="${esc(h.csv)}" target="_blank" rel="noopener" style="text-decoration:none">Ver la hoja ↗</a>
+        <button class="btn pri" onclick="exportar(${MOTOR})">↓ Excel</button></div></div>
 
-    <div class="franja" style="--c:${h.color}">
-      <div class="cif" style="--c:var(--ambar)"><div class="r"><i></i>Hay que reponer</div>
-        <div class="n">${fmt(r.rep)}</div><div class="s">${fmt(r.uds)} unidades</div></div>
-      <div class="cif" style="--c:var(--teal)"><div class="r"><i></i>Costo</div>
-        <div class="n mo">${r.val?usd(r.val):'—'}</div><div class="s">según la última O/C</div></div>
-      <div class="cif" style="--c:${h.color}"><div class="r"><i></i>Cobertura</div>
-        <div class="n">${cob}%</div><div class="s">${r.ok} de ${r.n} llegan al mínimo</div></div>
-      <div class="cif" style="--c:var(--azul)"><div class="r"><i></i>En camino</div>
-        <div class="n">${fmt(r.tra)}</div><div class="s">unidades en tránsito</div></div>
-      <div class="cif" style="--c:var(--rojo)"><div class="r"><i></i>Sin stock</div>
-        <div class="n">${fmt(r.sin)}</div><div class="s">${r.nop} sin precio</div></div>
+    <div class="cifras">
+      <div class="cf" style="--c:var(--ambar)"><div class="r">Hay que reponer</div><div class="n">${fmt(r.rep)}</div><div class="s">${fmt(r.uds)} unidades</div></div>
+      <div class="cf" style="--c:var(--teal)"><div class="r">Costo</div><div class="n mo">${r.val?usd(r.val):'—'}</div><div class="s">según la última O/C</div></div>
+      <div class="cf" style="--c:${h.color}"><div class="r">Cobertura</div><div class="n">${cob}%</div><div class="s">${r.ok} de ${r.n} llegan al mínimo</div></div>
+      <div class="cf" style="--c:var(--azul)"><div class="r">En camino</div><div class="n">${fmt(r.tra)}</div><div class="s">unidades en tránsito</div></div>
+      <div class="cf" style="--c:var(--rojo)"><div class="r">Sin stock</div><div class="n">${fmt(r.sin)}</div><div class="s">${r.nop} sin precio</div></div>
     </div>
 
     <div class="tools">
@@ -664,26 +826,24 @@ function pintarDetalle(){
         <input id="qd" placeholder="Buscar dentro de ${esc(h.corto)}…" value="${esc(q)}" oninput="pintarDetalle()"></div>
       <label class="chk${FILT.rep?' on':''}" id="d1"><input type="checkbox" ${FILT.rep?'checked':''} onchange="filtroD('rep',this.checked)">Solo a reponer</label>
       <label class="chk${FILT.nop?' on':''}" id="d2"><input type="checkbox" ${FILT.nop?'checked':''} onchange="filtroD('nop',this.checked)">Falta cotizar</label>
-      <button class="tbtn" onclick="verTabla()">${VER_TABLA[MOTOR]?'Ocultar':'Ver'} la tabla del ERP</button>
+      <button class="btn" onclick="verTabla()">${VER_TABLA[MOTOR]?'Ocultar':'Ver'} la tabla del ERP</button>
     </div>
 
     <div class="blq" style="--c:var(--ambar)">
       <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
         <div class="ic">${ico('<path d="M3 3h2l2.4 12h11.2L21 7H6"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/>')}</div>
-        <div class="tt"><h4>Hay que reponer</h4><p>Ordenados por lo que más cuesta</p></div>
+        <div class="tt"><h4>Hay que reponer</h4><p>Ordenados por lo que más cuesta · toca uno para ver su ficha</p></div>
         <span class="cnt">${rep.length}</span>${CHEV}</div>
-      <div class="blq-b">${repV.length?repV.map(x=>itemHTML(x)).join(''):'<div class="vacio">Nada que reponer con esos filtros. 🎉</div>'}
-        ${rep.length>repV.length?`<div class="mas" onclick="masFilas()">Ver ${Math.min(60,rep.length-repV.length)} más · quedan ${rep.length-repV.length}</div>`:''}</div>
-    </div>
+      <div class="blq-b">${repV.length?repV.map((x,i)=>itemHTML(x,'r'+i)).join(''):'<div class="vacio">Nada que reponer con esos filtros.</div>'}
+        ${rep.length>repV.length?`<div class="mas" onclick="masFilas()">Ver ${Math.min(60,rep.length-repV.length)} más · quedan ${rep.length-repV.length}</div>`:''}</div></div>
 
     <div class="blq cerrado" style="--c:var(--teal)">
       <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
         <div class="ic">${ico('<path d="M20 6 9 17l-5-5"/>')}</div>
         <div class="tt"><h4>Cubiertos</h4><p>Ya están en el mínimo o por encima</p></div>
         <span class="cnt">${ok.length}</span>${CHEV}</div>
-      <div class="blq-b">${ok.length?ok.slice(0,80).map(x=>itemHTML(x)).join(''):'<div class="vacio">Ninguno.</div>'}
-        ${ok.length>80?`<div class="vacio">…y ${ok.length-80} más.</div>`:''}</div>
-    </div>
+      <div class="blq-b">${ok.length?ok.slice(0,80).map((x,i)=>itemHTML(x,'k'+i)).join(''):'<div class="vacio">Ninguno.</div>'}
+        ${ok.length>80?`<div class="vacio">…y ${ok.length-80} más.</div>`:''}</div></div>
 
     ${VER_TABLA[MOTOR]?`<div class="blq" style="--c:var(--ink3)">
       <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
@@ -842,9 +1002,12 @@ function _initLock(){
 }
 
 // ══ ARRANQUE ══
-$('#fecha').textContent='Consultado el '+new Date().toLocaleString('es-PE');
+const _hoy=new Date();
+$('#fecha').textContent='Consultado el '+_hoy.toLocaleString('es-PE');
+$('#fechaInf').textContent=_hoy.toLocaleDateString('es-PE',{day:'2-digit',month:'long',year:'numeric'});
 pintarPanorama();
 try{ _initLock(); }catch(e){ console.error(e); }
+
 </script>
 </body>
 </html>
