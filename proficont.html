@@ -372,6 +372,40 @@ td.cd{font-size:10px;color:var(--ink3)}
 .sinkit{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 7px;border-radius:5px;
  background:#f0f3f8;color:var(--ink3);margin-left:6px}
 
+/* ══ SELECCIÓN DE MOTORES A ARMAR ══ */
+.kit-sel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;
+ margin-top:16px;box-shadow:var(--sh)}
+.ks-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:15px}
+.ks-top .l{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.ks-top .hint{font-size:12px;color:var(--ink3)}
+.ks-top .acc{margin-left:auto;display:flex;gap:8px}
+.ks-mini{font-size:11px;font-weight:700;color:var(--ink2);background:var(--card);border:1px solid var(--line);
+ padding:6px 12px;border-radius:20px;cursor:pointer;font-family:inherit;transition:.15s}
+.ks-mini:hover{color:var(--azul);border-color:#c3d2f7}
+.ks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.ks{border:1px solid var(--line);border-radius:var(--r-sm);padding:14px;background:var(--card2);transition:.18s}
+.ks.on{border-color:var(--azul);background:#f5f8ff;box-shadow:0 0 0 3px rgba(30,94,255,.08)}
+.ks .nm{font-family:'Orbitron',sans-serif;font-size:12.5px;font-weight:700}
+.ks .alc{font-size:10.5px;color:var(--ink3);margin-top:3px}
+.ks .alc b{color:var(--teal);font-family:'Orbitron',sans-serif;font-weight:700}
+.ks .alc b.cero{color:var(--rojo)}
+.ks .stp{display:flex;align-items:center;gap:9px;margin-top:12px}
+.ks .stp button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);
+ color:var(--ink2);font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;line-height:1;transition:.15s}
+.ks .stp button:hover{border-color:var(--azul);color:var(--azul)}
+.ks .stp input{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:6px;text-align:center;
+ font-family:'Orbitron',sans-serif;font-weight:800;font-size:16px;color:var(--ink);background:var(--card)}
+.ks.on .stp input{color:var(--azul);border-color:#c3d2f7}
+.ks .stp input:focus{outline:none;border-color:var(--azul)}
+.ks-res{margin-top:16px;padding-top:15px;border-top:1px solid var(--line2);display:flex;align-items:center;
+ gap:14px;flex-wrap:wrap}
+.ks-res .tx{font-size:13.5px;color:var(--ink2)}
+.ks-res .tx b{color:var(--ink);font-weight:700}
+.ks-res .tot{margin-left:auto;text-align:right}
+.ks-res .tot .l{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.ks-res .tot .v{font-family:'Orbitron',sans-serif;font-size:25px;font-weight:900;letter-spacing:-.7px;margin-top:2px}
+.it .nec .mix{font-size:9px;color:var(--ink3);margin-top:2px;font-family:'Exo 2',sans-serif;font-weight:600;line-height:1.3}
+
 /* Pantalla de bloqueo */
 #lockScreen{position:fixed;inset:0;z-index:9999;background:#4a4f58;
  display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
@@ -548,7 +582,7 @@ const IDX = {n:0, ult:1, pn:2, desc:3, peso:4, marca:5, stk:6, min:7, tra:8, rep
 const NUM = [4,6,7,8,9,10,11,12,13,15,19];
 const MES = ['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
 let MOTOR=-1, FILT={rep:false,nop:false}, TOPE={}, VER_TABLA={}, TOPE_PRI=15, ABIERTA=null;
-let MARCA='', MODO='min', KIT_MOT='', KIT_N=1, TOPE_KIT=40;
+let MARCA='', MODO='min', KIT_SEL={}, TOPE_KIT=40;
 
 const $ = s => document.querySelector(s);
 const nu = v => { const x=parseFloat(String(v||'').replace(/[^\d.\-]/g,'')); return isNaN(x)?0:x; };
@@ -886,61 +920,91 @@ function verFicha(id){
 // Con la cantidad necesaria por kit y el stock del ERP: cuantos juegos salen hoy
 // y que hay que importar para llegar a los que se piden.
 function motoresDe(hi){ return KIT.grupos[HOJAS[hi].corto]||[]; }
-function calcKit(hi,mot,n){
+
+// Cuantos juegos de UN motor salen con el stock de hoy (contando lo que viene en camino)
+function alcanzaDe(hi,mot){
+  const f=itemsDe(hi).filter(x=>x.needs[mot]>0);
+  return f.length? Math.min(...f.map(x=>Math.floor((x.stk+x.tra)/x.needs[mot]))) : 0;
+}
+
+// Necesidad combinada: se puede pedir varios motores del grupo, con su propia cantidad
+function calcKit(hi,sel){
+  const mots=Object.keys(sel).filter(m=>sel[m]>0);
   const filas=itemsDe(hi).map(x=>{
-    const need=x.needs[mot]||0;
-    const tiene=x.stk+x.tra;                 // lo que hay mas lo que ya viene en camino
-    const necesita=need*n;
-    const falta=Math.max(0,necesita-tiene);
-    return Object.assign({},x,{need,tiene,necesita,falta,costo:falta*x.oc,
-      alcanza: need>0 ? Math.floor(tiene/need) : Infinity});
-  }).filter(x=>x.need>0);
-  const juegos=filas.length?Math.min(...filas.map(x=>x.alcanza)):0;
-  const cuellos=filas.filter(x=>x.alcanza===juegos).sort((a,b)=>a.tiene-b.tiene);
+    let necesita=0; const mix=[];
+    mots.forEach(m=>{
+      const u=x.needs[m]||0; if(!u) return;
+      necesita+=u*sel[m];
+      mix.push({m,u,n:sel[m]});
+    });
+    const tiene=x.stk+x.tra, falta=Math.max(0,necesita-tiene);
+    return Object.assign({},x,{necesita,mix,tiene,falta,costo:falta*x.oc});
+  }).filter(x=>x.necesita>0);
   const importar=filas.filter(x=>x.falta>0).sort((a,b)=>b.costo-a.costo||b.falta-a.falta);
-  return {filas,juegos,cuellos,importar,
+  return {filas,importar,mots,
+    motores:mots.reduce((a,m)=>a+sel[m],0),
     uds:importar.reduce((a,x)=>a+x.falta,0),
     costo:importar.reduce((a,x)=>a+x.costo,0),
     sinPrecio:importar.filter(x=>!x.oc).length};
 }
-function setKitMot(v){ KIT_MOT=v; TOPE_KIT=40; pintarDetalle(); }
-function setKitN(v){ KIT_N=Math.max(1,Math.min(999,parseInt(v)||1)); TOPE_KIT=40; pintarDetalle(); }
+
+function selDe(hi){
+  if(!KIT_SEL[hi]){
+    const m=motoresDe(hi); KIT_SEL[hi]={};
+    m.forEach((x,i)=>KIT_SEL[hi][x]= i===0?1:0);
+  }
+  return KIT_SEL[hi];
+}
+function setJuegos(mot,v){
+  const sel=selDe(MOTOR);
+  sel[mot]=Math.max(0,Math.min(999,parseInt(v)||0));
+  TOPE_KIT=40; pintarDetalle();
+}
+function pasoJuegos(mot,d){ setJuegos(mot,(selDe(MOTOR)[mot]||0)+d); }
+function unoDeCada(){ const sel=selDe(MOTOR); motoresDe(MOTOR).forEach(m=>sel[m]=1); TOPE_KIT=40; pintarDetalle(); }
+function limpiarSel(){ const sel=selDe(MOTOR); motoresDe(MOTOR).forEach(m=>sel[m]=0); TOPE_KIT=40; pintarDetalle(); }
 function masKit(){ TOPE_KIT+=60; pintarDetalle(); }
 function setModo(m){ MODO=m; ABIERTA=null; pintarDetalle(); }
 
 function vistaKit(h,hi){
   const mots=motoresDe(hi);
   if(!mots.length) return `<div class="blq"><div class="vacio">Este grupo no tiene cantidades de kit en la hoja de motores.</div></div>`;
-  if(!KIT_MOT || mots.indexOf(KIT_MOT)<0) KIT_MOT=mots[0];
-  const k=calcKit(hi,KIT_MOT,KIT_N);
-  const sinKit=itemsDe(hi).length-k.filas.length;
-  const alc=k.juegos, clase=alc===0?'cero':(alc>=KIT_N?'ok':'');
+  const sel=selDe(hi), k=calcKit(hi,sel);
+  const sinKit=itemsDe(hi).length-itemsDe(hi).filter(x=>mots.some(m=>x.needs[m]>0)).length;
   const lista=k.importar.slice(0,TOPE_KIT);
+  const detalle=k.mots.map(m=>`<b>${sel[m]}</b> × ${esc(KIT.etiq[m]||m)}`).join(' + ');
+
   return `
-  <div class="kit-cfg">
-    <div class="kc"><div class="l">¿Qué motor vas a armar?</div>
-      <select onchange="setKitMot(this.value)">
-        ${mots.map(m=>`<option value="${esc(m)}"${m===KIT_MOT?' selected':''}>${esc(KIT.etiq[m]||m)}</option>`).join('')}
-      </select></div>
-    <div class="kc" style="min-width:auto"><div class="l">¿Cuántos juegos?</div>
-      <input type="number" min="1" max="999" value="${KIT_N}" onchange="setKitN(this.value)"></div>
-    <div class="kc-alcance">
-      <div class="l">Con el stock de hoy alcanza para</div>
-      <div class="v ${clase}">${alc===Infinity?'—':fmt(alc)} juego${alc===1?'':'s'}</div>
-      <div class="s">${k.filas.length} repuestos del kit · contando las ${fmt(k.filas.reduce((a,x)=>a+x.tra,0))} unidades que ya vienen en camino</div>
+  <div class="kit-sel">
+    <div class="ks-top">
+      <div><div class="l">¿Qué vas a armar?</div>
+        <div class="hint">Elige uno o varios motores del grupo y cuántos juegos de cada uno</div></div>
+      <div class="acc"><button class="ks-mini" onclick="unoDeCada()">1 de cada uno</button>
+        <button class="ks-mini" onclick="limpiarSel()">Limpiar</button></div>
+    </div>
+    <div class="ks-grid">${mots.map(m=>{
+      const n=sel[m]||0, a=alcanzaDe(hi,m);
+      return `<div class="ks${n>0?' on':''}">
+        <div class="nm">${esc(KIT.etiq[m]||m)}</div>
+        <div class="alc">hoy alcanza para <b class="${a?'':'cero'}">${fmt(a)}</b> juego${a===1?'':'s'}</div>
+        <div class="stp">
+          <button onclick="pasoJuegos('${esc(m)}',-1)" title="Uno menos">−</button>
+          <input type="number" min="0" max="999" value="${n}" onchange="setJuegos('${esc(m)}',this.value)">
+          <button onclick="pasoJuegos('${esc(m)}',1)" title="Uno más">+</button>
+        </div></div>`;
+    }).join('')}</div>
+    <div class="ks-res">
+      <div class="tx">${k.motores?`Vas a armar ${detalle}`:'No has elegido ningún motor todavía'}</div>
+      <div class="tot"><div class="l">Motores en total</div><div class="v">${fmt(k.motores)}</div></div>
     </div>
   </div>
 
-  ${alc<KIT_N&&k.cuellos.length?`<div class="cuello">
-    <h5>Lo que te frena para pasar de ${fmt(alc)} juego${alc===1?'':'s'}</h5>
-    <div class="lst">${k.cuellos.slice(0,8).map(x=>`<span class="cu"><b>${esc(x.cod)}</b> · ${esc(x.desc)} · tiene ${fmt(x.tiene)} y pide ${fmt(x.need)} por juego</span>`).join('')}
-      ${k.cuellos.length>8?`<span class="cu">…y ${k.cuellos.length-8} más</span>`:''}</div></div>`:''}
-
+  ${!k.motores?`<div class="blq"><div class="vacio">Súbele a por lo menos un motor para ver qué hay que importar.</div></div>`:`
   <div class="cifras" style="margin-top:16px">
     <div class="cf" style="--c:var(--ambar)"><div class="r">Hay que importar</div><div class="n">${fmt(k.importar.length)}</div>
-      <div class="s">repuestos de los ${k.filas.length} del kit</div></div>
+      <div class="s">repuestos de los ${k.filas.length} que pide la combinación</div></div>
     <div class="cf" style="--c:var(--azul)"><div class="r">Unidades</div><div class="n">${fmt(k.uds)}</div>
-      <div class="s">para ${KIT_N} juego${KIT_N===1?'':'s'} de ${esc(KIT.etiq[KIT_MOT]||KIT_MOT)}</div></div>
+      <div class="s">descontando stock y lo que viene en camino</div></div>
     <div class="cf" style="--c:var(--teal)"><div class="r">Costo de importar</div><div class="n mo">${k.costo?usd(k.costo):'—'}</div>
       <div class="s">${k.sinPrecio?k.sinPrecio+' sin precio, no suman':'según la última O/C'}</div></div>
     <div class="cf" style="--c:var(--ink3)"><div class="r">Fuera del kit</div><div class="n">${fmt(sinKit)}</div>
@@ -950,11 +1014,11 @@ function vistaKit(h,hi){
   <div class="blq" style="--c:var(--ambar)">
     <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
       <div class="ic">${ico('<path d="M20 7 12 3 4 7v10l8 4 8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/>')}</div>
-      <div class="tt"><h4>Qué importar</h4><p>Ordenado por lo que más cuesta · descuenta stock y lo que viene en camino</p></div>
+      <div class="tt"><h4>Qué importar</h4><p>Para ${detalle.replace(/<\/?b>/g,'')} · ordenado por lo que más cuesta</p></div>
       <span class="cnt">${k.importar.length}</span>${CHEV}</div>
     <div class="blq-b">${lista.length?lista.map((x,i)=>kitFilaHTML(x,'kk'+i)).join('')
-      :`<div class="vacio">Con el stock actual ya salen los ${KIT_N} juego${KIT_N===1?'':'s'}. No hay que importar nada.</div>`}
-      ${k.importar.length>lista.length?`<div class="mas" onclick="masKit()">Ver 60 más · quedan ${k.importar.length-lista.length}</div>`:''}</div></div>`;
+      :`<div class="vacio">Con el stock actual ya sale toda la combinación. No hay que importar nada.</div>`}
+      ${k.importar.length>lista.length?`<div class="mas" onclick="masKit()">Ver 60 más · quedan ${k.importar.length-lista.length}</div>`:''}</div></div>`}`;
 }
 
 function kitFilaHTML(x,id){
@@ -962,9 +1026,10 @@ function kitFilaHTML(x,id){
     <div class="cd">${esc(x.cod)}${x.codErp?`<small>${esc(x.codErp)}</small>`:''}</div>
     <div class="ds"><div class="d" title="${esc(x.desc)}">${esc(x.desc)}</div>
       <div class="m">${x.marca?`<span class="mk">${esc(x.marca)}</span>`:''}
-        <span>${fmt(x.need)} por juego</span>
+        <span>${x.mix.map(m=>`${fmt(m.u)} por juego de ${esc(KIT.etiq[m.m]||m.m)}`).join(' · ')}</span>
         ${x.tra?`<span>${fmt(x.tra)} en camino${x.arrTxt?' · llega el '+esc(x.arrTxt):''}</span>`:''}</div></div>
-    <div class="nec"><div class="v">${fmt(x.necesita)}</div><div class="k">Necesita</div></div>
+    <div class="nec"><div class="v">${fmt(x.necesita)}</div><div class="k">Necesita</div>
+      ${x.mix.length>1?`<div class="mix">${x.mix.map(m=>`${m.n}×${fmt(m.u)}`).join(' + ')}</div>`:''}</div>
     <div class="nec"><div class="v" style="color:var(--teal)">${fmt(x.tiene)}</div><div class="k">Tiene</div></div>
     <div class="rp"><div class="v">${fmt(x.falta)}</div><div class="k">Importar</div></div>
     <div class="mn">${x.oc?`<div class="u">${usd(x.oc)} c/u</div><div class="t">${usd(x.costo)}</div>`
@@ -976,7 +1041,7 @@ function kitFilaHTML(x,id){
 // ══ DETALLE ══
 function verMotor(i){
   MOTOR=i; FILT={rep:false,nop:false}; TOPE[i]=40; VER_TABLA[i]=false; ABIERTA=null;
-  MODO='min'; KIT_MOT=''; KIT_N=1; TOPE_KIT=40;
+  MODO='min'; KIT_SEL={}; TOPE_KIT=40;
   $('#vPanorama').classList.add('hidden'); $('#vMotor').classList.remove('hidden');
   pintarDetalle(); window.scrollTo(0,0);
 }
