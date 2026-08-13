@@ -936,6 +936,54 @@ mark{background:#fff3c4;color:inherit;padding:0 2px;border-radius:3px}
  background:#eef0ff;color:var(--morado);border:1px solid #dcdfff;vertical-align:middle}
 .erp-tag.rep{background:#fff3e2;color:#a35c00;border-color:#f6dcb4}
 .erp-tag b{font-weight:900}
+/* ===== PANEL ERP PROFICONT ===== */
+.erp-ov{position:fixed;inset:0;z-index:965;background:rgba(18,24,44,.5);backdrop-filter:blur(3px);
+ display:none;align-items:center;justify-content:center;padding:3vh 14px}
+.erp-ov.on{display:flex}
+.erp-box{width:min(1240px,98vw);max-height:94vh;background:#fff;border-radius:18px;display:flex;flex-direction:column;
+ overflow:hidden;border:1px solid var(--line);box-shadow:0 50px 100px -30px rgba(0,0,0,.5);animation:gsIn .2s cubic-bezier(.2,.8,.2,1)}
+.erp-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:#fafbfe}
+.erp-head h4{font-family:'Orbitron';font-size:14px}
+.erp-head p{font-size:11.5px;color:var(--ink3);margin-top:3px}
+.erp-tabs{display:flex;gap:5px;padding:11px 18px 0;background:#fafbfe;flex-wrap:wrap}
+.erp-tb{padding:7px 12px;border-radius:9px 9px 0 0;font-size:11.5px;font-weight:600;cursor:pointer;
+ border:1px solid var(--line);border-bottom:none;background:#f1f4fb;color:var(--ink2);white-space:nowrap}
+.erp-tb.on{background:#fff;color:var(--morado)}
+.erp-tb i{font-style:normal;color:var(--ink3);font-weight:700;margin-left:4px}
+.erp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;padding:14px 18px 4px}
+.erp-k{background:#fafbfe;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.erp-k .l{font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.erp-k .v{font-family:'Orbitron';font-size:20px;font-weight:900;margin-top:3px}
+.erp-k .v.warn{color:var(--amber)} .erp-k .v.bad{color:var(--rojo)} .erp-k .v.ok{color:var(--teal)}
+.erp-k .s{font-size:10.5px;color:var(--ink3);margin-top:2px}
+.erp-filt{display:flex;gap:8px;align-items:center;padding:10px 18px;flex-wrap:wrap}
+.erp-chk{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--ink2);
+ background:#f6f8fc;border:1px solid var(--line);padding:6px 11px;border-radius:20px;cursor:pointer}
+.erp-chk.on{background:#eef0ff;border-color:#d5d8ff;color:var(--morado)}
+.erp-chk input{width:14px;height:14px;accent-color:var(--morado);cursor:pointer}
+.erp-srch{flex:1;min-width:170px;border:1px solid var(--line);border-radius:9px;padding:7px 11px;font-size:12px;font-family:inherit}
+.erp-body{overflow:auto;flex:1;padding:0 18px 14px}
+.erp-row{display:grid;grid-template-columns:104px 1fr 52px 62px 62px 62px 66px 82px 84px;gap:8px;align-items:center;
+ padding:8px 6px;border-bottom:1px solid var(--line2);font-size:12px}
+.erp-row.head{position:sticky;top:0;background:#fff;z-index:2;border-bottom:1px solid var(--line);
+ font-size:9.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--ink3);font-weight:700;padding:10px 6px}
+.erp-row.rep{background:#fffaf2}
+.erp-row .c{font-family:'Orbitron';font-weight:700;font-size:11.5px}
+.erp-row .d{color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.erp-row .n{text-align:center;font-variant-numeric:tabular-nums}
+.erp-row .n.rep{font-weight:900;color:var(--amber);font-family:'Orbitron'}
+.erp-row .n.zero{color:var(--ink3)}
+.erp-row .p{text-align:right;font-weight:700;font-family:'Orbitron';font-size:11.5px;color:var(--teal)}
+.erp-row .p.none{color:var(--ink3);font-weight:400;font-family:inherit;font-style:italic}
+.erp-mk{display:inline-block;padding:1px 5px;border-radius:5px;background:#eef0ff;color:var(--morado);
+ font-size:8.5px;font-weight:700;font-family:'Orbitron';margin-left:6px}
+.erp-nx{display:inline-block;padding:1px 5px;border-radius:5px;background:#fdecec;color:var(--rojo);
+ font-size:8.5px;font-weight:700;font-family:'Orbitron';margin-left:5px}
+.erp-foot{padding:13px 18px;border-top:1px solid var(--line);background:#fafbfe;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.erp-foot .sum{flex:1;font-size:12px;color:var(--ink2)}
+.erp-empty{padding:40px;text-align:center;color:var(--ink3);font-size:13px}
+@media(max-width:820px){.erp-row{grid-template-columns:92px 1fr 56px 66px 78px}
+ .erp-row>.hid-sm{display:none}}
 </style>
 </head>
 <body>
@@ -1030,6 +1078,7 @@ mark{background:#fff3c4;color:inherit;padding:0 2px;border-radius:3px}
       <span class="sync-badge" id="syncBadge" style="display:none" onclick="syncSheets()" title="Clic para volver a leer Google Sheets"></span>
       <span class="htag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>11 motores</span>
       <span class="htag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Cotizaciones COSTEX/CTP</span>
+      <span class="htag" id="erpHtag" style="cursor:pointer" onclick="openErp()" title="Reposición por stock mínimo según el ERP PROFICONT"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7 12 3 4 7v10l8 4 8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg>ERP PROFICONT</span>
     </div>
   </div>
 </header>
@@ -1249,6 +1298,30 @@ mark{background:#fff3c4;color:inherit;padding:0 2px;border-radius:3px}
         <button class="ot-btn gh" onclick="closeCbAdd()">Cerrar</button>
         <button class="ot-btn add" onclick="applyCbAdd()">Aplicar selección</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="erp-ov" id="erpOv" onclick="if(event.target===this)closeErp()">
+  <div class="erp-box">
+    <div class="erp-head">
+      <div style="flex:1"><h4>ERP PROFICONT · Reposición por stock mínimo</h4>
+        <p>La fuente que reemplaza a SAP. Reponer = <b>stock mínimo − stock general − tránsito</b>. La demanda por kit no vive aquí: esa sigue saliendo de la hoja de motores.</p></div>
+      <button class="pl-x" onclick="closeErp()">✕</button>
+    </div>
+    <div class="erp-tabs" id="erpTabs"></div>
+    <div class="erp-kpis" id="erpKpis"></div>
+    <div class="erp-filt">
+      <input class="erp-srch" id="erpSrch" placeholder="Buscar código o descripción…" oninput="renderErp()">
+      <label class="erp-chk" id="erpF1"><input type="checkbox" onchange="erpFilt('rep',this.checked)">Solo lo que hay que reponer</label>
+      <label class="erp-chk" id="erpF2"><input type="checkbox" onchange="erpFilt('nop',this.checked)">Sin precio</label>
+      <label class="erp-chk" id="erpF3"><input type="checkbox" onchange="erpFilt('nokit',this.checked)">No está en ningún kit</label>
+    </div>
+    <div class="erp-body" id="erpRows"></div>
+    <div class="erp-foot">
+      <span class="sum" id="erpSum"></span>
+      <button class="ot-btn gh" onclick="syncErpSheets().then(()=>{renderErp();_toast('Hojas del ERP releídas');})">↻ Releer hojas</button>
+      <button class="ot-btn" onclick="exportErp()">⬇ Descargar en Excel</button>
     </div>
   </div>
 </div>
@@ -2183,6 +2256,125 @@ function erpTag(cod){
   return '<span class="erp-tag' + (e.reponer ? ' rep' : '') + '" title="ERP PROFICONT · ' + t.replace(/"/g, '') + '">'
        + (e.marca || 'ERP') + (e.reponer ? ' <b>↑' + fmt(e.reponer) + '</b>' : '') + '</span>';
 }
+
+// ═══════════════════════════════════════════════════════════════
+//  PANEL ERP PROFICONT — reposición por stock mínimo
+// ═══════════════════════════════════════════════════════════════
+let ERP_TAB = '*', ERP_FILT = {rep: false, nop: false, nokit: false};
+
+function erpGrupos(){
+  const g = [];
+  Object.keys(ERP).forEach(k => { const n = ERP[k][13]; if(n && g.indexOf(n) < 0) g.push(n); });
+  return g.sort();
+}
+// códigos que sí forman parte de algún kit de motor
+function erpEnKit(){
+  const s = new Set();
+  ENGINES.forEach(e => e.items.forEach(it => { s.add(it[0]); s.add(normCod(it[0])); }));
+  return s;
+}
+// una fila del panel, ya con su precio resuelto
+function erpFilas(){
+  const kit = erpEnKit();
+  return Object.keys(ERP).map(k => {
+    const o = {cod: k}; ERP_FIELDS.forEach((f, i) => o[f] = ERP[k][i]);
+    o.enKit = kit.has(k) || kit.has(normPN(splitPN(k)[0]));
+    o.precio = priceOf(k) || o.ocUsd || 0;
+    o.valor = o.precio * o.reponer;
+    return o;
+  });
+}
+function erpVista(){
+  const q = (($('#erpSrch') && $('#erpSrch').value) || '').trim().toUpperCase();
+  return erpFilas().filter(r => {
+    if(ERP_TAB !== '*' && r.grupo !== ERP_TAB) return false;
+    if(ERP_FILT.rep && !r.reponer) return false;
+    if(ERP_FILT.nop && r.precio) return false;
+    if(ERP_FILT.nokit && r.enKit) return false;
+    if(q && (r.cod + ' ' + (r.descErp || '') + ' ' + (r.codErp || '')).toUpperCase().indexOf(q) < 0) return false;
+    return true;
+  }).sort((a, b) => (b.valor - a.valor) || (b.reponer - a.reponer) || a.cod.localeCompare(b.cod));
+}
+function erpFilt(k, v){
+  ERP_FILT[k] = v;
+  const id = {rep: '#erpF1', nop: '#erpF2', nokit: '#erpF3'}[k];
+  if($(id)) $(id).classList.toggle('on', v);
+  renderErp();
+}
+function erpTab(g){ ERP_TAB = g; renderErp(); }
+
+function renderErp(){
+  const todas = erpFilas(), filas = erpVista();
+  // pestañas por grupo de motor
+  const grupos = erpGrupos();
+  $('#erpTabs').innerHTML = [['*', 'Todos los grupos']].concat(grupos.map(g => [g, g]))
+    .map(([id, label]) => {
+      const n = id === '*' ? todas.length : todas.filter(r => r.grupo === id).length;
+      return `<span class="erp-tb${ERP_TAB === id ? ' on' : ''}" onclick="erpTab(${JSON.stringify(id).replace(/"/g, '&quot;')})">${label}<i>${n}</i></span>`;
+    }).join('');
+  // indicadores del grupo activo (sin filtros, para no mover el piso)
+  const base = todas.filter(r => ERP_TAB === '*' || r.grupo === ERP_TAB);
+  const rep = base.filter(r => r.reponer > 0);
+  const uds = rep.reduce((a, r) => a + r.reponer, 0);
+  const val = rep.reduce((a, r) => a + r.valor, 0);
+  const sinP = base.filter(r => !r.precio).length;
+  const sinKit = base.filter(r => !r.enKit).length;
+  const tra = base.reduce((a, r) => a + r.transito, 0);
+  $('#erpKpis').innerHTML = `
+    <div class="erp-k"><div class="l">Ítems</div><div class="v">${fmt(base.length)}</div><div class="s">en el ERP</div></div>
+    <div class="erp-k"><div class="l">A reponer</div><div class="v warn">${fmt(rep.length)}</div><div class="s">${fmt(uds)} unidades</div></div>
+    <div class="erp-k"><div class="l">Valorizado</div><div class="v">${money(val)}</div><div class="s">al mejor precio conocido</div></div>
+    <div class="erp-k"><div class="l">En tránsito</div><div class="v ok">${fmt(tra)}</div><div class="s">unidades pedidas</div></div>
+    <div class="erp-k"><div class="l">Sin precio</div><div class="v ${sinP ? 'bad' : ''}">${fmt(sinP)}</div><div class="s">hay que cotizarlos</div></div>
+    <div class="erp-k"><div class="l">Fuera de kit</div><div class="v">${fmt(sinKit)}</div><div class="s">no arman ningún motor</div></div>`;
+  // tabla
+  const head = `<div class="erp-row head">
+    <span>Código</span><span>Descripción</span><span class="n">Marca</span>
+    <span class="n">Stock</span><span class="n">Mínimo</span><span class="n hid-sm">Tránsito</span>
+    <span class="n">Reponer</span><span class="p hid-sm">Precio</span><span class="p">Valor</span></div>`;
+  const body = filas.map(r => `<div class="erp-row${r.reponer ? ' rep' : ''}">
+    <span class="c">${r.cod}${r.enKit ? '' : '<span class="erp-nx" title="Este código no forma parte de ningún kit de motor del tablero">FUERA</span>'}</span>
+    <span class="d" title="${(r.descErp || '').replace(/"/g, '')}${r.codErp ? ' · ' + r.codErp : ''}">${r.descErp || '—'}</span>
+    <span class="n"><span class="erp-mk">${r.marca || '—'}</span></span>
+    <span class="n${r.stkGral ? '' : ' zero'}">${fmt(r.stkGral)}</span>
+    <span class="n${r.stkMin ? '' : ' zero'}">${fmt(r.stkMin)}</span>
+    <span class="n hid-sm${r.transito ? '' : ' zero'}" title="${r.arribo ? 'Arribo ' + r.arribo : ''}">${r.transito ? fmt(r.transito) : '—'}</span>
+    <span class="n${r.reponer ? ' rep' : ' zero'}">${r.reponer ? fmt(r.reponer) : '—'}</span>
+    <span class="p hid-sm${r.precio ? '' : ' none'}">${r.precio ? money(r.precio) : 'cotizar'}</span>
+    <span class="p${r.valor ? '' : ' none'}">${r.valor ? money(r.valor) : '—'}</span></div>`).join('');
+  $('#erpRows').innerHTML = filas.length ? head + body
+    : '<div class="erp-empty">Ningún ítem cumple con lo que estás filtrando.</div>';
+  const vu = filas.reduce((a, r) => a + r.reponer, 0), vv = filas.reduce((a, r) => a + r.valor, 0);
+  $('#erpSum').innerHTML = `<b>${fmt(filas.length)}</b> ítems en pantalla · <b>${fmt(vu)}</b> unidades a reponer · <b>${money(vv)}</b>`;
+}
+function openErp(){ $('#erpOv').classList.add('on'); renderErp(); }
+function closeErp(){ $('#erpOv').classList.remove('on'); }
+
+function exportErp(){
+  const filas = erpVista();
+  if(!filas.length){ _toast('No hay nada que exportar con esos filtros.'); return; }
+  const cu = CUR === 'USD' ? 'USD' : 'PEN', k = CUR === 'USD' ? 1 : tc();
+  const header = ['Código', 'Cód. ERP', 'Descripción', 'Marca', 'Grupo de motor', 'Familia ERP',
+    'Stock general', 'Stock mínimo', 'Tránsito', 'Fecha de arribo', 'REPONER',
+    'Cotizado en el año', 'Peso kg', 'Últ. O/C US$',
+    'Precio unit. (' + cu + ')', 'Valor a reponer (' + cu + ')', '¿Está en algún kit?'];
+  const body = filas.map(r => [r.cod, r.codErp || '', r.descErp || '', r.marca || '', r.grupo || '', r.fam || '',
+    r.stkGral, r.stkMin, r.transito, r.arribo || '', r.reponer,
+    r.qcotiz || '', r.pesoKg || '', r.ocUsd || '',
+    r.precio ? +(r.precio * k).toFixed(2) : '', r.valor ? +(r.valor * k).toFixed(2) : '',
+    r.enKit ? 'SÍ' : 'NO']);
+  const tot = filas.reduce((a, r) => a + r.valor, 0) * k;
+  body.push([...new Array(10).fill(''), filas.reduce((a, r) => a + r.reponer, 0),
+             ...new Array(4).fill(''), +tot.toFixed(2), '']);
+  const amb = ERP_TAB === '*' ? 'todos los grupos' : ERP_TAB;
+  const tcTxt = CUR === 'USD' ? '' : ' · T.C. SUNAT venta ' + tc();
+  _descargar(header, body, 'ERP PROFICONT',
+    'Reposicion_ERP_' + amb.replace(/[^\wÀ-ÿ]+/g, '-') + '_' + _hoy() + '.xls',
+    'ERP PROFICONT — REPOSICIÓN POR STOCK MÍNIMO',
+    'Peru Tractor S.R.L. · ' + amb + ' · ' + filas.length + ' ítems · ' +
+    fmt(filas.reduce((a, r) => a + r.reponer, 0)) + ' unidades a reponer · Total ' +
+    money(tot / k) + tcTxt + ' · Generado ' + _hoy());
+}
 let CUR='USD', PRICE_OVR={}; // precios que edita el usuario
 let QTY_OVR={};   // cod -> cantidad a comprar que el usuario fija a mano (reemplaza la sugerencia)
 let EXCL={};      // cod -> true si el usuario lo excluye de la compra
@@ -2310,7 +2502,13 @@ function costRows(){
   const e=ENGINES[curIdx], N=parseInt($('#kitQty').value)||1;
   const out=[];
   e.items.forEach(r=>{
-    const alm=r[3], arr=arriolaOf(r), smin=r[10];
+    const alm=r[3], arr=arriolaOf(r);
+    // si SAP no tiene stock mínimo, se usa el del ERP PROFICONT
+    let smin=r[10], sminErp=false;
+    if(smin===null||smin===undefined){
+      const ep=erpOf(r[0]);
+      if(ep && ep.stkMin>0){ smin=ep.stkMin; sminErp=true; }
+    }
     let need, falta;
     if(MODE==='min'){
       if(smin===null||smin===undefined) return;      // sin dato -> se lista aparte
@@ -2320,7 +2518,7 @@ function costRows(){
     }
     if(falta<=0) return;
     const deArr = MODE==='min' ? 0 : Math.max(0, Math.min(arr, need-alm));
-    out.push({cod:r[0],desc:r[1],need,alm,arr,comprar:falta,deArr,smin,com:r[11],buy:r[12],tra:r[13]||0,aqp:aqpOf(r),hch:hchOf(r),enStock:r[15]||0});
+    out.push({cod:r[0],desc:r[1],need,alm,arr,comprar:falta,deArr,smin,sminErp,com:r[11],buy:r[12],tra:r[13]||0,aqp:aqpOf(r),hch:hchOf(r),enStock:r[15]||0});
   });
   // filtro comerciable (aplica a render y exportaciones)
   const fCom = (typeof document!=='undefined' && $('#mComer')) ? $('#mComer').value : '';
@@ -2360,7 +2558,11 @@ function renderCost(){
   const e=ENGINES[curIdx];
   let total=0, sinPrecio=0, uds=0;
   rows.forEach(x=>{ if(EXCL[x.cod]) return; const p=priceOf(x.cod), q=qtyOf(x); total+=p*q; uds+=q; if(!p)sinPrecio++; });
-  const sinMin = e.items.filter(r=>r[10]===null||r[10]===undefined).length;
+  // sigue faltando el mínimo solo si tampoco lo tiene el ERP
+  const sinMin = e.items.filter(r=>{
+    if(r[10]!==null&&r[10]!==undefined) return false;
+    const ep=erpOf(r[0]); return !(ep&&ep.stkMin>0);
+  }).length;
   const objetivo = MODE==='min'
       ? `llegar al <b>stock mínimo</b>`
       : `armar <b>${N}</b> kit(s) de ${e.label.replace('Motor ','')}`;
@@ -2407,7 +2609,7 @@ function renderCost(){
           onchange="setQty('${x.cod}',this.value)" ${excl?'disabled':''}>
         ${editada?`<i class="qhint" title="Sugerido: ${x.comprar}" onclick="resetQty('${x.cod}')">↺ ${x.comprar}</i>`:''}
       </span>
-      <span class="cs">${x.alm}${x.arr?'+'+x.arr:''}<br><i class="smin">${x.smin!=null?'mín '+x.smin:'<span class="nd" title="Falta información: no hay stock mínimo definido">? falta info</span>'}</i></span>
+      <span class="cs">${x.alm}${x.arr?'+'+x.arr:''}<br><i class="smin">${x.smin!=null?('mín '+x.smin+(x.sminErp?'<span class="erp-mk" title="Stock mínimo tomado del ERP PROFICONT: SAP no lo tiene">ERP</span>':'')):'<span class="nd" title="Falta información: ni SAP ni el ERP tienen stock mínimo para este ítem">? falta info</span>'}</i></span>
       <span class="ctra">${x.tra? `<b>${fmt(x.tra)}</b>` : '<i>—</i>'}</span>
       <span class="cflags">${flagBadge(x.com,'Comerciable')}${flagBadge(x.buy,'Comprar')}</span>
       <span><input class="pinput ${cls}" type="number" step="0.01" min="0" placeholder="0.00"
