@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motor 3D · Despiece Interactivo — Peru Tractor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#0b1020; --bg2:#131d36; --card:#141d33; --ink:#EDF1FB; --ink2:#8ea3cf; --ink3:#6b76a0;
+ --line:rgba(140,120,255,.18); --morado:#6d4eff; --teal:#00FFD1; --amber:#f5a623; --rojo:#e5484d;
+ --cat:#FFB300;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:radial-gradient(1200px 700px at 60% 0%,#1a2745,#0b1020 70%);
+ color:var(--ink);font-family:'Exo 2',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.mono{font-family:'Orbitron',sans-serif}
+#scene{position:fixed;inset:0;z-index:1;cursor:grab}
+#scene:active{cursor:grabbing}
+/* ---- Top bar ---- */
+.top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:14px;
+ padding:14px 20px;background:linear-gradient(180deg,rgba(11,16,32,.9),transparent)}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Orbitron';font-weight:700;font-size:14px;letter-spacing:.4px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--cat),var(--teal))}
+.back{font-size:12.5px;color:var(--ink2);text-decoration:none;background:rgba(255,255,255,.05);
+ border:1px solid var(--line);padding:8px 13px;border-radius:20px;transition:.15s}
+.back:hover{background:rgba(255,255,255,.1);color:#fff}
+.spacer{flex:1}
+select#engSel{font-family:'Orbitron';font-weight:700;font-size:13px;color:#fff;background:#1b2643;
+ border:1px solid var(--line);border-radius:12px;padding:9px 14px;cursor:pointer;outline:none}
+.engmeta{font-size:11.5px;color:var(--ink2)}
+.engmeta b{color:var(--cat)}
+/* ---- Panel derecho ---- */
+#panel{position:fixed;top:64px;right:16px;z-index:15;width:min(340px,90vw);max-height:calc(100vh - 190px);
+ background:linear-gradient(162deg,rgba(19,29,54,.92),rgba(11,16,32,.92));backdrop-filter:blur(10px);
+ border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;
+ box-shadow:0 40px 90px -34px rgba(0,0,0,.8)}
+.p-head{padding:15px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px}
+.p-head .sw{width:34px;height:34px;border-radius:10px;flex:0 0 auto;box-shadow:0 4px 12px -4px rgba(0,0,0,.6)}
+.p-head .tt{font-family:'Orbitron';font-weight:700;font-size:14px;line-height:1.15}
+.p-head .st{font-size:10.5px;color:var(--teal);letter-spacing:.3px;margin-top:2px}
+.p-body{overflow-y:auto;padding:6px 6px 10px}
+.pc{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;transition:background .15s}
+.pc:hover{background:rgba(109,78,255,.1)}
+.pc .q{flex:0 0 auto;min-width:34px;height:34px;padding:0 6px;border-radius:9px;
+ background:linear-gradient(135deg,var(--cat),#f59e0b);color:#161d33;font-family:'Orbitron';
+ font-weight:800;font-size:14px;display:grid;place-items:center}
+.pc .i{flex:1;min-width:0}
+.pc .i b{display:block;font-size:12px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc .i span{font-size:10px;color:var(--ink3)}
+.pc .buy{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:6px;background:rgba(229,72,77,.18);color:#ff8f92}
+.p-empty{padding:26px 18px;text-align:center;color:var(--ink2);font-size:12.5px;line-height:1.6}
+.p-empty .big{font-size:30px;display:block;margin-bottom:8px}
+/* ---- Chips de secciones ---- */
+#legend{position:fixed;left:16px;top:64px;z-index:15;width:min(220px,42vw);max-height:calc(100vh - 200px);
+ overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding-right:4px}
+.legchip{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:11px;cursor:pointer;
+ background:rgba(19,29,54,.7);border:1px solid var(--line);transition:.15s;font-size:12px}
+.legchip:hover{background:rgba(109,78,255,.18);transform:translateX(2px)}
+.legchip.active{border-color:var(--cat);background:rgba(255,179,0,.14)}
+.legchip .d{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+.legchip .nm{flex:1;color:#e7ecfb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.legchip .ct{font-size:10px;color:var(--ink2)}
+/* ---- Controles inferiores ---- */
+.controls{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:20;
+ display:flex;align-items:center;gap:16px;padding:13px 20px;background:linear-gradient(162deg,rgba(19,29,54,.95),rgba(11,16,32,.95));
+ border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 70px -30px rgba(0,0,0,.8);max-width:94vw;flex-wrap:wrap;justify-content:center}
+.ctl{display:flex;align-items:center;gap:9px}
+.ctl label{font-size:11px;color:var(--ink2);font-weight:600;white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;width:180px;height:6px;border-radius:6px;
+ background:linear-gradient(90deg,var(--morado),var(--cat));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+ background:#fff;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,.5),0 0 0 3px rgba(255,179,0,.4)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:none;cursor:pointer}
+.btn{font-size:12px;font-weight:600;color:#e7ecfb;background:rgba(255,255,255,.06);border:1px solid var(--line);
+ padding:9px 14px;border-radius:12px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:7px}
+.btn:hover{background:rgba(109,78,255,.25);color:#fff}
+.btn.on{background:rgba(255,179,0,.2);border-color:var(--cat);color:#fff}
+.badge-exp{font-family:'Orbitron';font-size:11px;font-weight:700;color:var(--cat);min-width:74px;text-align:left}
+/* ---- Tooltip hover ---- */
+#tip{position:fixed;z-index:30;pointer-events:none;background:rgba(11,16,32,.95);border:1px solid var(--cat);
+ color:#fff;font-size:12px;font-weight:600;padding:6px 11px;border-radius:9px;display:none;white-space:nowrap;
+ box-shadow:0 10px 30px -10px rgba(0,0,0,.7)}
+#tip span{color:var(--cat);font-size:10.5px;display:block;font-weight:500}
+/* ---- Hint inicial ---- */
+#hint{position:fixed;left:50%;top:90px;transform:translateX(-50%);z-index:14;text-align:center;
+ font-size:12.5px;color:var(--ink2);background:rgba(11,16,32,.7);padding:9px 16px;border-radius:20px;
+ border:1px solid var(--line);transition:opacity .5s}
+#load{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:var(--bg);color:var(--ink2);font-size:14px}
+.spin{width:34px;height:34px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--cat);border-radius:50%;
+ animation:sp 1s linear infinite;margin:0 auto 12px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:760px){
+ #legend{display:none}
+ #panel{top:auto;bottom:120px;right:8px;left:8px;width:auto;max-height:38vh}
+ input[type=range]{width:130px}
+}
+</style>
+</head>
+<body>
+<div id="load"><div><div class="spin"></div>Cargando motor 3D…</div></div>
+<canvas id="scene"></canvas>
+
+<div class="top">
+  <span class="brand"><span class="dot"></span>MOTOR 3D · PERU TRACTOR</span>
+  <a class="back" href="index.html">← Tablero</a>
+  <div class="spacer"></div>
+  <div style="text-align:right">
+    <select id="engSel"></select>
+    <div class="engmeta" id="engMeta"></div>
+  </div>
+</div>
+
+<div id="hint">🖱️ Arrastra para girar · rueda para zoom · usa el slider para <b>desarmar</b> · toca una pieza</div>
+
+<div id="legend"></div>
+
+<div id="panel">
+  <div class="p-head">
+    <div class="sw" id="pSw" style="background:linear-gradient(135deg,var(--cat),#f59e0b)"></div>
+    <div><div class="tt" id="pTitle">Selecciona una pieza</div><div class="st" id="pSub">toca el motor o la lista</div></div>
+  </div>
+  <div class="p-body" id="pBody">
+    <div class="p-empty"><span class="big">🧩</span>Toca una sección del motor (o de la lista de la izquierda) para ver <b>qué piezas lleva y cuántas</b>.</div>
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<div class="controls">
+  <div class="ctl">
+    <label>Armado</label>
+    <input type="range" id="expSlider" min="0" max="100" value="0">
+    <label>Despiece</label>
+    <span class="badge-exp" id="expBadge">0%</span>
+  </div>
+  <button class="btn" id="btnRot">🔄 Girar</button>
+  <button class="btn" id="btnExplode">💥 Despiezar</button>
+  <button class="btn" id="btnReset">⟲ Reiniciar vista</button>
+</div>
+
+<script src="three.min.js"></script>
+<script>
+const DATA = [{"id":"C9","label":"Motor C9","grupo":"C9","coti":"00530","sec":{"Camiseta/Liner":[["4695312CTP","LINER (1903562)",6,0,15],["1670024CTP","SEAL-LINER",6,0,12],["3851657LKCTP","LINER KIT C9",6,6,0]],"Árbol de levas":[["2035805CTP","BEARING (LEVAS) C-9",2,0,10],["2036090CTP","BEARING (LEVAS) C-9",1,0,98],["2420673CTP","CAMSHAFT A",1,0,1]],"Biela/Metales":[["2165586CTP","BEARING (2W7211 )",1,0,6],["1512939CTP","BEARING MAIN STD C-9",7,0,21],["2821771CTP","BEARING-MA",7,0,14],["2821772CTP","BEARING-MA 0.50",7,7,0],["1608199CTP","ROD AS",6,3,3],["1608194CTP","BEARING",1,0,12],["2133190CTP","BEARING ROD STD (1608172)",6,0,24]],"Cigüeñal":[["2611544CAT","CRANKSHAFT C9",1,1,0]],"Distribución":[["2463150CTP","PLATE-THRU",2,0,6],["2453261CAT","HOUSING-FR",1,1,0]],"Pistón/Anillos":[["3851657CTP","CROWN AS PISTON (2651401) C-9",6,1,5],["3247380CTP","SKIRT-PIST",6,0,10],["3472380CTP","RING TOP (1979392)",6,0,6],["3472381CTP","RING-INTERM (1613424)",6,0,6],["3472382CTP","RING- OIL PISTON (1687211)",6,0,11],["1663648CTP","PIN-PISTON",6,0,18],["7X2908CTP","RING",12,0,24]],"Monoblock":[["4881675CTP","BLOCK AS-CYLINDER (2298568)",1,1,0]],"Culata":[["2528439CTP","HEAD GP-CY C9",1,1,0],["2637825CAT","COVER GP-M",1,1,0]],"Válvulas":[["2604856CTP","GUIDE VALVE (EX)",12,12,0],["2595829CTP","GUIDE VALVE (IN)",12,0,12],["1906115CTP","SPRING-VAL",12,2,0],["1906117CTP","SPRING-VAL",12,2,10],["2418386CTP","SPRING-VAL",12,0,44],["2418385CTP","SPRING-VAL",12,0,49],["2112134CTP","RETAINER-S",12,0,28],["2418384CTP","RETAINER",12,12,0],["2A4429CTP","SEGURO DE VALVULA",24,0,84],["2128917CTP","INSERT VALVE EX C-9",12,12,0],["2418388CTP","INSERT VALVE IN C-9",12,0,12]],"Otros":[["2418383CTP","CAMBIA 4901723",12,12,0],["2418382CTP","CAMBIA AL 4901726",12,12,0]],"Cárter":[["1743847CAT","PAN - OIL",1,1,0]],"Manifold/Escape":[["1613398CTP","MANIFOLD-E",1,1,0],["1670172CTP","MANIFOLD",1,1,0],["2037775CTP","MANIFOLD",1,1,0]],"Enfriamiento":[["2939367CTP","CORE AS-OI",1,0,1]],"Turbo":[["2525165CTP","TURBO GP-B",1,1,0]],"Bombas":[["3502536CTP","PUMP WATER",1,0,4],["3318905CTP","PUMP AS.-E",1,0,1],["3190678CTP","PUMP GP",1,1,0]],"Volante":[["2370229CAT","FLYWHEEL A",1,1,0],["4N2514CTP","GEAR",1,1,0]],"Inyección":[["3879434CAT","INJECTOR G-FUEL (3282573)",6,6,0]]}},{"id":"3406","label":"Motor 3406","grupo":"3406","coti":"00529","sec":{"Camiseta/Liner":[["1979322CTP","LINER(4N1627,2W6000)",6,1,5],["1609874CTP","KIT SINGLE CYL (5P8057)",6,0,36],["1168154LKCTP","LINER KIT D8R",6,0,6]],"Biela/Metales":[["4N0685CTP","BEARING",6,3,3],["4N6658CTP","BEARING",1,0,4],["1317123CTP","BEARING(4N0343,7N2483)",1,0,7],["3178766CTP","BEARING MAIN STD (4W5492)",7,0,0],["4W5698CTP","BEARING MAIN 0.25",7,0,7],["4W5699CTP","BEARING-MAIN 0.50",7,0,0],["7E5996CTP","ROD AS",6,6,0],["4P8495CTP","BEARING SLEEVE (8N2018)",6,0,36],["3285573CTP","BEARING-RO (217-0578)",6,0,6],["7E0558CTP","BEARING ROD 0.25",6,0,1],["7E0559CTP","BEARING RO 0.50 3406",6,6,0]],"Monoblock":[["6I2981CTP","PLATE BLOCK",1,0,2],["4P3720CAT","BLOCK GP.CYL(8N9267)",1,1,0]],"Árbol de levas":[["1007408CTP","CAMSHAFT A",1,1,0]],"Cigüeñal":[["6I1453CTP","CRANKSHAFT A (4P4334)",1,1,0],["2531752CTP","PLATE-THRUST (7E9262)",2,0,12]],"Pistón/Anillos":[["1168154CTP","PISTON AS D8R",6,5,1],["1W8922CTP","RING G",6,0,0]],"Otros":[["8N1608CTP","PIN",6,0,0],["1017352CTP","MAINFOLD",2,2,0]],"Válvulas":[["7E5665CTP","RETAINER(8N7295)",12,4,0],["1737188CTP","GUIDE VALV.(4N2803/1227374)",24,0,24],["1152367CTP","VALVE EXHA(1W3860,1061111",12,0,34],["1152368CTP","VALVE INLE",12,0,24],["4W2471CTP","SPRING",24,0,72],["4W2474CTP","ROTOCOIL AS",24,4,20],["2A4429CTP","SEGURO DE VALVULA",48,0,84],["4N5893CTP","INSERT INTAKE",12,0,35],["1W5283CTP","INSERT EXH",12,12,0],["1227374CTP","GUIDE-VALVE",24,24,0]],"Culata":[["1105096CTP","HEAD A.CYL(7W0007) P-D8N D8R",1,1,0],["1105097CTP","HEAD AS",1,1,0],["7E0330CAT","COVER",2,2,0]],"Cárter":[["1167885CTP","PAN OIL",1,1,0],["7W0844CTP","PAN-OIL",1,1,0],["7W0843CAT","PAN OIL",1,1,0]],"Manifold/Escape":[["1045283CTP","MANIFOLD",1,1,0]],"Enfriamiento":[["7C3039CTP","CORE OIL (4W6039,2W1008)",1,0,2]],"Turbo":[["1072060CTP","TURBOCHARGER GRP.",1,1,0]],"Bombas":[["3520203CTP","PUMP GP-WA",1,0,3],["1614112CTP","PUMP OIL(4N4294,4N0735)",1,1,0],["4W3897CAT","BOMBA DE INJECCION",1,1,0]],"Distribución":[["1W1469CAT","HOUSING",1,1,0],["1W1471CAT","PLATE-FR",1,1,0]],"Volante":[["2W9750CAT","FLYWHEEL A",1,1,0],["4N2514CTP","GEAR",1,1,0]],"Inyección":[["1007562CTP","NOZZLE",6,0,6],["1917941CTP","LINE AS-FUEL # 1 (4P9661)",1,1,0],["1917942CTP","LINE AS-FUEL # 2 (4P9662)",1,1,0],["1917943CTP","LINE AS-FUEL # 3 (4P9663)",1,0,3],["1917944CTP","LINE AS-FU # 4 (4P9664)",1,0,1],["1917945CTP","LINE AS-FU # 5 (4P9665)",1,1,0],["1917946CTP","LINE AS-FU # 6 (4P9666)",1,1,0]]}},{"id":"C15","label":"Motor C15","grupo":"C15","coti":"—","sec":{"Monoblock":[["4881675CTP","BLOCK AS-CYLINDER (2298568)",1,1,0]],"Camiseta/Liner":[["1979322CTP","LINER(4N1627,2W6000)",6,1,5],["1609874CTP","KIT SINGLE CYL (5P8057)",6,0,36]],"Biela/Metales":[["2165582CTP","BEARING-SL",7,0,14],["3178766CTP","BEARING MAIN STD (4W5492)",7,0,0],["2243245CTP","ROD AS",6,6,0],["2296259CTP","BEARING",6,0,12],["2243246CTP","BRG-CONN ROD STD CAMBIA AL 2613450",6,6,0]],"Distribución":[["6I4421CTP","PLATE SPAC",1,1,0],["1875420CAT","HOUSING-FR",1,1,0],["2230533CAT","PLATE",1,1,0]],"Árbol de levas":[["3327298CTP","CAMSHAFT C15",1,0,1]],"Cigüeñal":[["2219360CTP","CRANKSHAFT  C15",1,1,0],["2531752CTP","PLATE-THRUST (7E9262)",2,0,14]],"Pistón/Anillos":[["3889354CAT","BODY AS-ST",6,6,0],["2476130CTP","RING-PISTO",6,0,11],["1644187CTP","RING-PSTN-",6,0,11],["2380294CTP","RING-PISTO",6,0,11],["1807350CTP","PIN-PISTON",6,1,5]],"Válvulas":[["2502940CTP","RETAINER-P",12,12,0],["1227375CTP","GUIDE",24,0,36],["4907200CTP","VALVE EXHAUST (1537024)",12,0,12],["4907198CTP","VALVE-INTAKE",12,0,28],["2479908CTP","SPRING-VAL",24,0,72],["2113122CTP","SPRING-VAL",24,0,72],["1862001CTP","ROTOCOIL A",24,0,44],["2A4429CTP","SEGURO DE VALVULA",48,0,84],["2803979CTP","INSERT-VAL",12,0,28],["2265561CTP","INSERT-VAL",12,0,12]],"Culata":[["2237263CTP","HEAD AS",1,0,1],["2377580CAT","COVER-VALV",2,2,0],["1503136CAT","COVER AS-V",1,1,0]],"Cárter":[["4526791CAT","PAN OIL",1,1,0]],"Manifold/Escape":[["1333359CTP","MANIFOLD-EXHAUST",2,2,0],["3367595CAT","MANIFOLD-E",1,1,0]],"Enfriamiento":[["1330125CTP","CORE AS",1,1,0]],"Turbo":[["2388683CTP","TURBOCHARGER",1,1,0]],"Bombas":[["3520211CTP","PUMP GP-WA",1,0,1],["1614113CTP","PUMP GP-EO",1,0,2],["3848612CTP","PUMP GP-F",1,0,1]],"Volante":[["3627866CAT","FLYWHEEL A",1,1,0],["4N2514CTP","GEAR",1,1,0]],"Inyección":[["3740750CTP","INJECTOR G (10R3264)",6,6,0]]}},{"id":"3054","label":"Motor 3054","grupo":"3054/3054C/C4.4","coti":"00521","sec":{"Camiseta/Liner":[["1111815CTP","LINER",4,0,4]],"Pistón/Anillos":[["1521390CTP","PISTON AS PIN Y SEGURO",4,0,4]],"Biela/Metales":[["2257781CTP","BEARING SE",1,0,12],["0365802CTP","BEARING",1,0,1]],"Otros":[["3537427CTP","KIT-BEARIN",1,0,1]]}},{"id":"3054C","label":"Motor 3054C","grupo":"3054/3054C/C4.4","coti":"00521","sec":{"Camiseta/Liner":[["105RSCTP","LINER..",4,4,0]],"Otros":[["3603986CTP","KIT-BEARIN",1,0,2],["3537423CTP","KIT-BEARIN CAMBIA 5185437",1,1,0],["329090CTP","WASHER CAMBIA AL 5185891",2,2,0],["329091CTP","WASHER",2,2,0]],"Pistón/Anillos":[["5081898CTP","PISTON GP",4,4,0]],"Biela/Metales":[["2767478CTP","BUSHING",4,0,0],["3668853CTP","BEARING",1,0,8]],"Válvulas":[["2255495CTP","VALVE-INLE",4,0,14],["2255499CTP","VALVE EXHA",4,0,16],["3296655CTP","INSERT-INL",4,0,12],["3229663CTP","INSERT-VAL",4,0,12],["1850882CTP","GUIDE-IN VAL",8,0,28]],"Bombas":[["2258329CGR","PUMP AS-EN",1,1,0]],"Sellos/Juntas":[["2775156CTP","KIT-GASKET",1,0,3],["2722232CTP","GASKET KT-",1,0,1],["2526438CTP","SEAL-INLET",4,0,20],["2543954CTP","SEAL-EXH V",4,0,4]]}},{"id":"C4.4","label":"Motor C4.4","grupo":"3054/3054C/C4.4","coti":"00521","sec":{"Pistón/Anillos":[["3109269CTP","PISTON KIT C4.4",4,0,4]],"Biela/Metales":[["5185437CTP","KIT-BEARING STD (2257772)",1,0,4]],"Otros":[["3603986CTP","KIT-BEARIN",1,0,2]],"Válvulas":[["3399637CTP","VALVE-EXHA",8,0,24],["3096678CTP","VALVE-INLE",8,0,36],["3802073CTP","GUIDE-VALV",16,16,0],["3770399CTP","VALVE SEAT",8,0,16],["3770400CTP","VALVE SEAT",8,8,0]]}},{"id":"CONS","label":"Consolidado 3304/3306","grupo":"3304/3306","coti":"00524","sec":{"Monoblock":[["1N3576CTP","CYL BLK G 3306(7N6550)",1,1,0],["1N3574CTP","CYL BLK G 3304",1,1,0],["7N8021CTP","PLATE, BLO",1,0,2],["7N7998CTP","PLATE BLOC",1,0,5]],"Camiseta/Liner":[["3715941CTP","LINER (1105800)",1,0,37],["LK3182CTP","LINER KIT CYL",1,1,0],["1654262LKCTP","LINER KIT",1,0,18]],"Biela/Metales":[["7M4046CTP","BEARING SLEEVE(8H9654)",1,0,0],["8N4110CTP","BEARING SLEEVE",1,0,0],["9Y2991CTP","BEARING SLEEVE (5S6419)",1,0,4],["9Y2992CTP","BEARING ( 5S6420 )",1,0,0],["2323233CTP","BEARING MAIN STD (4W5738)",1,0,12],["8N8225CTP","BEARING MAIN 0.10",1,1,0],["8N8226CTP","BEARING MAIN 0.20",1,0,0],["8N8227CTP","BEARING MAIN 0.30",1,0,55],["8N1984CTP","ROD A-CONN",1,0,4],["8N1985CTP","BRG-CONN R",1,0,14],["8N0702CTP","BEARING CONN ROD (7S9347)",1,0,18],["8N1721CTP","ROD A",1,1,0],["8N1849CTP","BEARING CONN ROD",1,0,10],["3285572CTP","BEARING-RO (8N8220) 4W5739",1,0,26],["8N8221CTP","BEARING ROD 0.10",1,0,0],["8N8222CTP","BEARING ROD 0.20",1,0,7],["8N8223CTP","BEARING ROD 0.30",1,0,31]],"Sellos/Juntas":[["5P8768CTP","KIT SEAL",1,0,18]],"Árbol de levas":[["4N7977CTP","SHAFT AS RH",1,0,3],["4N7978CTP","SHAFT AS",1,1,0],["4P2942CTP","CAMSHAFT (8N3981) (7E9980,7C3863)",1,0,1],["9Y1723CTP","CAMSHAFT W/O GEAR (7C3861- 1W1231)",1,1,0]],"Cigüeñal":[["4N7692CTP","CRANKSHAFT",1,1,0],["3348389CTP","CRANKSHAFT (2W7458)",1,0,1],["1003652CTP","PLATE THRUST (7N9342)",1,0,0]],"Distribución":[["6N8940CTP","PLATE THR (2P0716 )",1,0,8]],"Pistón/Anillos":[["8N3182CTP","BODY A-PISTON (7N9183)",1,0,5],["9S3068CTP","RING GRP. (7S9404)",1,0,20],["7N9804CTP","PIN DELGADO DE PISTON",1,0,5],["9H4015CTP","RETAINER PISTON PIN",1,0,29],["1654262CTP","PISTON ( 1290338 )",1,0,18],["2114321CTP","RING GRP.",1,0,8],["7N9805CTP","PIN PISTON(8M6487)",1,1,0]],"Culata":[["8N1187CTP","CYLINDER HEAD (6N8120)",1,0,3],["8N1188CTP","CYLINDER HEAD G",1,0,3],["1N4304CTP","CYLINDER HEAD",1,0,2],["8N6796CTP","CULATA INYEC DIREC",1,1,0]],"Válvulas":[["1487425CTP","GUIDE-VALVE (2P1262)",1,0,19],["1007860CTP","VALVE INLET (6N9915)",1,0,56],["1487455CTP","VALVE EXHAUST(6N9916)",1,0,75],["8N0875CTP","VALVE EXH (5S6449,5S7232)",1,0,14],["2W2621CTP","VALVE",1,0,26],["5S6795CTP","CHAMBER",1,0,0],["7S3206CTP","SEAL CHAMBER ( 2S6971)",1,0,76],["5M2667CTP","GASKET PRECOMB CHAMBER 4.93MM",1,0,5],["7S7144CTP","RESORTE VALVULA",1,0,17],["1W5300CTP","ROTOCOIL A",1,0,72],["2A4429CTP","SEGURO DE VALVULA",1,0,84],["1070268CTP","INSER VALVE IN (7N4448)",1,0,0],["1070265CTP","INSERT EX (2W4837)",1,1,0],["5S7218CTP","INSERT",1,0,12],["1W5321CTP","INSERT",1,0,35]],"Bombas":[["6I1346CTP","PUMP GRP. OIL (4W2448)",1,0,15]]}},{"id":"3306ID","label":"Motor 3306 ID","grupo":"3304/3306","coti":"00524","sec":{"Monoblock":[["1N3576CTP","CYL BLK G 3306(7N6550)",1,6,0]],"Camiseta/Liner":[["3715941CTP","LINER (1105800)",6,0,37]],"Biela/Metales":[["7M4046CTP","BEARING SLEEVE(8H9654)",4,2,0],["8N4110CTP","BEARING SLEEVE",1,6,0],["2323233CTP","BEARING MAIN STD (4W5738)",7,0,12],["8N1721CTP","ROD A",6,6,0],["8N1849CTP","BEARING CONN ROD",6,0,6],["3285572CTP","BEARING-RO (8N8220) 4W5739",6,0,26]],"Sellos/Juntas":[["5P8768CTP","KIT SEAL",6,0,14]],"Árbol de levas":[["4P2942CTP","CAMSHAFT (8N3981) (7E9980,7C3863)",1,5,1]],"Otros":[["2W7458CTP","CAMBIA 3348389",1,1,0]],"Cigüeñal":[["1003652CTP","PLATE THRUST (7N9342)",2,2,0]],"Pistón/Anillos":[["1654262CTP","PISTON ( 1290338 )",6,0,18],["2114321CTP","RING GRP.",6,4,8],["7N9805CTP","PIN PISTON(8M6487)",6,24,0]],"Válvulas":[["1S9543CTP","RETAINER",12,3,1],["1487425CTP","GUIDE-VALVE (2P1262)",12,0,11],["1487455CTP","VALVE EXHAUST(6N9916)",6,0,71],["1007860CTP","VALVE INLET (6N9915)",6,0,52],["7S7144CTP","RESORTE VALVULA",12,0,17],["1W5300CTP","ROTOCOIL A",12,0,60],["2A4429CTP","SEGURO DE VALVULA",24,0,84],["1070268CTP","INSER VALVE IN (7N4448)",6,0,0],["1070265CTP","INSERT EX (2W4837)",6,1,0]],"Culata":[["8N6796CTP","CULATA INYEC DIREC",1,1,0],["2W1086CTP","COVER A.",1,1,0]],"Cárter":[["4N7820CTP","CARTER",1,1,0]],"Manifold/Escape":[["7N3486CTP","MANIFOLD 3306",1,5,0]],"Enfriamiento":[["7N0165CTP","CORE A OIL",1,0,6]],"Turbo":[["7N7748CTP","TURBO G",1,0,0]],"Bombas":[["1727767CTP","PUMP GP-WT(7N5909,1550068)D6D",1,1,0],["6I1346CTP","PUMP GRP. OIL (4W2448)",1,0,14],["2W0256CAT","PUMP G - USADO",1,1,0]],"Distribución":[["6I0923CTP","HOUSING AS",1,1,0],["6N9060CAT","PLATE",1,1,0]],"Volante":[["2W6583CAT","FLYWHEEL A",1,1,0],["7N9146CTP","GEAR",1,0,1]],"Inyección":[["8N7005CTP","NOZZLE A(8N7001)",6,1,0],["4P9381CTP","LINE A. #1 (4P9381)",1,0,3],["4P9382CTP","LINE A. #2 (4P9382)",1,1,0],["1044253CTP","LINE A. #3 (4P9383)",1,0,1],["1044254CTP","LINE A. #4 (4P9384)",1,0,1],["4P9385CTP","LINE A.FUEL INJ.#5(8N6015",1,0,0],["4P9386CTP","LINE A FUEL #6 (7C5556)",1,0,4]]}},{"id":"3306PC","label":"Motor 3306 PC","grupo":"3304/3306","coti":"00524","sec":{"Otros":[["2P0960CAT","CAMBIA 6N8124",1,1,0],["2W7458CTP","CAMBIA 3348389",1,1,0],["8S2389CTP","BODY",6,0,20]],"Camiseta/Liner":[["3715941CTP","LINER (1105800)",6,0,37]],"Biela/Metales":[["7M4046CTP","BEARING SLEEVE(8H9654)",4,0,0],["8N4110CTP","BEARING SLEEVE",1,0,0],["2323233CTP","BEARING MAIN STD (4W5738)",7,0,12],["8N1984CTP","ROD A-CONN",6,2,4],["8N1985CTP","BRG-CONN R",6,0,14],["3285572CTP","BEARING-RO (8N8220) 4W5739",6,0,26]],"Sellos/Juntas":[["5P8768CTP","KIT SEAL",6,0,14]],"Árbol de levas":[["4P2942CTP","CAMSHAFT (8N3981) (7E9980,7C3863)",1,0,1]],"Cigüeñal":[["1003652CTP","PLATE THRUST (7N9342)",2,0,0]],"Pistón/Anillos":[["8N3182CTP","BODY A-PISTON (7N9183)",6,1,5],["9S3068CTP","RING GRP. (7S9404)",6,0,16],["7N9804CTP","PIN DELGADO DE PISTON",6,1,5],["9H4015CTP","RETAINER PISTON PIN",12,0,29]],"Culata":[["8N1187CTP","CYLINDER HEAD (6N8120)",1,0,3],["2W1086CTP","COVER A.",1,1,0]],"Válvulas":[["1487425CTP","GUIDE-VALVE (2P1262)",12,0,11],["8N0875CTP","VALVE EXH (5S6449,5S7232)",6,0,14],["2W2621CTP","VALVE",6,0,26],["5S6795CTP","CHAMBER",6,3,0],["7S3206CTP","SEAL CHAMBER ( 2S6971)",6,0,76],["5M2667CTP","GASKET PRECOMB CHAMBER 4.93MM",6,0,5],["7S7144CTP","RESORTE VALVULA",12,0,17],["1W5300CTP","ROTOCOIL A",12,0,60],["2A4429CTP","SEGURO DE VALVULA",24,0,84],["5S7218CTP","INSERT",6,0,12],["1W5321CTP","INSERT",6,0,35]],"Cárter":[["8N6184CTP","PAN-OIL",1,1,0]],"Manifold/Escape":[["7N3486CTP","MANIFOLD 3306",1,0,0]],"Enfriamiento":[["7N0165CTP","CORE A OIL",1,0,6]],"Turbo":[["4N6859CTP","TURBO G",1,0,3]],"Bombas":[["1727776CTP","PUMP GP-WT",1,0,2],["6I1346CTP","PUMP GRP. OIL (4W2448)",1,0,14],["2W0256CAT","PUMP G - USADO",1,1,0]],"Distribución":[["6I0923CTP","HOUSING AS",1,1,0],["6N9060CAT","PLATE",1,1,0]],"Volante":[["7W7601CTP","VOLANTE",1,1,0],["7N9146CTP","GEAR",1,0,1]],"Inyección":[["8M1584CTP","SERVICE GRP (8N4697)",6,0,2],["7N2871CTP","LINE A",1,0,1],["7N2872CTP","LINE A",1,1,0],["8N9733CTP","LINE A",1,0,1],["7N2874CTP","LINE A",1,0,1],["7N2875CTP","LINE A",1,0,1],["7N2876CTP","LINE A",1,0,2]]}},{"id":"3304ID","label":"Motor 3304 ID","grupo":"3304/3306","coti":"00524","sec":{"Monoblock":[["1N3574CTP","CYL BLK G 3304",1,1,0]],"Camiseta/Liner":[["3715941CTP","LINER (1105800)",4,0,37]],"Biela/Metales":[["7M4046CTP","BEARING SLEEVE(8H9654)",2,0,0],["8N4110CTP","BEARING SLEEVE",1,0,0],["9Y2991CTP","BEARING SLEEVE (5S6419)",4,0,4],["9Y2992CTP","BEARING ( 5S6420 )",2,0,0],["2323233CTP","BEARING MAIN STD (4W5738)",5,0,12],["8N1721CTP","ROD A",4,4,0],["8N1849CTP","BEARING CONN ROD",4,0,6],["3285572CTP","BEARING-RO (8N8220) 4W5739",4,0,26]],"Sellos/Juntas":[["5P8768CTP","KIT SEAL",4,0,14]],"Árbol de levas":[["9Y1723CTP","CAMSHAFT W/O GEAR (7C3861- 1W1231)",1,1,0],["4N7977CTP","SHAFT AS RH",1,0,3],["4N7978CTP","SHAFT AS",1,1,0]],"Cigüeñal":[["4N7692CTP","CRANKSHAFT",1,1,0],["1003652CTP","PLATE THRUST (7N9342)",2,0,0]],"Pistón/Anillos":[["1654262CTP","PISTON ( 1290338 )",4,0,18],["2114321CTP","RING GRP.",4,0,8],["7N9805CTP","PIN PISTON(8M6487)",4,4,0]],"Válvulas":[["1S9543CTP","RETAINER",8,5,1],["1487425CTP","GUIDE-VALVE (2P1262)",8,0,11],["1487455CTP","VALVE EXHAUST(6N9916)",4,0,71],["1007860CTP","VALVE INLET (6N9915)",4,0,52],["7S7144CTP","RESORTE VALVULA",8,0,17],["1W5300CTP","ROTOCOIL A",8,0,60],["2A4429CTP","SEGURO DE VALVULA",16,0,84],["1070268CTP","INSER VALVE IN (7N4448)",4,1,0],["1070265CTP","INSERT EX (2W4837)",4,4,0]],"Culata":[["1N4304CTP","CYLINDER HEAD",1,0,2],["2W1084CAT","COVER A",1,1,0]],"Cárter":[["7N2942CAT","PAN OIL",1,1,0]],"Manifold/Escape":[["1P1216CTP","MANIFOLD",1,0,3]],"Enfriamiento":[["7N0165CTP","CORE A OIL",1,0,6]],"Turbo":[["7N4651CTP","TURBO GROUP",1,1,0]],"Bombas":[["1727767CTP","PUMP GP-WT(7N5909,1550068)D6D",1,1,0],["6I1346CTP","PUMP GRP. OIL (4W2448)",1,0,14],["2W6178CAT","PUMP INJECTOR",1,1,0]],"Distribución":[["6I0923CTP","HOUSING AS",1,1,0],["6N9060CAT","PLATE",1,1,0]],"Volante":[["7W9308CAT","FLYWHEEL A",1,1,0],["7N9145CTP","GEAR FLYWHELL",1,0,3]],"Inyección":[["8N7005CTP","NOZZLE A(8N7001)",4,4,0],["4P9961CTP","LINE AS",1,0,4],["4P9962CTP","LINE AS",1,0,5],["4P9963CTP","LINE AS",1,0,1],["4P9964CTP","LINE AS",1,0,1]]}},{"id":"3304PC","label":"Motor 3304 PC","grupo":"3304/3306","coti":"00524","sec":{"Monoblock":[["1N3574CTP","CYL BLK G 3304",1,1,0]],"Camiseta/Liner":[["3715941CTP","LINER (1105800)",4,0,37]],"Biela/Metales":[["7M4046CTP","BEARING SLEEVE(8H9654)",2,0,0],["8N4110CTP","BEARING SLEEVE",1,0,0],["9Y2991CTP","BEARING SLEEVE (5S6419)",4,0,4],["9Y2992CTP","BEARING ( 5S6420 )",2,0,0],["2323233CTP","BEARING MAIN STD (4W5738)",5,0,12],["8N1984CTP","ROD A-CONN",4,0,4],["8N1985CTP","BRG-CONN R",4,0,14],["3285572CTP","BEARING-RO (8N8220) 4W5739",4,0,26]],"Sellos/Juntas":[["5P8768CTP","KIT SEAL",4,0,14]],"Árbol de levas":[["9Y1723CTP","CAMSHAFT W/O GEAR (7C3861- 1W1231)",1,1,0],["4N7977CTP","SHAFT AS RH",1,0,3],["4N7978CTP","SHAFT AS",1,1,0]],"Cigüeñal":[["4N7692CTP","CRANKSHAFT",1,1,0],["1003652CTP","PLATE THRUST (7N9342)",2,0,0]],"Pistón/Anillos":[["8N3182CTP","BODY A-PISTON (7N9183)",4,0,5],["9S3068CTP","RING GRP. (7S9404)",4,0,16],["7N9804CTP","PIN DELGADO DE PISTON",4,0,5],["9H4015CTP","RETAINER PISTON PIN",8,0,29]],"Culata":[["8N1188CTP","CYLINDER HEAD G",1,0,3],["2W1084CAT","COVER A",1,1,0]],"Válvulas":[["1487425CTP","GUIDE-VALVE (2P1262)",8,0,11],["8N0875CTP","VALVE EXH (5S6449,5S7232)",4,0,14],["5S6452CTP","VALVE INTAKE CAMBIA 2W2621",4,4,0],["5S6795CTP","CHAMBER",4,1,0],["7S3206CTP","SEAL CHAMBER ( 2S6971)",4,0,76],["5M2667CTP","GASKET PRECOMB CHAMBER 4.93MM",4,0,5],["7S7144CTP","RESORTE VALVULA",8,0,17],["1W5300CTP","ROTOCOIL A",8,0,60],["2A4429CTP","SEGURO DE VALVULA",16,0,84],["5S7218CTP","INSERT",4,0,12],["1W5321CTP","INSERT",4,0,35]],"Cárter":[["7N2942CAT","PAN OIL",1,1,0]],"Manifold/Escape":[["1P1216CTP","MANIFOLD",1,0,3]],"Enfriamiento":[["7N0165CTP","CORE A OIL",1,0,6]],"Turbo":[["4N6859CTP","TURBO G",1,0,3]],"Bombas":[["1727775CTP","PUMP GP-WT",1,0,1],["6I1346CTP","PUMP GRP. OIL (4W2448)",1,0,14],["4N1834CAT","PUMP GP-GOV&",1,1,0]],"Distribución":[["6I0923CTP","HOUSING AS",1,1,0],["6N9060CAT","PLATE",1,1,0]],"Volante":[["2P4629CAT","FLYWHEEL A.8S6155,7S7876",1,1,0],["7N9145CTP","GEAR FLYWHELL",1,0,3]],"Inyección":[["8M1584CTP","SERVICE GRP (8N4697)",4,0,2],["4N3281CTP","LINE A",1,0,1],["4N3282CTP","LINE A",1,0,4],["4N3283CTP","LINE A",1,1,0]],"Otros":[["4N3284CTP","LINES A",1,0,4],["8S2389CTP","BODY",4,0,20]]}}];
+</script>
+<script>
+(function(){
+  if(typeof THREE==='undefined'){ document.getElementById('load')?.remove?.();
+    document.getElementById('load').innerHTML='<div style="text-align:center;max-width:360px;padding:20px">No se pudo cargar la librería 3D (three.min.js). Asegúrate de que el archivo <b>three.min.js</b> esté junto a este HTML.</div>'; return; }
+
+  // ═══ colores de materiales ═══
+  const C={ yellow:0xE0A81C, yellowD:0xC8901A, steel:0xB8BFC9, steelD:0x8a929e, dark:0x2a2e35,
+    copper:0xC57B3A, black:0x1c1f26, chrome:0xd7dde6 };
+  function mat(color,rough,metal){ return new THREE.MeshStandardMaterial({color,roughness:rough==null?0.55:rough,metalness:metal==null?0.35:metal}); }
+  function box(w,h,d,m){ return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m); }
+  function cyl(rt,rb,h,m,seg){ const g=new THREE.CylinderGeometry(rt,rb,h,seg||24); return new THREE.Mesh(g,m); }
+  function torus(r,t,m){ return new THREE.Mesh(new THREE.TorusGeometry(r,t,12,28),m); }
+
+  // ═══ definición de secciones: shape + posición + dirección de explosión ═══
+  // cada builder retorna un THREE.Group; explode = desplazamiento final al 100%
+  const YELLOW=()=>mat(C.yellow,0.5,0.35), YELLOWD=()=>mat(C.yellowD,0.55,0.3),
+        STEEL=()=>mat(C.steel,0.35,0.75), STEELD=()=>mat(C.steelD,0.4,0.7),
+        DARK=()=>mat(C.dark,0.6,0.5), CHROME=()=>mat(C.chrome,0.2,0.9), COPPER=()=>mat(C.copper,0.4,0.7);
+  function g(children,pos){ const grp=new THREE.Group(); children.forEach(c=>grp.add(c)); if(pos)grp.position.set(pos[0],pos[1],pos[2]); return grp; }
+
+  const DEF = {
+   'Monoblock':{ ex:[0,-0.2,0], build(){ const b=box(4.6,2.2,2.0,YELLOW()); const dk=box(4.62,0.5,2.02,YELLOWD()); dk.position.y=-0.7;
+      const holes=[]; for(let i=0;i<4;i++){ const h=cyl(0.42,0.42,0.4,DARK(),20); h.rotation.x=0; h.position.set(-1.5+i,1.05,0); holes.push(h);} return g([b,dk,...holes]); } },
+   'Culata':{ ex:[0,2.7,0], build(){ const h=box(4.1,0.72,1.9,YELLOW()); const p=[]; for(let i=0;i<4;i++){const c=cyl(0.16,0.16,0.5,STEEL(),14);c.position.set(-1.5+i,0.5,0.5);p.push(c);} return g([h,...p],[0,1.56,0]); } },
+   'Válvulas':{ ex:[0,4.4,0], build(){ const cov=box(4.0,0.5,1.5,YELLOWD()); const cap=cyl(0.28,0.28,0.18,DARK(),18);cap.position.set(-1.4,0.34,0);
+      const vs=[]; for(let i=0;i<8;i++){ const v=cyl(0.05,0.05,0.55,CHROME(),10); v.position.set(-1.6+ (i%4), -0.35, i<4?-0.35:0.35); vs.push(v);} return g([cov,cap,...vs],[0,2.15,0]); } },
+   'Camiseta/Liner':{ ex:[0,3.5,0], build(){ const t=[]; for(let i=0;i<4;i++){ const l=cyl(0.44,0.44,1.4,STEELD(),24); l.position.set(-1.5+i,0,0);
+      const ring=torus(0.44,0.05,CHROME()); ring.rotation.x=Math.PI/2; ring.position.set(-1.5+i,0.7,0); t.push(l,ring);} return g(t,[0,0.75,0]); } },
+   'Pistón/Anillos':{ ex:[0,5.2,0], build(){ const ps=[]; for(let i=0;i<4;i++){ const p=cyl(0.4,0.4,0.55,CHROME(),24); p.position.set(-1.5+i,0,0);
+      const r1=torus(0.4,0.03,DARK()); r1.rotation.x=Math.PI/2; r1.position.set(-1.5+i,0.12,0);
+      const r2=torus(0.4,0.03,DARK()); r2.rotation.x=Math.PI/2; r2.position.set(-1.5+i,0.0,0);
+      const pin=cyl(0.07,0.07,0.9,STEEL(),12); pin.rotation.z=Math.PI/2; pin.position.set(-1.5+i,-0.15,0); ps.push(p,r1,r2,pin);} return g(ps,[0,0.95,0]); } },
+   'Biela/Metales':{ ex:[0,-3.3,0], build(){ const rs=[]; for(let i=0;i<4;i++){ const rod=box(0.18,0.9,0.32,STEEL()); rod.position.set(-1.5+i,0,0);
+      const bigEnd=torus(0.22,0.09,STEELD()); bigEnd.rotation.x=Math.PI/2; bigEnd.position.set(-1.5+i,-0.5,0);
+      const smEnd=torus(0.1,0.05,STEELD()); smEnd.rotation.x=Math.PI/2; smEnd.position.set(-1.5+i,0.45,0); rs.push(rod,bigEnd,smEnd);} return g(rs,[0,-0.15,0]); } },
+   'Cigüeñal':{ ex:[0,-3.7,0], build(){ const shaft=cyl(0.26,0.26,4.3,STEELD(),24); shaft.rotation.z=Math.PI/2;
+      const w=[]; for(let i=0;i<4;i++){ const cw=box(0.25,0.85,0.85,STEEL()); cw.position.set(-1.5+i,-0.02,0); const jr=cyl(0.18,0.18,0.3,CHROME(),16); jr.rotation.z=Math.PI/2; jr.position.set(-1.0+i,0.3,0); w.push(cw,jr);} return g([shaft,...w],[0,-0.95,0]); } },
+   'Árbol de levas':{ ex:[0,0,3.3], build(){ const shaft=cyl(0.13,0.13,4.0,STEELD(),20); shaft.rotation.z=Math.PI/2;
+      const lobes=[]; for(let i=0;i<6;i++){ const l=cyl(0.2,0.2,0.16,STEEL(),14); l.rotation.z=Math.PI/2; l.position.set(-1.6+i*0.65,0,0); lobes.push(l);} return g([shaft,...lobes],[0,1.0,0.72]); } },
+   'Distribución':{ ex:[-3.4,0,0], build(){ const cover=cyl(1.05,1.05,0.3,YELLOWD(),30); cover.rotation.z=Math.PI/2;
+      const gears=[]; [[0,0.35,0.55],[0,-0.55,0.4],[0.15,0.9,0.3]].forEach(([_,y,r])=>{ const gg=cyl(r,r,0.16,STEEL(),26); gg.rotation.z=Math.PI/2; gg.position.set(0.2,y,0.1); gears.push(gg);} ); return g([cover,...gears],[-2.55,0.3,0]); } },
+   'Volante':{ ex:[3.7,0,0], build(){ const fw=cyl(1.15,1.15,0.35,STEELD(),40); fw.rotation.z=Math.PI/2;
+      const teeth=torus(1.15,0.09,CHROME()); teeth.rotation.y=Math.PI/2; const hub=cyl(0.35,0.35,0.45,STEEL(),20); hub.rotation.z=Math.PI/2; return g([fw,teeth,hub],[2.55,-0.15,0]); } },
+   'Cárter':{ ex:[0,-3.5,0], build(){ const pan=box(4.2,0.95,1.7,YELLOWD()); const lip=box(4.3,0.12,1.8,YELLOW()); lip.position.y=0.5;
+      const plug=cyl(0.12,0.12,0.15,DARK(),12); plug.position.set(1.4,-0.5,0); return g([pan,lip,plug],[0,-1.55,0]); } },
+   'Turbo':{ ex:[2.2,2.4,2.2], build(){ const chra=cyl(0.35,0.35,0.5,STEELD(),22); chra.rotation.z=Math.PI/2;
+      const comp=cyl(0.5,0.32,0.45,CHROME(),26); comp.rotation.z=Math.PI/2; comp.position.x=-0.45;
+      const turb=cyl(0.5,0.32,0.45,STEEL(),26); turb.rotation.z=Math.PI/2; turb.position.x=0.45;
+      const inlet=cyl(0.22,0.22,0.5,DARK(),18); inlet.position.set(-0.45,0.5,0);
+      return g([chra,comp,turb,inlet],[1.3,1.85,1.15]); } },
+   'Manifold/Escape':{ ex:[0,0.8,3.5], build(){ const rail=cyl(0.16,0.16,3.4,STEELD(),18); rail.rotation.z=Math.PI/2;
+      const runs=[]; for(let i=0;i<4;i++){ const r=cyl(0.15,0.15,0.6,STEELD(),14); r.position.set(-1.4+i*0.95,-0.35,0); runs.push(r);} const out=cyl(0.24,0.24,0.6,DARK(),18); out.rotation.z=Math.PI/2; out.position.set(1.6,0,0); return g([rail,...runs,out],[0.2,0.95,1.2]); } },
+   'Bombas':{ ex:[-2.2,0,3.0], build(){ const body=cyl(0.42,0.42,0.5,STEELD(),24); body.rotation.x=Math.PI/2;
+      const pulley=cyl(0.5,0.5,0.14,DARK(),26); pulley.rotation.x=Math.PI/2; pulley.position.z=0.35; const inlet=cyl(0.18,0.18,0.5,STEEL(),16); inlet.position.set(0,-0.4,0); return g([body,pulley,inlet],[-2.1,-0.2,0.95]); } },
+   'Inyección':{ ex:[0,3.6,-0.6], build(){ const rail=box(3.2,0.16,0.16,STEELD()); const inj=[]; for(let i=0;i<4;i++){ const n=cyl(0.07,0.11,0.7,CHROME(),12); n.position.set(-1.2+i*0.8,-0.4,0); const top=cyl(0.11,0.11,0.18,DARK(),12); top.position.set(-1.2+i*0.8,0.15,0); inj.push(n,top);} return g([rail,...inj],[-0.1,1.95,-0.15]); } },
+   'Sellos/Juntas':{ ex:[0,1.6,2.7], build(){ const gk=box(4.0,0.06,1.86,COPPER()); const gk2=box(4.05,0.05,1.7,mat(0x3a3f4a,0.7,0.3)); gk2.position.y=-0.9; return g([gk,gk2],[0,1.15,0]); } },
+   'Enfriamiento':{ ex:[0,1.0,-3.2], build(){ const hose=cyl(0.16,0.16,1.4,mat(0x23262e,0.85,0.1),16); hose.rotation.z=Math.PI/3; const el=cyl(0.16,0.16,0.7,mat(0x23262e,0.85,0.1),16); el.position.set(0.6,0.6,0); el.rotation.z=Math.PI/1.4; const th=cyl(0.3,0.3,0.3,STEELD(),18); th.position.set(-0.6,-0.5,0); return g([hose,el,th],[0.6,1.3,-1.1]); } },
+   'Otros':{ ex:[-1.4,0,-3.0], build(){ const b=box(0.7,0.7,0.5,STEELD()); const b2=box(0.4,0.4,0.6,DARK()); b2.position.set(0.4,0.2,0); return g([b,b2],[-1.6,0.4,-1.1]); } }
+  };
+  // fallback genérico para familias sin shape definido
+  function genericBuild(idx){ const b=box(0.6,0.6,0.6,STEELD()); const ang=idx*1.3; return g([b],[Math.cos(ang)*3.2,0.4+ (idx%3)*0.5,Math.sin(ang)*2.4]); }
+  function genericEx(idx){ const ang=idx*1.3; return [Math.cos(ang)*2.2,0.6,Math.sin(ang)*2.2]; }
+
+  // ═══ escena ═══
+  const canvas=document.getElementById('scene');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(42,window.innerWidth/window.innerHeight,0.1,100);
+
+  // luces
+  scene.add(new THREE.AmbientLight(0x99aaff,0.45));
+  const hemi=new THREE.HemisphereLight(0xcfe0ff,0x20263a,0.7); scene.add(hemi);
+  const key=new THREE.DirectionalLight(0xffffff,1.05); key.position.set(6,10,7); key.castShadow=true;
+  key.shadow.mapSize.set(1024,1024); key.shadow.camera.near=1; key.shadow.camera.far=40;
+  key.shadow.camera.left=-10;key.shadow.camera.right=10;key.shadow.camera.top=10;key.shadow.camera.bottom=-10; scene.add(key);
+  const rim=new THREE.DirectionalLight(0x6d8cff,0.5); rim.position.set(-7,4,-6); scene.add(rim);
+  const warm=new THREE.PointLight(0xffb300,0.5,30); warm.position.set(-4,3,4); scene.add(warm);
+
+  // piso reflejo sutil
+  const floor=new THREE.Mesh(new THREE.CircleGeometry(14,48), new THREE.MeshStandardMaterial({color:0x0d1424,roughness:0.9,metalness:0.1}));
+  floor.rotation.x=-Math.PI/2; floor.position.y=-2.7; floor.receiveShadow=true; scene.add(floor);
+
+  const engineGroup=new THREE.Group(); scene.add(engineGroup);
+
+  // ═══ estado ═══
+  let sections=[];      // {name, group, ex:[x,y,z], base:{x,y,z}, meshes:[], color, pieces:[]}
+  let curEngine=null, explodeAmt=0, autoRot=false, selected=null;
+  const clickable=[];   // meshes -> section
+
+  const FAM_COLORS={'Monoblock':C.yellow,'Culata':C.yellow,'Válvulas':C.yellowD,'Cárter':C.yellowD,'Distribución':C.yellowD,
+    'Camiseta/Liner':C.steel,'Pistón/Anillos':C.chrome,'Biela/Metales':C.steel,'Cigüeñal':C.steelD,'Árbol de levas':C.steelD,
+    'Volante':C.steelD,'Turbo':C.chrome,'Manifold/Escape':C.steelD,'Bombas':C.steelD,'Inyección':C.chrome,
+    'Sellos/Juntas':C.copper,'Enfriamiento':0x23262e,'Otros':C.steelD};
+  const colHex=n=>'#'+(FAM_COLORS[n]!=null?FAM_COLORS[n]:C.steel).toString(16).padStart(6,'0');
+
+  function clearEngine(){ while(engineGroup.children.length) engineGroup.remove(engineGroup.children[0]); sections=[]; clickable.length=0; selected=null; }
+
+  function buildEngine(eng){
+    clearEngine();
+    curEngine=eng;
+    const order=Object.keys(DEF); // orden preferido
+    const fams=Object.keys(eng.sec);
+    // ordenar por DEF, luego el resto
+    fams.sort((a,b)=>{ const ia=order.indexOf(a), ib=order.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib); });
+    fams.forEach((fam,idx)=>{
+      const def=DEF[fam];
+      const grp = def? def.build() : genericBuild(idx);
+      const ex  = def? def.ex : genericEx(idx);
+      const base={x:grp.position.x,y:grp.position.y,z:grp.position.z};
+      const meshes=[]; grp.traverse(o=>{ if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; meshes.push(o);
+        o.userData._c=o.material.color.getHex(); o.userData._e=o.material.emissive?o.material.emissive.getHex():0; } });
+      const sec={name:fam, group:grp, ex, base, meshes, pieces:eng.sec[fam]};
+      meshes.forEach(mesh=>{ mesh.userData.sec=sec; clickable.push(mesh); });
+      engineGroup.add(grp);
+      sections.push(sec);
+    });
+    applyExplode();
+    buildLegend();
+    // panel reset
+    selectSection(null);
+    document.getElementById('engMeta').innerHTML=`${eng.grupo} · <b>${fams.length}</b> secciones · ${countPieces(eng)} piezas`;
+  }
+  function countPieces(eng){ let n=0; Object.values(eng.sec).forEach(a=>n+=a.length); return n; }
+
+  function applyExplode(){
+    sections.forEach(s=>{ s.group.position.set(
+      s.base.x + s.ex[0]*explodeAmt,
+      s.base.y + s.ex[1]*explodeAmt,
+      s.base.z + s.ex[2]*explodeAmt ); });
+  }
+
+  // ═══ selección / resaltado ═══
+  function setEmissive(sec,on){ sec.meshes.forEach(m=>{ if(m.material.emissive){ m.material.emissive.setHex(on?0xffb300:(m.userData._e||0)); m.material.emissiveIntensity=on?0.5:1; } }); }
+  function setDim(sec,dim){ sec.meshes.forEach(m=>{ m.material.opacity=dim?0.22:1; m.material.transparent=dim; }); }
+  function selectSection(sec){
+    selected=sec;
+    sections.forEach(s=>{ setEmissive(s,false); setDim(s, sec? (s!==sec):false); });
+    if(sec){ setEmissive(sec,true); }
+    renderPanel(sec);
+    [...document.querySelectorAll('.legchip')].forEach(c=>c.classList.toggle('active', sec && c.dataset.name===sec.name));
+  }
+
+  function renderPanel(sec){
+    const body=document.getElementById('pBody'), title=document.getElementById('pTitle'), sub=document.getElementById('pSub'), sw=document.getElementById('pSw');
+    if(!sec){ title.textContent='Selecciona una pieza'; sub.textContent='toca el motor o la lista'; sw.style.background='linear-gradient(135deg,var(--cat),#f59e0b)';
+      body.innerHTML='<div class="p-empty"><span class="big">🧩</span>Toca una sección del motor (o de la lista) para ver <b>qué piezas lleva y cuántas</b>.</div>'; return; }
+    sw.style.background=colHex(sec.name);
+    title.textContent=sec.name;
+    const tot=sec.pieces.reduce((a,p)=>a+p[2],0);
+    sub.textContent=`${sec.pieces.length} piezas · ${tot} unidades`;
+    body.innerHTML=sec.pieces.slice().sort((a,b)=>b[2]-a[2]).map(p=>`
+      <div class="pc">
+        <div class="q">${p[2]}</div>
+        <div class="i"><b>${esc(p[1])}</b><span>${esc(p[0])}</span></div>
+        ${p[3]>0?`<div class="buy">comprar ${p[3]}</div>`:''}
+      </div>`).join('');
+  }
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  function buildLegend(){
+    const leg=document.getElementById('legend');
+    leg.innerHTML=sections.map(s=>`
+      <div class="legchip" data-name="${esc(s.name)}">
+        <span class="d" style="background:${colHex(s.name)}"></span>
+        <span class="nm">${esc(s.name)}</span>
+        <span class="ct">${s.pieces.length}</span>
+      </div>`).join('');
+    [...leg.querySelectorAll('.legchip')].forEach(c=>{
+      c.addEventListener('click',()=>{ const s=sections.find(x=>x.name===c.dataset.name); selectSection(selected===s?null:s); focusSection(selected); });
+    });
+  }
+
+  // ═══ cámara orbital (custom) ═══
+  let theta=0.7, phi=1.15, radius=13, target=new THREE.Vector3(0,0,0);
+  function updateCam(){ const r=radius; camera.position.set(
+      target.x + r*Math.sin(phi)*Math.cos(theta),
+      target.y + r*Math.cos(phi),
+      target.z + r*Math.sin(phi)*Math.sin(theta) );
+    camera.lookAt(target); }
+  function focusSection(sec){ /* suaviza target hacia la sección seleccionada */ if(sec){ const p=sec.group.position; target._to={x:p.x*0.5,y:p.y*0.4,z:p.z*0.5}; } else target._to={x:0,y:0,z:0}; }
+
+  let dragging=false, lastX=0, lastY=0, moved=0;
+  canvas.addEventListener('pointerdown',e=>{ dragging=true; lastX=e.clientX; lastY=e.clientY; moved=0; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener('pointermove',e=>{
+    if(dragging){ const dx=e.clientX-lastX, dy=e.clientY-lastY; lastX=e.clientX; lastY=e.clientY; moved+=Math.abs(dx)+Math.abs(dy);
+      theta-=dx*0.008; phi=Math.max(0.25,Math.min(2.6,phi - dy*0.008)); }
+    else hoverTest(e);
+  });
+  window.addEventListener('pointerup',e=>{ if(dragging){ dragging=false; if(moved<6) clickTest(e); } });
+  canvas.addEventListener('wheel',e=>{ e.preventDefault(); radius=Math.max(6,Math.min(26,radius+ (e.deltaY>0?1:-1)*0.9)); },{passive:false});
+
+  const ray=new THREE.Raycaster(), mouse=new THREE.Vector2(), tip=document.getElementById('tip');
+  function pick(e){ const r=canvas.getBoundingClientRect(); mouse.x=((e.clientX-r.left)/r.width)*2-1; mouse.y=-((e.clientY-r.top)/r.height)*2+1;
+    ray.setFromCamera(mouse,camera); return ray.intersectObjects(clickable,false); }
+  function clickTest(e){ const hit=pick(e); if(hit.length){ const s=hit[0].object.userData.sec; selectSection(selected===s?null:s); focusSection(selected); hideHint(); } else { selectSection(null); focusSection(null); } }
+  function hoverTest(e){ const hit=pick(e); if(hit.length){ const s=hit[0].object.userData.sec; canvas.style.cursor='pointer';
+      const tot=s.pieces.reduce((a,p)=>a+p[2],0); tip.style.display='block'; tip.style.left=(e.clientX+14)+'px'; tip.style.top=(e.clientY+14)+'px';
+      tip.innerHTML=`${esc(s.name)}<span>${s.pieces.length} piezas · ${tot} uds</span>`; }
+    else { canvas.style.cursor='grab'; tip.style.display='none'; } }
+  canvas.addEventListener('pointerleave',()=>tip.style.display='none');
+
+  // ═══ controles UI ═══
+  const expSlider=document.getElementById('expSlider'), expBadge=document.getElementById('expBadge');
+  expSlider.addEventListener('input',()=>{ explodeAmt=expSlider.value/100; expBadge.textContent=expSlider.value+'%'; applyExplode(); hideHint(); });
+  document.getElementById('btnRot').addEventListener('click',function(){ autoRot=!autoRot; this.classList.toggle('on',autoRot); });
+  document.getElementById('btnExplode').addEventListener('click',function(){ const target=explodeAmt>0.5?0:1; animateExplode(target); this.classList.toggle('on',target>0.5); hideHint(); });
+  document.getElementById('btnReset').addEventListener('click',()=>{ theta=0.7;phi=1.15;radius=13; target.set(0,0,0); target._to={x:0,y:0,z:0}; selectSection(null); focusSection(null); });
+  function animateExplode(to){ const from=explodeAmt, t0=performance.now(), dur=900;
+    (function step(now){ const k=Math.min(1,(now-t0)/dur); const e=1-Math.pow(1-k,3); explodeAmt=from+(to-from)*e;
+      expSlider.value=Math.round(explodeAmt*100); expBadge.textContent=expSlider.value+'%'; applyExplode();
+      if(k<1) requestAnimationFrame(step); })(t0);
+  }
+  let hintTimer=setTimeout(hideHint,7000);
+  function hideHint(){ const h=document.getElementById('hint'); if(h){h.style.opacity='0'; setTimeout(()=>h.remove(),600);} clearTimeout(hintTimer); }
+
+  // selector de motores
+  const sel=document.getElementById('engSel');
+  sel.innerHTML=DATA.map((e,i)=>`<option value="${i}">${esc(e.label)}</option>`).join('');
+  sel.addEventListener('change',()=>{ buildEngine(DATA[+sel.value]); });
+
+  // preselección por ?engine=
+  const q=new URLSearchParams(location.search).get('engine');
+  let startIdx=0; if(q){ const j=DATA.findIndex(e=>e.id.toLowerCase()===q.toLowerCase()); if(j>=0) startIdx=j; }
+  sel.value=startIdx; buildEngine(DATA[startIdx]);
+
+  // ═══ loop ═══
+  function tick(){
+    if(autoRot) theta+=0.0035;
+    if(target._to){ target.x+=(target._to.x-target.x)*0.08; target.y+=(target._to.y-target.y)*0.08; target.z+=(target._to.z-target.z)*0.08; }
+    updateCam();
+    renderer.render(scene,camera);
+    requestAnimationFrame(tick);
+  }
+  updateCam(); tick();
+  document.getElementById('load').style.display='none';
+
+  window.addEventListener('resize',()=>{ camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth,window.innerHeight); });
+})();
+</script>
+</body>
+</html>
