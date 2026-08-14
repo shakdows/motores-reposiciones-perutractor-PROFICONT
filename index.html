@@ -483,6 +483,11 @@ td.cd{font-size:10px;color:var(--ink3)}
 .kg-acc{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .kg-phead{display:none}
 
+/* ── descargar cada bloque por separado ── */
+.sh-acc{display:flex;gap:7px;align-self:center;flex:none}
+.sh-acc .ks-mini{white-space:nowrap}
+@media(max-width:640px){.sh-acc{width:100%;margin-top:6px}}
+
 @media print{
  body.solo-kit .top,body.solo-kit #vMotor{display:none!important}
  body.solo-kit #vPanorama>*{display:none!important}
@@ -495,6 +500,11 @@ td.cd{font-size:10px;color:var(--ink3)}
  body.solo-kitb .back,body.solo-kitb .tools,body.solo-kitb .kg-acc,
  body.solo-kitb .ks .stp button,body.solo-kitb .ks-mini{display:none!important}
  body.solo-kitb .ks .stp input{border:none;background:transparent}
+ /* PDF de un solo bloque del informe */
+ .sh-acc{display:none!important}
+ body.solo-sec .no-print,body.solo-sec #vMotor{display:none!important}
+ body.solo-mot #vPanorama{display:none!important}
+ body.solo-mot .back,body.solo-mot .tools{display:none!important}
  /* en el PDF solo salen los motores que de verdad vas a armar */
  body.solo-kit .ks:not(.on),body.solo-kitb .ks:not(.on){display:none!important}
  body.solo-kit .kg-gr:not(:has(.ks.on)),body.solo-kitb .kg-gr:not(:has(.ks.on)){display:none!important}
@@ -627,7 +637,7 @@ td.cd{font-size:10px;color:var(--ink3)}
 
     <div class="cifras" id="cifras"></div>
 
-    <div class="sh"><h2>Motores</h2><span class="hint">Toca uno para ver sus repuestos</span><span class="ln"></span></div>
+    <div class="sh" id="shMotores"><h2>Motores</h2><span class="hint">Toca uno para ver sus repuestos</span><span class="ln"></span><span class="sh-acc"><button class="ks-mini" onclick="expMotores()">↓ Excel</button><button class="ks-mini" onclick="pdfSec(['#shMotores','#grid'])">↓ PDF</button></span></div>
     <div class="filtros">
       <div class="marcas" id="marcas"></div>
       <div class="srch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -635,26 +645,26 @@ td.cd{font-size:10px;color:var(--ink3)}
     </div>
     <div class="grid" id="grid"></div>
 
-    <div class="sh" id="shKitG"><h2>Armar juego de motor</h2><span class="hint">Elige cuántos juegos de cada motor y mira el total a importar</span><span class="ln"></span></div>
+    <div class="sh" id="shKitG"><h2>Armar juego de motor</h2><span class="hint">Elige cuántos juegos de cada motor y mira el total a importar</span><span class="ln"></span><span class="sh-acc"><button class="ks-mini" onclick="exportarKit()">↓ Excel</button><button class="ks-mini" onclick="pdfKit('G')">↓ PDF</button></span></div>
     <div id="kitG"></div>
 
-    <div class="sh"><h2>Dónde está la plata</h2><span class="hint">Costo de reposición por motor · toca para entrar</span><span class="ln"></span></div>
+    <div class="sh" id="shPlata"><h2>Dónde está la plata</h2><span class="hint">Costo de reposición por motor · toca para entrar</span><span class="ln"></span><span class="sh-acc"><button class="ks-mini" onclick="expRank()">↓ Excel</button><button class="ks-mini" onclick="pdfSec(['#shPlata','#rank'])">↓ PDF</button></span></div>
     <div class="panel" id="rank"></div>
 
-    <div class="sh"><h2>Prioridad de compra</h2><span class="hint">Los repuestos que concentran el gasto, en los 7 motores</span><span class="ln"></span></div>
-    <div class="panel">
+    <div class="sh" id="shPri"><h2>Prioridad de compra</h2><span class="hint">Los repuestos que concentran el gasto, en los 7 motores</span><span class="ln"></span><span class="sh-acc"><button class="ks-mini" onclick="expPri()">↓ Excel</button><button class="ks-mini" onclick="pdfSec(['#shPri','#panelPri'])">↓ PDF</button></span></div>
+    <div class="panel" id="panelPri">
       <div class="pri-hd"><span>#</span><span>Repuesto</span><span class="r">Reponer</span><span class="r">Unitario</span><span class="r">Subtotal</span></div>
       <div id="pri"></div>
     </div>
 
-    <div class="sh"><h2>Historial de movimientos</h2><span class="hint">Cuándo llegó cada carga y cuándo se compró por última vez</span><span class="ln"></span></div>
-    <div class="hist">
+    <div class="sh" id="shHist"><h2>Historial de movimientos</h2><span class="hint">Cuándo llegó cada carga y cuándo se compró por última vez</span><span class="ln"></span><span class="sh-acc"><button class="ks-mini" onclick="expHist()">↓ Excel</button><button class="ks-mini" onclick="pdfSec(['#shHist','#histWrap','#notaHist'])">↓ PDF</button></span></div>
+    <div class="hist" id="histWrap">
       <div class="panel" id="hLlegadas"></div>
       <div class="panel" id="hCompras"></div>
     </div>
     <div class="nota" id="notaHist"></div>
 
-    <div class="sh"><h2>Requiere atención</h2><span class="hint">Lo que no se resuelve solo comprando</span><span class="ln"></span></div>
+    <div class="sh" id="shAlertas"><h2>Requiere atención</h2><span class="hint">Lo que no se resuelve solo comprando</span><span class="ln"></span><span class="sh-acc"><button class="ks-mini" onclick="expAlertas()">↓ Excel</button><button class="ks-mini" onclick="pdfSec(['#shAlertas','#alertas'])">↓ PDF</button></span></div>
     <div class="trio" id="alertas"></div>
 
     <div id="resG"></div>
@@ -942,6 +952,8 @@ function buscarGlobal(){
     <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
       <div class="ic">${ico('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>')}</div>
       <div class="tt"><h4>${hits.length} resultado${hits.length>1?'s':''}</h4><p>para «${esc(q)}»</p></div>
+      <span class="sh-acc"><button class="ks-mini" onclick="event.stopPropagation();expBusqueda()">↓ Excel</button>
+        <button class="ks-mini" onclick="event.stopPropagation();pdfSec(['#resG'])">↓ PDF</button></span>
       <span class="cnt">${hits.length}</span>${CHEV}</div>
     <div class="blq-b">${hits.slice(0,60).map((x,i)=>itemHTML(x,'g'+i,true)).join('')}
       ${hits.length>60?`<div class="vacio">…y ${hits.length-60} más. Afina la búsqueda.</div>`:''}</div></div>`;
@@ -1391,7 +1403,8 @@ function pintarDetalle(){
         <div class="mt">${r.n} repuestos · familia <b>${esc(its.length?its[0].fam:'')}</b> · hoja del ERP PROFICONT</div></div>
       <div class="side">
         <a class="btn" href="${esc(h.csv)}" target="_blank" rel="noopener" style="text-decoration:none">Ver la hoja ↗</a>
-        <button class="btn pri" onclick="exportar(${MOTOR})">↓ Excel</button></div></div>
+        <button class="btn pri" onclick="exportar(${MOTOR})">↓ Excel</button>
+        <button class="btn" onclick="pdfMotor()">↓ PDF</button></div></div>
 
     <div class="cifras${MODO==='kit'?' hidden':''}">
       <div class="cf" style="--c:var(--ambar)"><div class="r">Hay que reponer</div><div class="n">${fmt(r.rep)}</div><div class="s">${fmt(r.uds)} unidades</div></div>
@@ -1539,6 +1552,164 @@ function exportar(soloMotor){
   toast('Descargado · '+n+' repuestos');
 }
 
+// ══ DESCARGAR CADA BLOQUE DEL INFORME ══
+// Un solo armador de Excel para todos: recibe bloques {titulo, cols, filas}.
+// Los numeros van como numero para que Excel los sume; el texto, como texto.
+function xlsBajar(nombre,bloques,subtitulo){
+  const hoy=new Date().toLocaleDateString('es-PE');
+  let t='';
+  bloques.forEach(b=>{
+    t+='<h4>'+esc(b.titulo)+'</h4><table border="1"><tr>'
+      +b.cols.map(c=>'<th style="background:#0f2440;color:#fff">'+esc(c)+'</th>').join('')+'</tr>';
+    b.filas.forEach(f=>{
+      t+='<tr>'+f.map(v=>{
+        const num = typeof v==='number';
+        return '<td'+(num?' x:num':'')+'>'+esc(num?(Math.round(v*100)/100):(v==null?'':v))+'</td>';
+      }).join('')+'</tr>';
+    });
+    t+='</table><br>';
+  });
+  const head='<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8">'
+    +'<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>PROFICONT</x:Name>'
+    +'<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>'
+    +'</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>'
+    +'<h3>PERU TRACTOR S.R.L. &middot; ERP PROFICONT — '+esc(nombre)+'</h3>'
+    +'<p>'+esc(subtitulo||'')+(MARCA?' &middot; solo marca '+esc(MARCA):'')+' &middot; Generado '+hoy+'</p>';
+  const blob=new Blob(['﻿'+head+t+'</body></html>'],{type:'application/vnd.ms-excel'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='PROFICONT_'+nombre.replace(/[^\w]+/g,'-')+'_'+hoy.replace(/\//g,'-')+'.xls';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},900);
+  toast('Descargado · '+nombre);
+}
+
+// Imprime un solo bloque del panorama: se ocultan los hermanos, no el bloque
+function pdfSec(ids){
+  const cont=$('#vPanorama'), hijos=[].slice.call(cont.children);
+  const dejar=ids.map(s=>$(s)).filter(Boolean);
+  hijos.forEach(e=>{ if(dejar.indexOf(e)<0) e.classList.add('no-print'); });
+  document.body.classList.add('solo-sec');
+  toast('Elige «Guardar como PDF» en el destino de impresión');
+  setTimeout(()=>{
+    window.print();
+    document.body.classList.remove('solo-sec');
+    hijos.forEach(e=>e.classList.remove('no-print'));
+  },400);
+}
+// Imprime el detalle del motor abierto
+function pdfMotor(){
+  document.body.classList.add('solo-mot');
+  toast('Elige «Guardar como PDF» en el destino de impresión');
+  setTimeout(()=>{ window.print(); document.body.classList.remove('solo-mot'); },400);
+}
+
+function expMotores(){
+  const filas=HOJAS.map((h,i)=>{
+    const its=itemsDe(i), r=resumen(its);
+    return [h.corto, its.length?its[0].fam:'', r.n, r.rep, r.uds, r.val, r.tra, r.sin, r.nop,
+            r.n?Math.round(r.ok/r.n*100):0];
+  });
+  const g=resumen(todos());
+  filas.push(['TOTAL','',g.n,g.rep,g.uds,g.val,g.tra,g.sin,g.nop,g.n?Math.round(g.ok/g.n*100):0]);
+  xlsBajar('Motores',[{titulo:'Resumen por grupo de motor',
+    cols:['GRUPO','FAMILIA','REPUESTOS','A REPONER','UNIDADES','COSTO (US$)','EN CAMINO',
+          'SIN STOCK','SIN PRECIO','% CUBIERTO'], filas:filas}],
+    HOJAS.length+' grupos · '+fmt(g.n)+' repuestos');
+}
+
+function expRank(){
+  const res=HOJAS.map((h,i)=>({h:h,r:resumen(itemsDe(i))})).sort((a,b)=>b.r.val-a.r.val);
+  const tot=res.reduce((a,x)=>a+x.r.val,0);
+  const filas=res.map((x,k)=>[k+1, x.h.corto, x.r.val, tot?Math.round(x.r.val/tot*1000)/10:0,
+                              x.r.uds, x.r.rep]);
+  filas.push(['','TOTAL',tot,100,res.reduce((a,x)=>a+x.r.uds,0),res.reduce((a,x)=>a+x.r.rep,0)]);
+  xlsBajar('Donde esta la plata',[{titulo:'Costo de reposición por grupo de motor',
+    cols:['#','GRUPO','COSTO (US$)','% DEL TOTAL','UNIDADES','REPUESTOS A REPONER'], filas:filas}],
+    'Ordenado por lo que más cuesta reponer');
+}
+
+function expPri(){
+  const conVal=todos().filter(x=>x.rep>0&&x.val>0).sort((a,b)=>b.val-a.val);
+  const tot=conVal.reduce((a,x)=>a+x.val,0);
+  let ac=0;
+  const filas=conVal.map((x,k)=>{ ac+=x.val;
+    return [k+1, x.cod, x.codErp, x.desc, x.marca, x.motor, x.rep, x.oc, x.val,
+            tot?Math.round(ac/tot*1000)/10:0]; });
+  filas.push(['','','','TOTAL','','',conVal.reduce((a,x)=>a+x.rep,0),'',tot,100]);
+  xlsBajar('Prioridad de compra',[{titulo:'Repuestos ordenados por lo que cuesta reponerlos',
+    cols:['#','PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA','GRUPO DE MOTOR','UNIDADES',
+          'UNITARIO (US$)','SUBTOTAL (US$)','% ACUMULADO'], filas:filas}],
+    fmt(conVal.length)+' repuestos · '+usd(tot));
+}
+
+function expHist(){
+  const its=todos();
+  const cuenta={}, uds={};
+  its.forEach(x=>{ if(!x.arr) return; const k=claveMes(x.arr);
+    cuenta[k]=(cuenta[k]||0)+1; uds[k]=(uds[k]||0)+(x.tra||0); });
+  const hoy=new Date(), kHoy=hoy.getFullYear()*100+(hoy.getMonth()+1);
+  const meses=Object.keys(cuenta).map(Number).sort((a,b)=>a-b)
+    .map(k=>[etiqMes(k), cuenta[k], uds[k]||0, k>=kHoy?'Por llegar':'Ya llegó']);
+
+  const conU=its.filter(x=>x.ult), porAnio={}, porQuien={};
+  conU.forEach(x=>{ porAnio[x.ult.a]=(porAnio[x.ult.a]||0)+1;
+    if(x.ult.quien) porQuien[x.ult.quien]=(porQuien[x.ult.quien]||0)+1; });
+  const anios=Object.keys(porAnio).map(Number).sort().map(a=>[a,porAnio[a]]);
+  const quienes=Object.entries(porQuien).sort((a,b)=>b[1]-a[1]).map(([q,n])=>[q,n]);
+
+  const detalle=its.filter(x=>x.arrTxt||x.ult)
+    .sort((a,b)=>(b.tra||0)-(a.tra||0))
+    .map(x=>[x.cod, x.codErp, x.desc, x.marca, x.motor, x.tra, x.arrTxt,
+             x.ult?x.ult.txt:'', x.ult?x.ult.quien:'']);
+
+  xlsBajar('Historial de movimientos',[
+    {titulo:'Llegadas al almacén por mes de arribo',
+     cols:['MES','REPUESTOS','UNIDADES EN TRANSITO','ESTADO'], filas:meses},
+    {titulo:'Año de la última compra registrada',
+     cols:['AÑO','REPUESTOS'], filas:anios},
+    {titulo:'Quién hizo la última compra',
+     cols:['COMPRADOR','COMPRAS'], filas:quienes},
+    {titulo:'Detalle por repuesto',
+     cols:['PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA','GRUPO DE MOTOR','EN TRANSITO',
+           'ARRIBO','ULTIMA COMPRA','QUIEN'], filas:detalle}],
+    fmt(conU.length)+' repuestos con fecha de compra de '+fmt(its.length));
+}
+
+function expBusqueda(){
+  const q=($('#qg').value||'').trim().toUpperCase();
+  const hits=todos().filter(x=>(x.cod+' '+x.desc+' '+x.marca+' '+x.codErp).toUpperCase().indexOf(q)>=0)
+                    .sort((a,b)=>b.val-a.val||b.rep-a.rep);
+  if(!hits.length){ toast('No hay resultados que descargar'); return; }
+  const filas=hits.map(x=>[x.cod,x.codErp,x.desc,x.marca,x.motor,x.stk,x.min,x.tra,x.rep,x.oc,x.val,
+                           x.arrTxt,x.ult?x.ult.txt:'']);
+  xlsBajar('Busqueda '+q,[{titulo:'Resultados para «'+q+'»',
+    cols:['PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA','GRUPO DE MOTOR','STOCK','MINIMO',
+          'EN TRANSITO','REPONER','UNITARIO (US$)','VALOR (US$)','ARRIBO','ULTIMA COMPRA'],
+    filas:filas}], hits.length+' repuestos');
+}
+
+function expAlertas(){
+  const its=todos();
+  const sinStk=its.filter(x=>x.stk<=0&&x.rep>0).sort((a,b)=>b.val-a.val)
+    .map(x=>[x.cod,x.codErp,x.desc,x.marca,x.motor,x.stk,x.min,x.rep,x.oc,x.val]);
+  const enCam=its.filter(x=>x.tra>0&&x.arrTxt).sort((a,b)=>b.tra-a.tra)
+    .map(x=>[x.cod,x.codErp,x.desc,x.marca,x.motor,x.tra,x.arrTxt,x.stk,x.min]);
+  const sinPre=its.filter(x=>x.oc<=0&&x.rep>0).sort((a,b)=>b.rep-a.rep)
+    .map(x=>[x.cod,x.codErp,x.desc,x.marca,x.motor,x.rep,x.stk,x.min,x.cot]);
+  xlsBajar('Requiere atencion',[
+    {titulo:'Quiebre de stock · en cero y por debajo del mínimo',
+     cols:['PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA','GRUPO DE MOTOR','STOCK','MINIMO',
+           'REPONER','UNITARIO (US$)','VALOR (US$)'], filas:sinStk},
+    {titulo:'Llega pronto · ya pedido, con fecha de arribo',
+     cols:['PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA','GRUPO DE MOTOR','EN TRANSITO',
+           'ARRIBO','STOCK','MINIMO'], filas:enCam},
+    {titulo:'Falta cotizar · sin precio de compra en el ERP',
+     cols:['PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA','GRUPO DE MOTOR','REPONER','STOCK',
+           'MINIMO','COTIZADO ESTE AÑO'], filas:sinPre}],
+    sinStk.length+' en quiebre · '+enCam.length+' en camino · '+sinPre.length+' sin precio');
+}
+
 // ══ EXCEL Y PDF DEL JUEGO DE MOTOR ══
 // hi = un grupo concreto (desde el bloque) · sin hi = todo lo que se va a armar
 function kitDatos(hi){
@@ -1577,19 +1748,32 @@ function exportarKit(hi){
     +'<td x:num><b>'+d.t.items+'</b></td><td x:num><b>'+d.t.uds+'</b></td>'
     +'<td x:num><b>'+d.t.costo.toFixed(2)+'</b></td><td></td><td></td><td></td></tr></table><br>';
 
-  let t2='<h4>Repuestos a importar</h4><table border="1"><tr>'
-    +['#','GRUPO','MOTORES QUE LA PIDEN','PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA',
-      'NECESITA','STOCK + TRANSITO','IMPORTAR','UNITARIO (US$)','SUBTOTAL (US$)','ARRIBO',
-      'COMPARTIDA'].map(th).join('')+'</tr>';
+  // una columna por motor elegido, con las unidades que pide de cada repuesto
+  const cols=[];
+  d.pares.forEach(p=>motoresDe(p.hi).filter(m=>(p.sel[m]||0)>0)
+    .forEach(m=>cols.push({m:m, n:p.sel[m], et:(KIT.etiq[m]||m)+' ×'+p.sel[m]})));
+  const sumaCol=cols.map(()=>0);
+
+  let t2='<h4>Repuestos a importar &middot; cantidad que pide cada motor</h4><table border="1"><tr>'
+    +['#','GRUPO','PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA']
+      .concat(cols.map(c=>c.et)).concat(
+     ['NECESITA','STOCK + TRANSITO','IMPORTAR','UNITARIO (US$)','SUBTOTAL (US$)','ARRIBO',
+      'COMPARTIDA']).map(th).join('')+'</tr>';
   d.importar.forEach((x,i)=>{
     t2+='<tr><td x:num>'+(i+1)+'</td><td>'+esc(x.grupo||'')+'</td>'
-      +'<td>'+esc(x.mix.map(m=>(KIT.etiq[m.m]||m.m)+' ('+m.u+'/juego × '+m.n+')').join(' + '))+'</td>'
-      +'<td>'+esc(x.cod)+'</td><td>'+esc(x.codErp||'')+'</td><td>'+esc(x.desc)+'</td><td>'+esc(x.marca||'')+'</td>'
-      +'<td x:num>'+x.necesita+'</td><td x:num>'+x.tiene+'</td><td x:num>'+x.falta+'</td>'
+      +'<td>'+esc(x.cod)+'</td><td>'+esc(x.codErp||'')+'</td><td>'+esc(x.desc)+'</td><td>'+esc(x.marca||'')+'</td>';
+    cols.forEach((c,k)=>{
+      const e=x.mix.filter(z=>z.m===c.m)[0];
+      const q=e?e.u*e.n:0; sumaCol[k]+=q;
+      t2+='<td'+(q?' x:num':'')+'>'+(q||'')+'</td>';
+    });
+    t2+='<td x:num>'+x.necesita+'</td><td x:num>'+x.tiene+'</td><td x:num>'+x.falta+'</td>'
       +'<td x:num>'+(x.oc?x.oc.toFixed(2):'')+'</td><td x:num>'+(x.oc?x.costo.toFixed(2):'')+'</td>'
       +'<td>'+esc(x.arrTxt||'')+'</td><td>'+(x.mix.length>1?'SI':'')+'</td></tr>';
   });
-  t2+='<tr><td colspan="9"><b>TOTAL</b></td><td x:num><b>'+d.t.uds+'</b></td><td></td>'
+  t2+='<tr><td colspan="6"><b>TOTAL</b></td>'
+    +sumaCol.map(v=>'<td x:num><b>'+v+'</b></td>').join('')
+    +'<td></td><td></td><td x:num><b>'+d.t.uds+'</b></td><td></td>'
     +'<td x:num><b>'+d.t.costo.toFixed(2)+'</b></td><td></td><td></td></tr></table>';
 
   const head='<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8">'
