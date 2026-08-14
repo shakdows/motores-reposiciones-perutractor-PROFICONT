@@ -406,6 +406,94 @@ td.cd{font-size:10px;color:var(--ink3)}
 .ks-res .tot .v{font-family:'Orbitron',sans-serif;font-size:25px;font-weight:900;letter-spacing:-.7px;margin-top:2px}
 .it .nec .mix{font-size:9px;color:var(--ink3);margin-top:2px;font-family:'Exo 2',sans-serif;font-weight:600;line-height:1.3}
 
+/* ══ ARMAR JUEGO DE MOTOR · TODOS LOS GRUPOS ══ */
+.kg-gr{margin-bottom:16px}
+.kg-gr:last-child{margin-bottom:0}
+.kg-gr-h{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.kg-gr-h .pt{width:9px;height:9px;border-radius:3px;background:var(--c);flex:none}
+.kg-gr-h .nm{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--ink)}
+.kg-gr-h .ln{flex:1;height:1px;background:var(--line2)}
+.kg-gr-h .lk{font-size:10.5px;color:var(--ink3);cursor:pointer;font-weight:600;white-space:nowrap}
+.kg-gr-h .lk:hover{color:var(--azul)}
+.kg-tot{margin-top:18px;border:1px solid #cfe0ff;background:linear-gradient(180deg,#f6f9ff,#fff);
+ border-radius:var(--r);padding:18px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.kg-tot .tx{font-size:13.5px;color:var(--ink2);max-width:640px}
+.kg-tot .tx b{color:var(--ink);font-weight:700}
+.kg-tot .big{margin-left:auto;text-align:right}
+.kg-tot .big .l{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.kg-tot .big .v{font-family:'Orbitron',sans-serif;font-size:34px;font-weight:900;letter-spacing:-1.2px;
+ color:var(--teal);margin-top:2px;line-height:1}
+.kg-tot .big .s{font-size:11px;color:var(--ink3);margin-top:4px}
+@media(max-width:720px){.kg-tot .big{margin-left:0;text-align:left}.kg-tot .big .v{font-size:27px}}
+.kg-tab{margin-top:14px}
+.kg-hd,.kg-tr{display:grid;grid-template-columns:1fr 96px 92px 92px 116px;gap:12px;align-items:center;
+ padding:10px 20px}
+.kg-hd{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);font-weight:700;
+ border-bottom:1px solid var(--line2)}
+.kg-hd span:not(:first-child),.kg-tr .r{text-align:right}
+.kg-tr{border-bottom:1px solid var(--line2);font-size:13px;cursor:pointer;transition:.15s}
+.kg-tr:last-child{border-bottom:0}
+.kg-tr:hover{background:var(--card2)}
+.kg-tr .id{display:flex;align-items:center;gap:9px;min-width:0}
+.kg-tr .id .pt{width:8px;height:8px;border-radius:3px;background:var(--c);flex:none}
+.kg-tr .id .nm{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700}
+.kg-tr .id .de{font-size:11px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kg-tr .r{font-family:'Orbitron',sans-serif;font-weight:700;font-size:13px}
+.kg-tr .r.mo{color:var(--teal)}
+.kg-tr .r.z{color:var(--ink3);font-weight:600}
+.kg-ft{display:grid;grid-template-columns:1fr 96px 92px 92px 116px;gap:12px;padding:12px 20px;
+ background:var(--card2);border-top:1px solid var(--line)}
+.kg-ft span{text-align:right;font-family:'Orbitron',sans-serif;font-weight:800;font-size:13.5px}
+.kg-ft span:first-child{text-align:left;font-family:'Exo 2',sans-serif;font-size:11px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--ink3);font-weight:700;align-self:center}
+.kg-ft .mo{color:var(--teal)}
+@media(max-width:860px){
+ .kg-hd{display:none}
+ .kg-tr,.kg-ft{grid-template-columns:1fr auto;gap:6px 12px}
+ .kg-tr .id,.kg-ft span:first-child{grid-column:1/-1}
+}
+
+/* ── stock compartido, aporte marginal y color por motor ── */
+.ks{border-left:4px solid var(--cm,var(--line))}
+.ks .alc b.baja{color:var(--ambar)}
+.ks .queda{font-size:10.5px;margin-top:3px;color:var(--ambar);font-weight:600}
+.ks .queda b{font-family:'Orbitron',sans-serif;font-weight:800}
+.ks .queda.cero{color:var(--rojo)}
+.ks .marg{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:10.5px;color:var(--ink2);line-height:1.5}
+.ks .marg b{font-family:'Orbitron',sans-serif;font-weight:800;color:var(--ink)}
+.ks .marg .mo{color:var(--teal)}
+.ks .marg.nada{color:var(--teal)}
+.kchip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 8px;
+ border-radius:20px;background:color-mix(in srgb,var(--c) 10%,#fff);color:var(--c);
+ border:1px solid color-mix(in srgb,var(--c) 28%,#fff)}
+.kchip i{width:6px;height:6px;border-radius:50%;background:var(--c);flex:none}
+.leyenda{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 0}
+.leyenda .lb{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-right:4px}
+.kg-tr .id .pt.rd{border-radius:50%}
+.kg-tr .r.dl{color:var(--ambar)}
+.kg-sub{font-size:11px;color:var(--ink3);padding:0 20px 12px}
+.kg-acc{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.kg-phead{display:none}
+
+@media print{
+ body.solo-kit .top,body.solo-kit #vMotor{display:none!important}
+ body.solo-kit #vPanorama>*{display:none!important}
+ body.solo-kit #shKitG{display:flex!important}
+ body.solo-kit #kitG{display:block!important}
+ body.solo-kit .kg-phead{display:block!important;margin-bottom:14px}
+ body.solo-kit .ks .stp button,body.solo-kit .ks-mini,body.solo-kit .kg-acc,body.solo-kit .kg-gr-h .lk{display:none!important}
+ body.solo-kit .ks .stp input{border:none;background:transparent}
+ body.solo-kitb #vPanorama{display:none!important}
+ body.solo-kitb .back,body.solo-kitb .tools,body.solo-kitb .kg-acc,
+ body.solo-kitb .ks .stp button,body.solo-kitb .ks-mini{display:none!important}
+ body.solo-kitb .ks .stp input{border:none;background:transparent}
+ /* en el PDF solo salen los motores que de verdad vas a armar */
+ body.solo-kit .ks:not(.on),body.solo-kitb .ks:not(.on){display:none!important}
+ body.solo-kit .kg-gr:not(:has(.ks.on)),body.solo-kitb .kg-gr:not(:has(.ks.on)){display:none!important}
+ .kit-sel,.kg-tab,.blq{break-inside:auto}
+ .it,.kg-tr,.ks{break-inside:avoid}
+}
+
 /* Pantalla de bloqueo */
 #lockScreen{position:fixed;inset:0;z-index:9999;background:#4a4f58;
  display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
@@ -539,6 +627,9 @@ td.cd{font-size:10px;color:var(--ink3)}
     </div>
     <div class="grid" id="grid"></div>
 
+    <div class="sh" id="shKitG"><h2>Armar juego de motor</h2><span class="hint">Elige cuántos juegos de cada motor y mira el total a importar</span><span class="ln"></span></div>
+    <div id="kitG"></div>
+
     <div class="sh"><h2>Dónde está la plata</h2><span class="hint">Costo de reposición por motor · toca para entrar</span><span class="ln"></span></div>
     <div class="panel" id="rank"></div>
 
@@ -583,6 +674,7 @@ const NUM = [4,6,7,8,9,10,11,12,13,15,19];
 const MES = ['ene','feb','mar','abr','may','jun','jul','ago','set','oct','nov','dic'];
 let MOTOR=-1, FILT={rep:false,nop:false}, TOPE={}, VER_TABLA={}, TOPE_PRI=15, ABIERTA=null;
 let MARCA='', MODO='min', KIT_SEL={}, TOPE_KIT=40;
+let KIT_G={}, TOPE_KG=25;   // selección global de juegos, en el panorama
 
 const $ = s => document.querySelector(s);
 const nu = v => { const x=parseFloat(String(v||'').replace(/[^\d.\-]/g,'')); return isNaN(x)?0:x; };
@@ -828,6 +920,7 @@ function pintarPanorama(){
         ${r.sin?`<span class="tag" style="--tc:var(--rojo)">${r.sin} sin stock</span>`:''}
         ${r.nop?`<span class="tag" style="--tc:var(--morado)">${r.nop} sin precio</span>`:''}</div></div>`;
   }).join('');
+  pintarKitG();
   buscarGlobal();
 }
 
@@ -921,10 +1014,91 @@ function verFicha(id){
 // y que hay que importar para llegar a los que se piden.
 function motoresDe(hi){ return KIT.grupos[HOJAS[hi].corto]||[]; }
 
-// Cuantos juegos de UN motor salen con el stock de hoy (contando lo que viene en camino)
-function alcanzaDe(hi,mot){
+// Un color fijo por motor, para reconocer sus piezas en la tabla
+const PAL_MOT=['#1e5eff','#0d9488','#c2760a','#c62828','#5b4bd6','#0891b2','#be185d','#15803d',
+               '#7c3aed','#ea580c','#334155','#a21caf','#4d7c0f','#9f1239','#4338ca','#78716c'];
+let _CMOT=null;
+function colorMot(m){
+  if(!_CMOT){ _CMOT={}; let k=0;
+    HOJAS.forEach((h,i)=>motoresDe(i).forEach(x=>{ if(!(x in _CMOT)) _CMOT[x]=PAL_MOT[(k++)%PAL_MOT.length]; })); }
+  return _CMOT[m]||'#5b6b85';
+}
+
+// Los motores de un mismo grupo COMPARTEN el stock. Si mandas 50 juegos de uno,
+// ese stock ya no esta libre para el otro: aqui se descuenta lo que ya se comprometio.
+function alcanzaCon(hi,mot,sel){
   const f=itemsDe(hi).filter(x=>x.needs[mot]>0);
-  return f.length? Math.min(...f.map(x=>Math.floor((x.stk+x.tra)/x.needs[mot]))) : 0;
+  if(!f.length) return 0;
+  return Math.min(...f.map(x=>{
+    let usado=0;
+    for(const m in (sel||{})){ if(m===mot) continue; const u=x.needs[m]||0; if(u) usado+=u*(sel[m]||0); }
+    return Math.floor(Math.max(0,(x.stk+x.tra)-usado)/x.needs[mot]);
+  }));
+}
+// Cuantos juegos de UN motor salen con el stock de hoy (contando lo que viene en camino)
+function alcanzaDe(hi,mot){ return alcanzaCon(hi,mot,{}); }
+
+// Cuanto SUMA agregar juegos de un motor sobre lo que ya elegiste:
+// repuestos nuevos, unidades y plata. Responde "si lo marco, cuanto mas hay que reponer".
+function marginal(hi,sel,mot,extra){
+  const base=calcKit(hi,sel);
+  const s2=Object.assign({},sel); s2[mot]=(s2[mot]||0)+(extra===undefined?1:extra);
+  const k2=calcKit(hi,s2);
+  return {items:k2.importar.length-base.importar.length, uds:k2.uds-base.uds, costo:k2.costo-base.costo};
+}
+
+// Reparto en cascada: cada motor muestra lo que AGREGA sobre los de arriba.
+// Asi la suma de las filas da exactamente el total, aunque compartan piezas.
+function cascada(pares){
+  const out=[];
+  pares.forEach(p=>{
+    const mots=motoresDe(p.hi).filter(m=>(p.sel[m]||0)>0);
+    let prev={i:0,u:0,c:0}; const acc={};
+    mots.forEach(m=>{
+      acc[m]=p.sel[m];
+      const k=calcKit(p.hi,acc), solo=calcKit(p.hi,{[m]:p.sel[m]});
+      out.push({hi:p.hi, h:HOJAS[p.hi], m:m, n:p.sel[m], color:colorMot(m),
+        di:k.importar.length-prev.i, du:k.uds-prev.u, dc:k.costo-prev.c,
+        soloI:solo.importar.length, soloU:solo.uds, soloC:solo.costo,
+        alcSolo:alcanzaCon(p.hi,m,{}), alcReal:alcanzaCon(p.hi,m,acc)});
+      prev={i:k.importar.length, u:k.uds, c:k.costo};
+    });
+  });
+  return out;
+}
+
+// Mando unico de las tarjetas: 'G' = vista global del panorama, 'B' = dentro del bloque
+function kSet(ns,hi,mot,v){
+  const n=Math.max(0,Math.min(999,parseInt(v)||0));
+  if(ns==='G'){ KIT_G[gKey(hi,mot)]=n; TOPE_KG=25; pintarKitG(); }
+  else { selDe(hi)[mot]=n; TOPE_KIT=40; pintarDetalle(); }
+}
+function kPaso(ns,hi,mot,d){
+  const act = ns==='G' ? (KIT_G[gKey(hi,mot)]||0) : (selDe(hi)[mot]||0);
+  kSet(ns,hi,mot,act+d);
+}
+
+// Tarjeta de un motor: stock que le queda de verdad y lo que suma marcarlo
+function tarjetaMotorHTML(hi,m,sel,ns){
+  const n=sel[m]||0, col=colorMot(m);
+  const aFull=alcanzaCon(hi,m,{});
+  const otros=Object.assign({},sel); delete otros[m];
+  const hayOtros=Object.keys(otros).some(k=>otros[k]>0);
+  const aLibre=alcanzaCon(hi,m,otros);
+  const mg=marginal(hi,sel,m,1);
+  return `<div class="ks${n>0?' on':''}" style="--cm:${n>0?col:'var(--line)'}">
+    <div class="nm"><span class="kchip" style="--c:${col}"><i></i>${esc(KIT.etiq[m]||m)}</span></div>
+    <div class="alc">solo con su stock alcanza para <b class="${aFull?'':'cero'}">${fmt(aFull)}</b> juego${aFull===1?'':'s'}</div>
+    ${hayOtros&&aLibre!==aFull?`<div class="queda${aLibre?'':' cero'}">con lo que ya elegiste ${aLibre?`quedan <b>${fmt(aLibre)}</b>`:'ya <b>no queda</b> stock libre'}</div>`:''}
+    <div class="stp">
+      <button onclick="kPaso('${ns}',${hi},'${esc(m)}',-1)" title="Uno menos">−</button>
+      <input type="number" min="0" max="999" value="${n}" onchange="kSet('${ns}',${hi},'${esc(m)}',this.value)">
+      <button onclick="kPaso('${ns}',${hi},'${esc(m)}',1)" title="Uno más">+</button>
+    </div>
+    <div class="marg${mg.items||mg.uds?'':' nada'}">${
+      mg.items ? `+1 juego → <b>${fmt(mg.items)}</b> repuesto${mg.items===1?'':'s'} más por reponer · <b>${fmt(mg.uds)}</b> uds · <b class="mo">${mg.costo?usd(mg.costo):'falta cotizar'}</b>`
+      : mg.uds ? `+1 juego → <b>${fmt(mg.uds)}</b> uds más de repuestos que ya vas a importar · <b class="mo">${mg.costo?usd(mg.costo):'falta cotizar'}</b>`
+      : '+1 juego → sale del stock, no hay que importar nada'}</div></div>`;
 }
 
 // Necesidad combinada: se puede pedir varios motores del grupo, con su propia cantidad
@@ -966,6 +1140,122 @@ function limpiarSel(){ const sel=selDe(MOTOR); motoresDe(MOTOR).forEach(m=>sel[m
 function masKit(){ TOPE_KIT+=60; pintarDetalle(); }
 function setModo(m){ MODO=m; ABIERTA=null; pintarDetalle(); }
 
+// ══ ARMAR JUEGO DE MOTOR · VISTA GLOBAL (los 7 grupos juntos) ══
+// Misma cuenta que dentro de cada bloque, pero sumando todos los motores
+// para ver un solo total de importación.
+const gKey = (hi,m) => hi+'|'+m;
+function motoresG(){ return HOJAS.flatMap((h,i)=>motoresDe(i).map(m=>({hi:i,h:h,m:m}))); }
+function gSelDe(hi){ const o={}; motoresDe(hi).forEach(m=>{ o[m]=KIT_G[gKey(hi,m)]||0; }); return o; }
+
+function calcKitG(){
+  const grupos=[];
+  HOJAS.forEach((h,i)=>{
+    const sel=gSelDe(i);
+    if(!Object.keys(sel).some(m=>sel[m]>0)) return;
+    grupos.push({h:h, hi:i, sel:sel, k:calcKit(i,sel)});
+  });
+  const t={motores:0, items:0, uds:0, costo:0, sinPrecio:0, pide:0};
+  const importar=[];
+  grupos.forEach(g=>{
+    t.motores+=g.k.motores; t.items+=g.k.importar.length; t.uds+=g.k.uds;
+    t.costo+=g.k.costo; t.sinPrecio+=g.k.sinPrecio; t.pide+=g.k.filas.length;
+    g.k.importar.forEach(x=>importar.push(Object.assign({},x,{grupo:g.h.corto, gcolor:g.h.color})));
+  });
+  importar.sort((a,b)=>b.costo-a.costo||b.falta-a.falta);
+  return {grupos:grupos, t:t, importar:importar};
+}
+
+function setJuegosG(hi,mot,v){
+  KIT_G[gKey(hi,mot)]=Math.max(0,Math.min(999,parseInt(v)||0));
+  TOPE_KG=25; pintarKitG();
+}
+function pasoJuegosG(hi,mot,d){ setJuegosG(hi,mot,(KIT_G[gKey(hi,mot)]||0)+d); }
+function unoDeCadaG(){ motoresG().forEach(o=>KIT_G[gKey(o.hi,o.m)]=1); TOPE_KG=25; pintarKitG(); }
+function unoDeCadaGrupo(hi){ motoresDe(hi).forEach(m=>KIT_G[gKey(hi,m)]=1); TOPE_KG=25; pintarKitG(); }
+function limpiarGrupo(hi){ motoresDe(hi).forEach(m=>KIT_G[gKey(hi,m)]=0); TOPE_KG=25; pintarKitG(); }
+function limpiarG(){ KIT_G={}; TOPE_KG=25; pintarKitG(); }
+function masKitG(){ TOPE_KG+=40; pintarKitG(); }
+
+function pintarKitG(){
+  const cont=$('#kitG'); if(!cont) return;
+  const g=calcKitG(), t=g.t;
+  const detalle=g.grupos.flatMap(x=>x.k.mots.map(m=>`<b>${x.sel[m]}</b> × ${esc(KIT.etiq[m]||m)}`)).join(' + ');
+
+  const selector=`
+  <div class="kit-sel">
+    <div class="ks-top">
+      <div><div class="l">¿Qué juegos vas a armar?</div>
+        <div class="hint">Todos los motores de los ${HOJAS.length} grupos · pon la cantidad de juegos de cada uno</div></div>
+      <div class="acc"><button class="ks-mini" onclick="unoDeCadaG()">1 de cada uno</button>
+        <button class="ks-mini" onclick="limpiarG()">Limpiar todo</button></div>
+    </div>
+    ${HOJAS.map((h,i)=>{
+      const mots=motoresDe(i);
+      if(!mots.length) return '';
+      return `<div class="kg-gr" style="--c:${h.color}">
+        <div class="kg-gr-h"><span class="pt"></span><span class="nm">${esc(h.corto)}</span><span class="ln"></span>
+          <span class="lk" onclick="unoDeCadaGrupo(${i})">1 de cada uno</span>
+          <span class="lk" onclick="limpiarGrupo(${i})">Limpiar</span></div>
+        <div class="ks-grid">${mots.map(m=>tarjetaMotorHTML(i,m,gSelDe(i),'G')).join('')}</div></div>`;
+    }).join('')}
+    <div class="kg-tot">
+      <div class="tx">${t.motores
+        ? `Vas a armar ${detalle}. Descontando el stock y lo que ya viene en camino, faltan
+           <b>${fmt(t.items)} repuestos</b> (${fmt(t.uds)} unidades) de los ${fmt(t.pide)} que pide la combinación.`
+        : 'Todavía no has elegido ningún motor. Súbele a los que quieras armar y aquí sale el total.'}</div>
+      <div class="big"><div class="l">Total a importar</div>
+        <div class="v">${t.motores?(t.costo?usd(t.costo):'US$ 0.00'):'—'}</div>
+        <div class="s">${t.motores
+          ? fmt(t.motores)+' motor'+(t.motores===1?'':'es')+' en total'+(t.sinPrecio?' · '+t.sinPrecio+' sin precio, no suman':'')
+          : 'según la última orden de compra'}</div></div>
+    </div>
+    ${t.motores?`<div class="kg-acc">
+      <button class="btn pri" onclick="exportarKit('G')">↓ Descargar en Excel</button>
+      <button class="btn" onclick="pdfKit('G')">↓ Guardar en PDF</button></div>`:''}
+  </div>`;
+
+  const phead=`<div class="kg-phead"><h3 style="font-family:Orbitron,sans-serif;font-size:15px">
+    PERU TRACTOR S.R.L. · Juego de motor a importar</h3>
+    <div style="font-size:11.5px;color:var(--ink3)">ERP PROFICONT · ${new Date().toLocaleDateString('es-PE')}</div></div>`;
+
+  if(!t.motores){ cont.innerHTML=phead+selector; return; }
+
+  const cas=cascada(g.grupos.map(x=>({hi:x.hi,sel:x.sel})));
+  const tabla=`
+  <div class="panel kg-tab">
+    <div class="kg-hd"><span>Motor · en el orden en que lo agregas</span><span>Juegos</span>
+      <span>Repuestos +</span><span>Unidades +</span><span>Costo +</span></div>
+    ${cas.map(x=>`<div class="kg-tr" style="--c:${x.color}" onclick="verMotor(${x.hi})">
+      <div class="id"><span class="pt rd"></span><span class="nm">${esc(KIT.etiq[x.m]||x.m)}</span>
+        <span class="de">${esc(x.h.corto)} · solo alcanzaba para ${fmt(x.alcSolo)} · si lo armaras solo: ${fmt(x.soloI)} repuestos${x.soloC?' · '+usd(x.soloC):''}</span></div>
+      <div class="r">${fmt(x.n)}</div>
+      <div class="r${x.di?' dl':' z'}">${x.di>0?'+':''}${fmt(x.di)}</div>
+      <div class="r${x.du?' dl':' z'}">${x.du>0?'+':''}${fmt(x.du)}</div>
+      <div class="r mo">${x.dc?usd(x.dc):'—'}</div></div>`).join('')}
+    <div class="kg-ft"><span>Total a importar</span><span>${fmt(t.motores)}</span><span>${fmt(t.items)}</span>
+      <span>${fmt(t.uds)}</span><span class="mo">${t.costo?usd(t.costo):'—'}</span></div>
+    <div class="kg-sub">Cada fila es lo que ese motor <b>agrega</b> sobre los de arriba: si comparte piezas con otro
+      del mismo grupo, el stock ya se descontó allí. Por eso las filas suman exacto el total.</div>
+  </div>`;
+
+  const usados=[...new Set(cas.map(x=>x.m))];
+  const leyenda=`<div class="leyenda"><span class="lb">Color por motor</span>
+    ${usados.map(m=>`<span class="kchip" style="--c:${colorMot(m)}"><i></i>${esc(KIT.etiq[m]||m)}</span>`).join('')}</div>`;
+
+  const lista=g.importar.slice(0,TOPE_KG);
+  const bloque=`
+  <div class="blq" style="--c:var(--ambar);margin-top:16px">
+    <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
+      <div class="ic">${ico('<path d="M20 7 12 3 4 7v10l8 4 8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/>')}</div>
+      <div class="tt"><h4>Qué importar en total</h4><p>Los ${fmt(g.importar.length)} repuestos que faltan para toda la combinación · cada pieza con el color del motor que la pide</p></div>
+      <span class="cnt">${g.importar.length}</span>${CHEV}</div>
+    <div class="blq-b">${lista.length?lista.map((x,i)=>kitFilaHTML(x,'kg'+i,x.grupo)).join('')
+      :`<div class="vacio">Con el stock actual ya sale toda la combinación. No hay que importar nada.</div>`}
+      ${g.importar.length>lista.length?`<div class="mas" onclick="masKitG()">Ver 40 más · quedan ${g.importar.length-lista.length}</div>`:''}</div></div>`;
+
+  cont.innerHTML=phead+selector+tabla+leyenda+bloque;
+}
+
 function vistaKit(h,hi){
   const mots=motoresDe(hi);
   if(!mots.length) return `<div class="blq"><div class="vacio">Este grupo no tiene cantidades de kit en la hoja de motores.</div></div>`;
@@ -982,21 +1272,14 @@ function vistaKit(h,hi){
       <div class="acc"><button class="ks-mini" onclick="unoDeCada()">1 de cada uno</button>
         <button class="ks-mini" onclick="limpiarSel()">Limpiar</button></div>
     </div>
-    <div class="ks-grid">${mots.map(m=>{
-      const n=sel[m]||0, a=alcanzaDe(hi,m);
-      return `<div class="ks${n>0?' on':''}">
-        <div class="nm">${esc(KIT.etiq[m]||m)}</div>
-        <div class="alc">hoy alcanza para <b class="${a?'':'cero'}">${fmt(a)}</b> juego${a===1?'':'s'}</div>
-        <div class="stp">
-          <button onclick="pasoJuegos('${esc(m)}',-1)" title="Uno menos">−</button>
-          <input type="number" min="0" max="999" value="${n}" onchange="setJuegos('${esc(m)}',this.value)">
-          <button onclick="pasoJuegos('${esc(m)}',1)" title="Uno más">+</button>
-        </div></div>`;
-    }).join('')}</div>
+    <div class="ks-grid">${mots.map(m=>tarjetaMotorHTML(hi,m,sel,'B')).join('')}</div>
     <div class="ks-res">
       <div class="tx">${k.motores?`Vas a armar ${detalle}`:'No has elegido ningún motor todavía'}</div>
       <div class="tot"><div class="l">Motores en total</div><div class="v">${fmt(k.motores)}</div></div>
     </div>
+    ${k.motores?`<div class="kg-acc">
+      <button class="btn pri" onclick="exportarKit('B')">↓ Descargar en Excel</button>
+      <button class="btn" onclick="pdfKit('B')">↓ Guardar en PDF</button></div>`:''}
   </div>
 
   ${!k.motores?`<div class="blq"><div class="vacio">Súbele a por lo menos un motor para ver qué hay que importar.</div></div>`:`
@@ -1011,6 +1294,24 @@ function vistaKit(h,hi){
       <div class="s">el ERP los controla, el kit no los pide</div></div>
   </div>
 
+  ${(()=>{ const cas=cascada([{hi:hi,sel:sel}]); if(cas.length<2) return '';
+    return `<div class="panel kg-tab" style="margin-top:16px">
+    <div class="kg-hd"><span>Motor · en el orden en que lo agregas</span><span>Juegos</span>
+      <span>Repuestos +</span><span>Unidades +</span><span>Costo +</span></div>
+    ${cas.map(x=>`<div class="kg-tr" style="--c:${x.color};cursor:default">
+      <div class="id"><span class="pt rd"></span><span class="nm">${esc(KIT.etiq[x.m]||x.m)}</span>
+        <span class="de">solo alcanzaba para ${fmt(x.alcSolo)} · si lo armaras solo: ${fmt(x.soloI)} repuestos${x.soloC?' · '+usd(x.soloC):''}</span></div>
+      <div class="r">${fmt(x.n)}</div>
+      <div class="r${x.di?' dl':' z'}">${x.di>0?'+':''}${fmt(x.di)}</div>
+      <div class="r${x.du?' dl':' z'}">${x.du>0?'+':''}${fmt(x.du)}</div>
+      <div class="r mo">${x.dc?usd(x.dc):'—'}</div></div>`).join('')}
+    <div class="kg-ft"><span>Total a importar</span><span>${fmt(k.motores)}</span><span>${fmt(k.importar.length)}</span>
+      <span>${fmt(k.uds)}</span><span class="mo">${k.costo?usd(k.costo):'—'}</span></div>
+    <div class="kg-sub">Estos motores comparten stock: cada fila es lo que <b>agrega</b> sobre los de arriba.</div>
+  </div>
+  <div class="leyenda"><span class="lb">Color por motor</span>
+    ${cas.map(x=>`<span class="kchip" style="--c:${x.color}"><i></i>${esc(KIT.etiq[x.m]||x.m)}</span>`).join('')}</div>`; })()}
+
   <div class="blq" style="--c:var(--ambar)">
     <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
       <div class="ic">${ico('<path d="M20 7 12 3 4 7v10l8 4 8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/>')}</div>
@@ -1021,12 +1322,17 @@ function vistaKit(h,hi){
       ${k.importar.length>lista.length?`<div class="mas" onclick="masKit()">Ver 60 más · quedan ${k.importar.length-lista.length}</div>`:''}</div></div>`}`;
 }
 
-function kitFilaHTML(x,id){
-  return `<div class="it kit" id="it${id}" onclick="verFicha('${id}')">
+function kitFilaHTML(x,id,grupo){
+  // barra lateral con el color de cada motor que pide la pieza (hasta 3)
+  const cols=x.mix.map(m=>colorMot(m.m));
+  const sh=cols.slice(0,3).map((c,i)=>`inset ${(3-i)*4}px 0 0 0 ${c}`).reverse().join(',');
+  return `<div class="it kit" id="it${id}" onclick="verFicha('${id}')" style="box-shadow:${sh}">
     <div class="cd">${esc(x.cod)}${x.codErp?`<small>${esc(x.codErp)}</small>`:''}</div>
     <div class="ds"><div class="d" title="${esc(x.desc)}">${esc(x.desc)}</div>
       <div class="m">${x.marca?`<span class="mk">${esc(x.marca)}</span>`:''}
-        <span>${x.mix.map(m=>`${fmt(m.u)} por juego de ${esc(KIT.etiq[m.m]||m.m)}`).join(' · ')}</span>
+        ${grupo?`<span>${esc(grupo)}</span>`:''}
+        ${x.mix.map(m=>`<span class="kchip" style="--c:${colorMot(m.m)}"><i></i>${esc(KIT.etiq[m.m]||m.m)} · ${fmt(m.u)} por juego${m.n>1?` × ${fmt(m.n)}`:''}</span>`).join('')}
+        ${x.mix.length>1?`<span style="color:var(--ambar);font-weight:700">pieza compartida</span>`:''}
         ${x.tra?`<span>${fmt(x.tra)} en camino${x.arrTxt?' · llega el '+esc(x.arrTxt):''}</span>`:''}</div></div>
     <div class="nec"><div class="v">${fmt(x.necesita)}</div><div class="k">Necesita</div>
       ${x.mix.length>1?`<div class="mix">${x.mix.map(m=>`${m.n}×${fmt(m.u)}`).join(' + ')}</div>`:''}</div>
@@ -1218,6 +1524,92 @@ function exportar(soloMotor){
   document.body.appendChild(a); a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},900);
   toast('Descargado · '+n+' repuestos');
+}
+
+// ══ EXCEL Y PDF DEL JUEGO DE MOTOR ══
+// ns = 'G' (todos los grupos, desde el panorama) o 'B' (el grupo abierto)
+function kitDatos(ns){
+  if(ns==='G'){
+    const g=calcKitG();
+    return {pares:g.grupos.map(x=>({hi:x.hi,sel:x.sel})), importar:g.importar, t:g.t,
+            quien:'todos los motores'};
+  }
+  const hi=MOTOR, sel=selDe(hi), k=calcKit(hi,sel);
+  return {pares:[{hi:hi,sel:sel}],
+          importar:k.importar.map(x=>Object.assign({},x,{grupo:HOJAS[hi].corto})),
+          t:{motores:k.motores, items:k.importar.length, uds:k.uds, costo:k.costo,
+             sinPrecio:k.sinPrecio, pide:k.filas.length},
+          quien:HOJAS[hi].corto};
+}
+
+function exportarKit(ns){
+  const d=kitDatos(ns);
+  if(!d.t.motores){ toast('Elige al menos un motor'); return; }
+  const cas=cascada(d.pares);
+  const hoy=new Date().toLocaleDateString('es-PE');
+  const th=c=>'<th style="background:#0f2440;color:#fff">'+esc(c)+'</th>';
+
+  let t1='<h4>Motores a armar &middot; lo que agrega cada uno sobre los anteriores</h4>'
+    +'<table border="1"><tr>'
+    +['GRUPO','MOTOR','JUEGOS','ALCANZA SOLO','REPUESTOS +','UNIDADES +','COSTO + (US$)',
+      'SI SE ARMA SOLO: REPUESTOS','SI SE ARMA SOLO: UNIDADES','SI SE ARMA SOLO: COSTO (US$)'].map(th).join('')+'</tr>';
+  cas.forEach(x=>{
+    t1+='<tr><td>'+esc(x.h.corto)+'</td><td>'+esc(KIT.etiq[x.m]||x.m)+'</td>'
+      +'<td x:num>'+x.n+'</td><td x:num>'+x.alcSolo+'</td>'
+      +'<td x:num>'+x.di+'</td><td x:num>'+x.du+'</td><td x:num>'+x.dc.toFixed(2)+'</td>'
+      +'<td x:num>'+x.soloI+'</td><td x:num>'+x.soloU+'</td><td x:num>'+x.soloC.toFixed(2)+'</td></tr>';
+  });
+  t1+='<tr><td colspan="2"><b>TOTAL</b></td><td x:num><b>'+d.t.motores+'</b></td><td></td>'
+    +'<td x:num><b>'+d.t.items+'</b></td><td x:num><b>'+d.t.uds+'</b></td>'
+    +'<td x:num><b>'+d.t.costo.toFixed(2)+'</b></td><td></td><td></td><td></td></tr></table><br>';
+
+  let t2='<h4>Repuestos a importar</h4><table border="1"><tr>'
+    +['#','GRUPO','MOTORES QUE LA PIDEN','PART NUMBER','COD. PROFICONT','DESCRIPCION','MARCA',
+      'NECESITA','STOCK + TRANSITO','IMPORTAR','UNITARIO (US$)','SUBTOTAL (US$)','ARRIBO',
+      'COMPARTIDA'].map(th).join('')+'</tr>';
+  d.importar.forEach((x,i)=>{
+    t2+='<tr><td x:num>'+(i+1)+'</td><td>'+esc(x.grupo||'')+'</td>'
+      +'<td>'+esc(x.mix.map(m=>(KIT.etiq[m.m]||m.m)+' ('+m.u+'/juego × '+m.n+')').join(' + '))+'</td>'
+      +'<td>'+esc(x.cod)+'</td><td>'+esc(x.codErp||'')+'</td><td>'+esc(x.desc)+'</td><td>'+esc(x.marca||'')+'</td>'
+      +'<td x:num>'+x.necesita+'</td><td x:num>'+x.tiene+'</td><td x:num>'+x.falta+'</td>'
+      +'<td x:num>'+(x.oc?x.oc.toFixed(2):'')+'</td><td x:num>'+(x.oc?x.costo.toFixed(2):'')+'</td>'
+      +'<td>'+esc(x.arrTxt||'')+'</td><td>'+(x.mix.length>1?'SI':'')+'</td></tr>';
+  });
+  t2+='<tr><td colspan="9"><b>TOTAL</b></td><td x:num><b>'+d.t.uds+'</b></td><td></td>'
+    +'<td x:num><b>'+d.t.costo.toFixed(2)+'</b></td><td></td><td></td></tr></table>';
+
+  const head='<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8">'
+    +'<xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>JUEGO DE MOTOR</x:Name>'
+    +'<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>'
+    +'</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>'
+    +'<h3>PERU TRACTOR S.R.L. &middot; ERP PROFICONT — Juego de motor a importar</h3>'
+    +'<p>'+esc(d.quien)+' &middot; '+d.t.motores+' motores &middot; '+d.t.items+' repuestos &middot; '
+    +fmt(d.t.uds)+' unidades &middot; '+usd(d.t.costo)
+    +(d.t.sinPrecio?' &middot; '+d.t.sinPrecio+' sin precio (no suman)':'')
+    +' &middot; Generado '+hoy+'</p>';
+  const blob=new Blob(['﻿'+head+t1+t2+'</body></html>'],{type:'application/vnd.ms-excel'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='PROFICONT_JUEGO_'+d.quien.replace(/[^\w]+/g,'-')+'_'+hoy.replace(/\//g,'-')+'.xls';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},900);
+  toast('Descargado · '+d.t.items+' repuestos a importar');
+}
+
+// PDF: se imprime solo el juego de motor y el navegador lo guarda como PDF
+function pdfKit(ns){
+  const d=kitDatos(ns);
+  if(!d.t.motores){ toast('Elige al menos un motor'); return; }
+  const cls = ns==='G' ? 'solo-kit' : 'solo-kitb';
+  const tope = ns==='G' ? TOPE_KG : TOPE_KIT;
+  if(ns==='G'){ TOPE_KG=99999; pintarKitG(); } else { TOPE_KIT=99999; pintarDetalle(); }
+  document.body.classList.add(cls);
+  toast('Elige «Guardar como PDF» en el destino de impresión');
+  setTimeout(()=>{
+    window.print();
+    document.body.classList.remove(cls);
+    if(ns==='G'){ TOPE_KG=tope; pintarKitG(); } else { TOPE_KIT=tope; pintarDetalle(); }
+  },400);
 }
 
 // ══ PANTALLA DE ACCESO ══
