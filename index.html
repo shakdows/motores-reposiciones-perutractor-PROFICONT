@@ -415,6 +415,9 @@ td.cd{font-size:10px;color:var(--ink3)}
 .kg-gr-h .ln{flex:1;height:1px;background:var(--line2)}
 .kg-gr-h .lk{font-size:10.5px;color:var(--ink3);cursor:pointer;font-weight:600;white-space:nowrap}
 .kg-gr-h .lk:hover{color:var(--azul)}
+.kg-gr-h .aqui{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+ color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);border:1px solid color-mix(in srgb,var(--c) 25%,#fff);
+ padding:2px 8px;border-radius:20px}
 .kg-tot{margin-top:18px;border:1px solid #cfe0ff;background:linear-gradient(180deg,#f6f9ff,#fff);
  border-radius:var(--r);padding:18px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .kg-tot .tx{font-size:13.5px;color:var(--ink2);max-width:640px}
@@ -455,6 +458,8 @@ td.cd{font-size:10px;color:var(--ink3)}
 
 /* ── stock compartido, aporte marginal y color por motor ── */
 .ks{border-left:4px solid var(--cm,var(--line))}
+.ks .pide{font-size:10px;color:var(--ink3);margin-top:5px;line-height:1.45}
+.ks .pide b{font-family:'Orbitron',sans-serif;font-weight:800;color:var(--ink2)}
 .ks .alc b.baja{color:var(--ambar)}
 .ks .queda{font-size:10.5px;margin-top:3px;color:var(--ambar);font-weight:600}
 .ks .queda b{font-family:'Orbitron',sans-serif;font-weight:800}
@@ -1067,33 +1072,39 @@ function cascada(pares){
   return out;
 }
 
-// Mando unico de las tarjetas: 'G' = vista global del panorama, 'B' = dentro del bloque
-function kSet(ns,hi,mot,v){
-  const n=Math.max(0,Math.min(999,parseInt(v)||0));
-  if(ns==='G'){ KIT_G[gKey(hi,mot)]=n; TOPE_KG=25; pintarKitG(); }
-  else { selDe(hi)[mot]=n; TOPE_KIT=40; pintarDetalle(); }
+// Mando unico de las tarjetas: la seleccion es una sola, se vea desde donde se vea
+function repintarArmado(){
+  pintarKitG();
+  if(MOTOR>=0 && MODO==='kit' && !$('#vMotor').classList.contains('hidden')) pintarDetalle();
 }
-function kPaso(ns,hi,mot,d){
-  const act = ns==='G' ? (KIT_G[gKey(hi,mot)]||0) : (selDe(hi)[mot]||0);
-  kSet(ns,hi,mot,act+d);
+function kSet(hi,mot,v){
+  KIT_G[gKey(hi,mot)]=Math.max(0,Math.min(999,parseInt(v)||0));
+  repintarArmado();
 }
+function kPaso(hi,mot,d){ kSet(hi,mot,(KIT_G[gKey(hi,mot)]||0)+d); }
 
 // Tarjeta de un motor: stock que le queda de verdad y lo que suma marcarlo
-function tarjetaMotorHTML(hi,m,sel,ns){
+function tarjetaMotorHTML(hi,m,sel){
   const n=sel[m]||0, col=colorMot(m);
   const aFull=alcanzaCon(hi,m,{});
   const otros=Object.assign({},sel); delete otros[m];
   const hayOtros=Object.keys(otros).some(k=>otros[k]>0);
   const aLibre=alcanzaCon(hi,m,otros);
   const mg=marginal(hi,sel,m,1);
+  // cuantas piezas pide este motor y cuantas de esas se las pelea con sus hermanos de grupo
+  const suyas=itemsDe(hi).filter(x=>x.needs[m]>0);
+  const comp=suyas.filter(x=>motoresDe(hi).some(o=>o!==m && x.needs[o]>0)).length;
+  const solo1=motoresDe(hi).length<2;
   return `<div class="ks${n>0?' on':''}" style="--cm:${n>0?col:'var(--line)'}">
     <div class="nm"><span class="kchip" style="--c:${col}"><i></i>${esc(KIT.etiq[m]||m)}</span></div>
+    <div class="pide">pide <b>${fmt(suyas.length)}</b> repuestos del kit${solo1?'':
+      comp?` · <b>${fmt(comp)}</b> los comparte con el resto del grupo`:' · <b>ninguno</b> lo comparte con el resto'}</div>
     <div class="alc">solo con su stock alcanza para <b class="${aFull?'':'cero'}">${fmt(aFull)}</b> juego${aFull===1?'':'s'}</div>
     ${hayOtros&&aLibre!==aFull?`<div class="queda${aLibre?'':' cero'}">con lo que ya elegiste ${aLibre?`quedan <b>${fmt(aLibre)}</b>`:'ya <b>no queda</b> stock libre'}</div>`:''}
     <div class="stp">
-      <button onclick="kPaso('${ns}',${hi},'${esc(m)}',-1)" title="Uno menos">−</button>
-      <input type="number" min="0" max="999" value="${n}" onchange="kSet('${ns}',${hi},'${esc(m)}',this.value)">
-      <button onclick="kPaso('${ns}',${hi},'${esc(m)}',1)" title="Uno más">+</button>
+      <button onclick="kPaso(${hi},'${esc(m)}',-1)" title="Uno menos">−</button>
+      <input type="number" min="0" max="999" value="${n}" onchange="kSet(${hi},'${esc(m)}',this.value)">
+      <button onclick="kPaso(${hi},'${esc(m)}',1)" title="Uno más">+</button>
     </div>
     <div class="marg${mg.items||mg.uds?'':' nada'}">${
       mg.items ? `+1 juego → <b>${fmt(mg.items)}</b> repuesto${mg.items===1?'':'s'} más por reponer · <b>${fmt(mg.uds)}</b> uds · <b class="mo">${mg.costo?usd(mg.costo):'falta cotizar'}</b>`
@@ -1165,38 +1176,41 @@ function calcKitG(){
   return {grupos:grupos, t:t, importar:importar};
 }
 
-function setJuegosG(hi,mot,v){
-  KIT_G[gKey(hi,mot)]=Math.max(0,Math.min(999,parseInt(v)||0));
-  TOPE_KG=25; pintarKitG();
-}
-function pasoJuegosG(hi,mot,d){ setJuegosG(hi,mot,(KIT_G[gKey(hi,mot)]||0)+d); }
-function unoDeCadaG(){ motoresG().forEach(o=>KIT_G[gKey(o.hi,o.m)]=1); TOPE_KG=25; pintarKitG(); }
-function unoDeCadaGrupo(hi){ motoresDe(hi).forEach(m=>KIT_G[gKey(hi,m)]=1); TOPE_KG=25; pintarKitG(); }
-function limpiarGrupo(hi){ motoresDe(hi).forEach(m=>KIT_G[gKey(hi,m)]=0); TOPE_KG=25; pintarKitG(); }
-function limpiarG(){ KIT_G={}; TOPE_KG=25; pintarKitG(); }
-function masKitG(){ TOPE_KG+=40; pintarKitG(); }
+function setJuegosG(hi,mot,v){ kSet(hi,mot,v); }
+function pasoJuegosG(hi,mot,d){ kPaso(hi,mot,d); }
+function unoDeCadaG(){ motoresG().forEach(o=>KIT_G[gKey(o.hi,o.m)]=1); repintarArmado(); }
+function unoDeCadaGrupo(hi){ motoresDe(hi).forEach(m=>KIT_G[gKey(hi,m)]=1); repintarArmado(); }
+function limpiarGrupo(hi){ motoresDe(hi).forEach(m=>KIT_G[gKey(hi,m)]=0); repintarArmado(); }
+function limpiarG(){ KIT_G={}; TOPE_KG=25; repintarArmado(); }
+function masKitG(){ TOPE_KG+=40; repintarArmado(); }
 
-function pintarKitG(){
-  const cont=$('#kitG'); if(!cont) return;
+// ══ LA PANTALLA DE ARMADO ══
+// Una sola vista: TODOS los motores de las 7 hojas y, abajo, lo que hay que
+// importar. La seleccion es la misma se entre por el panorama o por un bloque.
+function vistaArmado(hiFoco,pre){
   const g=calcKitG(), t=g.t;
+  const foco = (hiFoco==null||hiFoco<0) ? -1 : hiFoco;
+  const orden = foco<0 ? HOJAS.map((h,i)=>i)
+                       : [foco].concat(HOJAS.map((h,i)=>i).filter(i=>i!==foco));
   const detalle=g.grupos.flatMap(x=>x.k.mots.map(m=>`<b>${x.sel[m]}</b> × ${esc(KIT.etiq[m]||m)}`)).join(' + ');
 
   const selector=`
   <div class="kit-sel">
     <div class="ks-top">
       <div><div class="l">¿Qué juegos vas a armar?</div>
-        <div class="hint">Todos los motores de los ${HOJAS.length} grupos · pon la cantidad de juegos de cada uno</div></div>
+        <div class="hint">Todos los motores del ERP · pon cuántos juegos quieres de cada uno</div></div>
       <div class="acc"><button class="ks-mini" onclick="unoDeCadaG()">1 de cada uno</button>
         <button class="ks-mini" onclick="limpiarG()">Limpiar todo</button></div>
     </div>
-    ${HOJAS.map((h,i)=>{
-      const mots=motoresDe(i);
+    ${orden.map(i=>{
+      const h=HOJAS[i], mots=motoresDe(i), sel=gSelDe(i);
       if(!mots.length) return '';
       return `<div class="kg-gr" style="--c:${h.color}">
-        <div class="kg-gr-h"><span class="pt"></span><span class="nm">${esc(h.corto)}</span><span class="ln"></span>
+        <div class="kg-gr-h"><span class="pt"></span><span class="nm">${esc(h.corto)}</span>
+          ${i===foco?'<span class="aqui">estás aquí</span>':''}<span class="ln"></span>
           <span class="lk" onclick="unoDeCadaGrupo(${i})">1 de cada uno</span>
           <span class="lk" onclick="limpiarGrupo(${i})">Limpiar</span></div>
-        <div class="ks-grid">${mots.map(m=>tarjetaMotorHTML(i,m,gSelDe(i),'G')).join('')}</div></div>`;
+        <div class="ks-grid">${mots.map(m=>tarjetaMotorHTML(i,m,sel)).join('')}</div></div>`;
     }).join('')}
     <div class="kg-tot">
       <div class="tx">${t.motores
@@ -1210,19 +1224,37 @@ function pintarKitG(){
           : 'según la última orden de compra'}</div></div>
     </div>
     ${t.motores?`<div class="kg-acc">
-      <button class="btn pri" onclick="exportarKit('G')">↓ Descargar en Excel</button>
-      <button class="btn" onclick="pdfKit('G')">↓ Guardar en PDF</button></div>`:''}
+      <button class="btn pri" onclick="exportarKit()">↓ Descargar en Excel</button>
+      <button class="btn" onclick="pdfKit('${foco<0?'G':'B'}')">↓ Guardar en PDF</button></div>`:''}
   </div>`;
 
   const phead=`<div class="kg-phead"><h3 style="font-family:Orbitron,sans-serif;font-size:15px">
     PERU TRACTOR S.R.L. · Juego de motor a importar</h3>
     <div style="font-size:11.5px;color:var(--ink3)">ERP PROFICONT · ${new Date().toLocaleDateString('es-PE')}</div></div>`;
 
-  if(!t.motores){ cont.innerHTML=phead+selector; return; }
+  if(!t.motores) return phead+selector
+    +`<div class="blq"><div class="vacio">Súbele a por lo menos un motor para ver qué hay que importar.</div></div>`;
+
+  // repuestos que el kit no pide, en todas las hojas
+  let fuera=0;
+  HOJAS.forEach((h,i)=>{ const sel=gSelDe(i), ms=motoresDe(i).filter(m=>sel[m]>0);
+    itemsDe(i).forEach(x=>{ if(!ms.some(m=>x.needs[m]>0)) fuera++; }); });
+
+  const cifras=`
+  <div class="cifras" style="margin-top:16px">
+    <div class="cf" style="--c:var(--ambar)"><div class="r">Hay que importar</div><div class="n">${fmt(t.items)}</div>
+      <div class="s">repuestos de los ${fmt(t.pide)} que pide la combinación</div></div>
+    <div class="cf" style="--c:var(--azul)"><div class="r">Unidades</div><div class="n">${fmt(t.uds)}</div>
+      <div class="s">descontando stock y lo que viene en camino</div></div>
+    <div class="cf" style="--c:var(--teal)"><div class="r">Costo de importar</div><div class="n mo">${t.costo?usd(t.costo):'—'}</div>
+      <div class="s">${t.sinPrecio?t.sinPrecio+' sin precio, no suman':'según la última O/C'}</div></div>
+    <div class="cf" style="--c:var(--ink3)"><div class="r">Fuera del kit</div><div class="n">${fmt(fuera)}</div>
+      <div class="s">el ERP los controla, el kit no los pide</div></div>
+  </div>`;
 
   const cas=cascada(g.grupos.map(x=>({hi:x.hi,sel:x.sel})));
   const tabla=`
-  <div class="panel kg-tab">
+  <div class="panel kg-tab" style="margin-top:16px">
     <div class="kg-hd"><span>Motor · en el orden en que lo agregas</span><span>Juegos</span>
       <span>Repuestos +</span><span>Unidades +</span><span>Costo +</span></div>
     ${cas.map(x=>`<div class="kg-tr" style="--c:${x.color}" onclick="verMotor(${x.hi})">
@@ -1235,7 +1267,7 @@ function pintarKitG(){
     <div class="kg-ft"><span>Total a importar</span><span>${fmt(t.motores)}</span><span>${fmt(t.items)}</span>
       <span>${fmt(t.uds)}</span><span class="mo">${t.costo?usd(t.costo):'—'}</span></div>
     <div class="kg-sub">Cada fila es lo que ese motor <b>agrega</b> sobre los de arriba: si comparte piezas con otro
-      del mismo grupo, el stock ya se descontó allí. Por eso las filas suman exacto el total.</div>
+      del mismo grupo, ese stock ya se descontó allí. Por eso las filas suman exacto el total.</div>
   </div>`;
 
   const usados=[...new Set(cas.map(x=>x.m))];
@@ -1247,80 +1279,17 @@ function pintarKitG(){
   <div class="blq" style="--c:var(--ambar);margin-top:16px">
     <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
       <div class="ic">${ico('<path d="M20 7 12 3 4 7v10l8 4 8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/>')}</div>
-      <div class="tt"><h4>Qué importar en total</h4><p>Los ${fmt(g.importar.length)} repuestos que faltan para toda la combinación · cada pieza con el color del motor que la pide</p></div>
+      <div class="tt"><h4>Qué importar</h4><p>Los ${fmt(g.importar.length)} repuestos que faltan para toda la combinación · cada pieza con el color del motor que la pide</p></div>
       <span class="cnt">${g.importar.length}</span>${CHEV}</div>
-    <div class="blq-b">${lista.length?lista.map((x,i)=>kitFilaHTML(x,'kg'+i,x.grupo)).join('')
+    <div class="blq-b">${lista.length?lista.map((x,i)=>kitFilaHTML(x,(pre||'kg')+i,x.grupo)).join('')
       :`<div class="vacio">Con el stock actual ya sale toda la combinación. No hay que importar nada.</div>`}
       ${g.importar.length>lista.length?`<div class="mas" onclick="masKitG()">Ver 40 más · quedan ${g.importar.length-lista.length}</div>`:''}</div></div>`;
 
-  cont.innerHTML=phead+selector+tabla+leyenda+bloque;
+  return phead+selector+cifras+tabla+leyenda+bloque;
 }
 
-function vistaKit(h,hi){
-  const mots=motoresDe(hi);
-  if(!mots.length) return `<div class="blq"><div class="vacio">Este grupo no tiene cantidades de kit en la hoja de motores.</div></div>`;
-  const sel=selDe(hi), k=calcKit(hi,sel);
-  const sinKit=itemsDe(hi).length-itemsDe(hi).filter(x=>mots.some(m=>x.needs[m]>0)).length;
-  const lista=k.importar.slice(0,TOPE_KIT);
-  const detalle=k.mots.map(m=>`<b>${sel[m]}</b> × ${esc(KIT.etiq[m]||m)}`).join(' + ');
-
-  return `
-  <div class="kit-sel">
-    <div class="ks-top">
-      <div><div class="l">¿Qué vas a armar?</div>
-        <div class="hint">Elige uno o varios motores del grupo y cuántos juegos de cada uno</div></div>
-      <div class="acc"><button class="ks-mini" onclick="unoDeCada()">1 de cada uno</button>
-        <button class="ks-mini" onclick="limpiarSel()">Limpiar</button></div>
-    </div>
-    <div class="ks-grid">${mots.map(m=>tarjetaMotorHTML(hi,m,sel,'B')).join('')}</div>
-    <div class="ks-res">
-      <div class="tx">${k.motores?`Vas a armar ${detalle}`:'No has elegido ningún motor todavía'}</div>
-      <div class="tot"><div class="l">Motores en total</div><div class="v">${fmt(k.motores)}</div></div>
-    </div>
-    ${k.motores?`<div class="kg-acc">
-      <button class="btn pri" onclick="exportarKit('B')">↓ Descargar en Excel</button>
-      <button class="btn" onclick="pdfKit('B')">↓ Guardar en PDF</button></div>`:''}
-  </div>
-
-  ${!k.motores?`<div class="blq"><div class="vacio">Súbele a por lo menos un motor para ver qué hay que importar.</div></div>`:`
-  <div class="cifras" style="margin-top:16px">
-    <div class="cf" style="--c:var(--ambar)"><div class="r">Hay que importar</div><div class="n">${fmt(k.importar.length)}</div>
-      <div class="s">repuestos de los ${k.filas.length} que pide la combinación</div></div>
-    <div class="cf" style="--c:var(--azul)"><div class="r">Unidades</div><div class="n">${fmt(k.uds)}</div>
-      <div class="s">descontando stock y lo que viene en camino</div></div>
-    <div class="cf" style="--c:var(--teal)"><div class="r">Costo de importar</div><div class="n mo">${k.costo?usd(k.costo):'—'}</div>
-      <div class="s">${k.sinPrecio?k.sinPrecio+' sin precio, no suman':'según la última O/C'}</div></div>
-    <div class="cf" style="--c:var(--ink3)"><div class="r">Fuera del kit</div><div class="n">${fmt(sinKit)}</div>
-      <div class="s">el ERP los controla, el kit no los pide</div></div>
-  </div>
-
-  ${(()=>{ const cas=cascada([{hi:hi,sel:sel}]); if(cas.length<2) return '';
-    return `<div class="panel kg-tab" style="margin-top:16px">
-    <div class="kg-hd"><span>Motor · en el orden en que lo agregas</span><span>Juegos</span>
-      <span>Repuestos +</span><span>Unidades +</span><span>Costo +</span></div>
-    ${cas.map(x=>`<div class="kg-tr" style="--c:${x.color};cursor:default">
-      <div class="id"><span class="pt rd"></span><span class="nm">${esc(KIT.etiq[x.m]||x.m)}</span>
-        <span class="de">solo alcanzaba para ${fmt(x.alcSolo)} · si lo armaras solo: ${fmt(x.soloI)} repuestos${x.soloC?' · '+usd(x.soloC):''}</span></div>
-      <div class="r">${fmt(x.n)}</div>
-      <div class="r${x.di?' dl':' z'}">${x.di>0?'+':''}${fmt(x.di)}</div>
-      <div class="r${x.du?' dl':' z'}">${x.du>0?'+':''}${fmt(x.du)}</div>
-      <div class="r mo">${x.dc?usd(x.dc):'—'}</div></div>`).join('')}
-    <div class="kg-ft"><span>Total a importar</span><span>${fmt(k.motores)}</span><span>${fmt(k.importar.length)}</span>
-      <span>${fmt(k.uds)}</span><span class="mo">${k.costo?usd(k.costo):'—'}</span></div>
-    <div class="kg-sub">Estos motores comparten stock: cada fila es lo que <b>agrega</b> sobre los de arriba.</div>
-  </div>
-  <div class="leyenda"><span class="lb">Color por motor</span>
-    ${cas.map(x=>`<span class="kchip" style="--c:${x.color}"><i></i>${esc(KIT.etiq[x.m]||x.m)}</span>`).join('')}</div>`; })()}
-
-  <div class="blq" style="--c:var(--ambar)">
-    <div class="blq-h" onclick="this.parentElement.classList.toggle('cerrado')">
-      <div class="ic">${ico('<path d="M20 7 12 3 4 7v10l8 4 8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/>')}</div>
-      <div class="tt"><h4>Qué importar</h4><p>Para ${detalle.replace(/<\/?b>/g,'')} · ordenado por lo que más cuesta</p></div>
-      <span class="cnt">${k.importar.length}</span>${CHEV}</div>
-    <div class="blq-b">${lista.length?lista.map((x,i)=>kitFilaHTML(x,'kk'+i)).join('')
-      :`<div class="vacio">Con el stock actual ya sale toda la combinación. No hay que importar nada.</div>`}
-      ${k.importar.length>lista.length?`<div class="mas" onclick="masKit()">Ver 60 más · quedan ${k.importar.length-lista.length}</div>`:''}</div></div>`}`;
-}
+function pintarKitG(){ const c=$('#kitG'); if(c) c.innerHTML=vistaArmado(-1,'kg'); }
+function vistaKit(h,hi){ return vistaArmado(hi,'kk'); }
 
 function kitFilaHTML(x,id,grupo){
   // barra lateral con el color de cada motor que pide la pieza (hasta 3)
@@ -1527,23 +1496,16 @@ function exportar(soloMotor){
 }
 
 // ══ EXCEL Y PDF DEL JUEGO DE MOTOR ══
-// ns = 'G' (todos los grupos, desde el panorama) o 'B' (el grupo abierto)
-function kitDatos(ns){
-  if(ns==='G'){
-    const g=calcKitG();
-    return {pares:g.grupos.map(x=>({hi:x.hi,sel:x.sel})), importar:g.importar, t:g.t,
-            quien:'todos los motores'};
-  }
-  const hi=MOTOR, sel=selDe(hi), k=calcKit(hi,sel);
-  return {pares:[{hi:hi,sel:sel}],
-          importar:k.importar.map(x=>Object.assign({},x,{grupo:HOJAS[hi].corto})),
-          t:{motores:k.motores, items:k.importar.length, uds:k.uds, costo:k.costo,
-             sinPrecio:k.sinPrecio, pide:k.filas.length},
-          quien:HOJAS[hi].corto};
+// La seleccion es una sola: siempre se exporta todo lo que se va a armar
+function kitDatos(){
+  const g=calcKitG();
+  const usados=g.grupos.map(x=>HOJAS[x.hi].corto);
+  return {pares:g.grupos.map(x=>({hi:x.hi,sel:x.sel})), importar:g.importar, t:g.t,
+          quien: usados.length===1 ? usados[0] : 'juego de motor'};
 }
 
-function exportarKit(ns){
-  const d=kitDatos(ns);
+function exportarKit(){
+  const d=kitDatos();
   if(!d.t.motores){ toast('Elige al menos un motor'); return; }
   const cas=cascada(d.pares);
   const hoy=new Date().toLocaleDateString('es-PE');
@@ -1598,17 +1560,17 @@ function exportarKit(ns){
 
 // PDF: se imprime solo el juego de motor y el navegador lo guarda como PDF
 function pdfKit(ns){
-  const d=kitDatos(ns);
+  const d=kitDatos();
   if(!d.t.motores){ toast('Elige al menos un motor'); return; }
-  const cls = ns==='G' ? 'solo-kit' : 'solo-kitb';
-  const tope = ns==='G' ? TOPE_KG : TOPE_KIT;
-  if(ns==='G'){ TOPE_KG=99999; pintarKitG(); } else { TOPE_KIT=99999; pintarDetalle(); }
+  const cls = ns==='B' ? 'solo-kitb' : 'solo-kit';
+  const tope = TOPE_KG;
+  TOPE_KG=99999; repintarArmado();
   document.body.classList.add(cls);
   toast('Elige «Guardar como PDF» en el destino de impresión');
   setTimeout(()=>{
     window.print();
     document.body.classList.remove(cls);
-    if(ns==='G'){ TOPE_KG=tope; pintarKitG(); } else { TOPE_KIT=tope; pintarDetalle(); }
+    TOPE_KG=tope; repintarArmado();
   },400);
 }
 
